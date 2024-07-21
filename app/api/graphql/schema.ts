@@ -1,6 +1,7 @@
 const schema = `#graphql
 type Subtask {
     id: ID!
+    taskId: String!
     title: String!
     isCompleted: Boolean!
 }
@@ -13,6 +14,7 @@ enum TaskStatus {
 
 type Task {
     id: ID!
+    columnId: String!
     title: String!
     description: String
     status: TaskStatus
@@ -21,12 +23,14 @@ type Task {
 
 type Column {
     id: ID!
+    boardId: String!
     name: String!
     tasks: [Task]!
 }
 
 type Board {
     id: ID!
+    userId: String!
     name: String!
     columns: [Column]!
 }
@@ -34,14 +38,26 @@ type Board {
 type User {
     id: ID!
     createdAt: String!
-    userName: String!
+    username: String!
+    email: String!
+    boards: [Board]!
+    token: String
+}
+
+input AuthInput {
+    username: String
     email: String!
     password: String!
-    boards: [Board]!
 }
 
 type Query {
+    me: User
     boards: Board!
+}
+
+type Mutation {
+    signin(input: AuthInput!): User
+    signup(input: AuthInput!): User
 }
 `
 export default schema
