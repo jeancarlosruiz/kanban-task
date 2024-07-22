@@ -3,11 +3,10 @@ import { Switch } from '@/components/ui/switch'
 import { useState } from 'react'
 import Cookies from 'js-cookie'
 
-function ToggleTheme() {
-  const currentTheme = Cookies.get('color-theme')
-  const initialThemeBoolean = currentTheme === 'dark' ? true : false
+function ToggleTheme({ initialTheme }: { initialTheme: string }) {
+  const initialThemeBoolean = initialTheme === 'dark' ? true : false
   const [themeBoolean, setThemeBoolean] = useState(initialThemeBoolean)
-  const [theme, setTheme] = useState(currentTheme)
+  const [theme, setTheme] = useState('currentTheme')
 
   const handleThemeToggle = () => {
     const nextTheme = theme === 'light' ? 'dark' : 'light'
