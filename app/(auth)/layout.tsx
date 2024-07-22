@@ -1,5 +1,4 @@
-// import { AuthHeader } from '@/components/index'
-import AuthHeader from '@/components/authHeader'
+import { AuthHeader } from '@/components/index'
 
 export default function AuthLayout({
   children,

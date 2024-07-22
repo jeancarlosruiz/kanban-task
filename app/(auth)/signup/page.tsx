@@ -1,7 +1,13 @@
-import React from 'react'
+import { SignupForm } from '@/components/index'
 
 function Home() {
-  return <h1>Sing up</h1>
+  return (
+    <main className="flex h-custom-dvh place-items-center">
+      <section className="min-w-full">
+        <SignupForm />
+      </section>
+    </main>
+  )
 }
 
 export default Home

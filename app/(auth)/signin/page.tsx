@@ -1,5 +1,13 @@
+import { SigninForm } from '@/components/index'
+
 function Home() {
-  return <h1>Signin</h1>
+  return (
+    <main className="flex h-custom-dvh place-items-center">
+      <section className="min-w-full">
+        <SigninForm />
+      </section>
+    </main>
+  )
 }
 
 export default Home

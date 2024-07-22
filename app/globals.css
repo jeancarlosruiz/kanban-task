@@ -7,4 +7,12 @@
     .text-balance {
         text-wrap: balance;
     }
+
+    .w-custom {
+        width: min(calc(100% - 1rem), 30rem);
+    }
+
+    .h-custom-dvh {
+        min-height: calc(100dvh - 64px);
+    }
 }
