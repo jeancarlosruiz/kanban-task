@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-export const tokenKey = 'auth'
+export const tokenKey = 'authjs.session-token'
 
 export const getToken = () => {
   //   if (typeof window !== 'undefined') return localStorage.getItem(tokenKey)

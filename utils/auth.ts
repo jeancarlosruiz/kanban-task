@@ -1,18 +1,10 @@
 import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
 import { db } from '@/db'
 import { eq } from 'drizzle-orm'
 import { users } from '@/db/schema'
+import { comparePW, hashPW } from '@/actions'
 
 const SECRET = process.env.SECRET_KEY!
-
-const hashPW = (password: string) => {
-  return bcrypt.hash(password, 10)
-}
-
-const comparePW = (password: string, hashedPW: string) => {
-  return bcrypt.compare(password, hashedPW)
-}
 
 export const createTokenForUser = (userId: string) => {
   const token = jwt.sign({ id: userId }, SECRET)
@@ -26,6 +18,8 @@ export const getUserFromToken = async (header?: string) => {
 
   const token = (header.split(`Bearer`)[1] ?? '').trim()
   let id: string
+
+  console.log(token)
 
   try {
     const user = jwt.verify(token, SECRET) as { id: string }
@@ -58,14 +52,23 @@ export const singin = async ({
     where: eq(users.email, email),
   })
 
+  console.log({ match })
+
   if (!match) return null
 
+  console.log('hey', match.password)
+  // const hash = await hashPW(password)
+
   const correctPW = await comparePW(password, match.password)
+
+  console.log({ correctPW })
 
   if (!correctPW) return null
 
   const token = createTokenForUser(match.id)
   const { password: pw, ...user } = match
+
+  console.log('aqui', user, token)
 
   return { user, token }
 }

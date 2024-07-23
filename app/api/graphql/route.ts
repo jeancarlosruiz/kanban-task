@@ -31,6 +31,7 @@ const server = new ApolloServer({
 const handler = startServerAndCreateNextHandler<NextRequest>(server, {
   context: async (req) => {
     const user = await getUserFromToken(req.headers.get('authorization') ?? '')
+
     return {
       req,
       user,
