@@ -1,7 +1,7 @@
 // import 'dotenv/config'
-// import authConfig from './auth.config'
-// import NextAuth from 'next-auth'
-import { auth } from '@/auth'
+import authConfig from './auth.config'
+import NextAuth from 'next-auth'
+// import { auth } from '@/auth'
 import {
   publicRoutes,
   authRoutes,
@@ -9,7 +9,7 @@ import {
   DEFAULT_REDIRECT,
 } from '@/utils/routes'
 
-// const { auth } = NextAuth(authConfig)
+const { auth } = NextAuth(authConfig)
 export default auth(async function middleware(req) {
   const { nextUrl } = req
   const isLoggedIn = !!req.auth
