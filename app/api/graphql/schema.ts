@@ -55,9 +55,7 @@ type Query {
     boards: Board!
 }
 
-type Mutation {
-    signin(input: AuthInput!): User
-    signup(input: AuthInput!): User
-}
+# type Mutation {
+# }
 `
 export default schema
