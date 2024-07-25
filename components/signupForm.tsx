@@ -17,7 +17,7 @@ function SingupForm() {
           id="signup-username"
           className="text-base"
           placeholder="ex: Jean"
-          name="username"
+          name="name"
         />
       </div>
       <div className="w-full">

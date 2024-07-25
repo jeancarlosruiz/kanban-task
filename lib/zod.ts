@@ -11,7 +11,7 @@ export const signInSchema = object({
 })
 
 export const signupSchema = object({
-  username: string({ required_error: 'Username is required' }).min(
+  name: string({ required_error: 'Name is required' }).min(
     1,
     'Username is required'
   ),

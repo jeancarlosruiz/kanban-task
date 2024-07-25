@@ -4,18 +4,19 @@ import { register } from '@/db/user'
 import { signInSchema, signupSchema } from '@/lib/zod'
 import { DEFAULT_REDIRECT } from '@/utils/routes'
 import { AuthError } from 'next-auth'
+import { redirect } from 'next/navigation'
 import { ZodError } from 'zod'
 
 export const signup = async (formData: FormData) => {
   try {
     const email = formData.get('email')
-    const username = formData.get('username')
+    const name = formData.get('name')
     const password = formData.get('password')
     const repeatPassword = formData.get('repeatPassword')
 
     const credentials = await signupSchema.parseAsync({
       email,
-      username,
+      name,
       password,
       repeatPassword,
     })
@@ -67,4 +68,5 @@ export const login = async (formData: FormData) => {
 
 export const signout = async () => {
   await signOut()
+  redirect('/signin')
 }

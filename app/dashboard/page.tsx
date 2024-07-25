@@ -1,10 +1,10 @@
-// import { auth } from '@/auth'
+import { auth } from '@/auth'
 import { SignoutForm } from '@/components/index'
 async function Page() {
-  // const session = await auth()
+  const session = await auth()
   return (
     <div>
-      {/* {JSON.stringify(session)} */}
+      {JSON.stringify(session)}
       <SignoutForm />
     </div>
   )

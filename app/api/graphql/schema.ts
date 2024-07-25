@@ -35,17 +35,23 @@ type Board {
     columns: [Column]!
 }
 
+enum Role {
+    USER
+    ADMIN
+}
+
 type User {
     id: ID!
     createdAt: String!
-    username: String!
+    name: String!
     email: String!
     boards: [Board]!
     token: String
+    role: Role
 }
 
 input AuthInput {
-    username: String
+    name: String
     email: String!
     password: String!
 }

@@ -3,6 +3,18 @@ import { eq } from 'drizzle-orm'
 import { users } from '@/db/schema'
 import { hashPW } from '@/utils/auth'
 
+export const getUserById = async (id: string) => {
+  try {
+    const user = await db.query.users.findFirst({
+      where: eq(users.id, id),
+    })
+
+    return user
+  } catch (error) {
+    return null
+  }
+}
+
 export const getUserByEmail = async (email: string) => {
   try {
     const user = await db.query.users.findFirst({
@@ -15,21 +27,21 @@ export const getUserByEmail = async (email: string) => {
 }
 
 export const register = async ({
-  username,
+  name,
   email,
   password,
 }: {
-  username: string
+  name: string
   email: string
   password: string
 }) => {
   const hashedPW = await hashPW(password)
   const rows = await db
     .insert(users)
-    .values({ username, email, password: hashedPW })
+    .values({ name, email, password: hashedPW })
     .returning({
       id: users.id,
-      username: users.username,
+      name: users.name,
       email: users.email,
       createdAt: users.createdAt,
     })

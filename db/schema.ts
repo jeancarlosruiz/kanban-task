@@ -81,9 +81,11 @@ export const boardsRelations = relations(boards, ({ one, many }) => ({
 export const users = sqliteTable('users', {
   id: id(),
   createdAt: createdAt(),
-  username: text('username').notNull(),
+  name: text('name').notNull(),
   email: text('email').unique().notNull(),
+  emailVerified: integer('emailVerified', { mode: 'timestamp_ms' }),
   password: text('password').notNull(),
+  role: text('role', { enum: ['USER', 'ADMIN'] }).default('USER'),
 })
 
 export const usersRelations = relations(users, ({ many }) => ({
