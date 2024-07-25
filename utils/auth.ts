@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import jwt from 'jsonwebtoken'
 import { db } from '@/db'
 import { eq } from 'drizzle-orm'
@@ -27,8 +26,6 @@ export const getUserFromToken = async (header?: string) => {
 
   const token = (header.split(`Bearer`)[1] ?? '').trim()
   let id: string
-
-  console.log(token)
 
   try {
     const user = jwt.verify(token, SECRET) as { id: string }
