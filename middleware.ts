@@ -8,6 +8,7 @@ import {
 } from '@/utils/routes'
 
 const { auth } = NextAuth(authConfig)
+//@ts-ignore
 export default auth(async function middleware(req) {
   const { nextUrl } = req
   const isLoggedIn = !!req.auth

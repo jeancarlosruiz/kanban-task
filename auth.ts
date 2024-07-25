@@ -4,6 +4,12 @@ import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import authConfig from '@/auth.config'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  callbacks: {
+    async jwt({ token }) {
+      console.log(token)
+      return token
+    },
+  },
   adapter: DrizzleAdapter(db),
   session: { strategy: 'jwt' },
   ...authConfig,

@@ -1,24 +1,49 @@
 'use server'
-import { signIn } from '@/auth'
+import { signIn, signOut } from '@/auth'
 import { register } from '@/db/user'
+import { signInSchema, signupSchema } from '@/lib/zod'
 import { DEFAULT_REDIRECT } from '@/utils/routes'
 import { AuthError } from 'next-auth'
-import { redirect } from 'next/navigation'
+import { ZodError } from 'zod'
 
 export const signup = async (formData: FormData) => {
-  // Crear zod validation
-  const username = formData.get('username') as string
-  const email = formData.get('email') as string
-  const password = formData.get('password') as string
+  try {
+    const email = formData.get('email')
+    const username = formData.get('username')
+    const password = formData.get('password')
+    const repeatPassword = formData.get('repeatPassword')
 
-  const newUser = await register({ username, email, password })
+    const credentials = await signupSchema.parseAsync({
+      email,
+      username,
+      password,
+      repeatPassword,
+    })
 
-  redirect('/dashboard')
+    if (password !== repeatPassword) return null
+    await register(credentials)
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.log(error)
+      return null
+    }
+  }
 }
 
 export const login = async (formData: FormData) => {
-  const email = formData.get('email')
-  const password = formData.get('password')
+  const formEmail = formData.get('email')
+  const formPassword = formData.get('password')
+
+  const isValid = signInSchema.safeParse({
+    email: formEmail,
+    password: formPassword,
+  })
+
+  if (!isValid.success) {
+    return { error: 'Invalid fields!' }
+  }
+
+  const { email, password } = isValid.data
 
   try {
     await signIn('credentials', {
@@ -38,4 +63,8 @@ export const login = async (formData: FormData) => {
 
     throw error
   }
+}
+
+export const signout = async () => {
+  await signOut()
 }

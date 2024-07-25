@@ -1,34 +1,9 @@
 import Link from 'next/link'
 import { Input, Label } from './ui'
 import { Submit } from './index'
-// import { signIn } from '@/auth'
-// import { useFormState } from 'react-dom'
 import { login } from '@/actions'
-// import { useEffect } from 'react'
-// import { useRouter } from 'next/navigation'
-
-// const initialState = {
-//   message: '',
-//   errors: undefined,
-//   data: undefined,
-//   fieldValues: {
-//     email: '',
-//     password: '',
-//   },
-// }
 
 function SigninForm() {
-  // const [state, formAction] = useFormState(login, initialState)
-  // const router = useRouter()
-
-  // console.log(state)
-
-  // useEffect(() => {
-  //   if (state?.message === 'success') {
-  //     router.push('/dashboard')
-  //   }
-  // }, [state, router])
-
   return (
     <form
       action={login}
@@ -58,7 +33,7 @@ function SigninForm() {
         />
       </div>
 
-      <Submit label="Sign in" />
+      <Submit variant="default" label="Sign in" />
 
       <Link href="/signup" className="text-sm">
         Create an account
