@@ -3,24 +3,24 @@ import { useFormStatus } from 'react-dom'
 import { Button } from './ui'
 
 function Submit({
-  label,
+  children,
   variant = 'default',
   ...btnProps
 }: {
-  label: string
+  children: React.ReactNode
   variant: 'default' | 'secondary' | 'ghost' | 'destructive'
 }) {
   const { pending } = useFormStatus()
   return (
     <Button
-      {...btnProps}
       variant={variant}
       type="submit"
       disabled={pending}
       size="s"
+      {...btnProps}
       className="w-full"
     >
-      {pending ? <Loading /> : `${label}`}
+      {pending ? <Loading /> : `${children}`}
     </Button>
   )
 }

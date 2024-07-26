@@ -36,15 +36,20 @@ export const register = async ({
   password: string
 }) => {
   const hashedPW = await hashPW(password)
-  const rows = await db
-    .insert(users)
-    .values({ name, email, password: hashedPW })
-    .returning({
-      id: users.id,
-      name: users.name,
-      email: users.email,
-      createdAt: users.createdAt,
-    })
 
-  return rows[0]
+  const userExist = await getUserByEmail(email)
+
+  if (userExist) {
+    return { error: 'User already exist' }
+  }
+
+  console.log('first')
+  await db.insert(users).values({ name, email, password: hashedPW }).returning({
+    id: users.id,
+    name: users.name,
+    email: users.email,
+    createdAt: users.createdAt,
+  })
+
+  return { success: 'User created' }
 }

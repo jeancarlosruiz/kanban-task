@@ -1,20 +1,39 @@
+'use client'
+import { signIn } from 'next-auth/react'
 import { Button } from './ui'
 import Image from 'next/image'
+import { DEFAULT_REDIRECT } from '@/utils/routes'
+import { useState } from 'react'
 function SigninProviders() {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const signinSocial = async (provider: 'google' | 'github') => {
+    setIsLoading(true)
+    await signIn(provider, {
+      callbackUrl: DEFAULT_REDIRECT,
+    })
+    setIsLoading(false)
+  }
   return (
-    <div className="w-full flex gap-5">
+    <div className="w-full flex flex-col sm:flex-row gap-5">
       <Button
+        type="button"
         className="w-full flex items-center gap-2"
         variant="secondary"
         size="s"
+        disabled={isLoading}
+        onClick={() => signinSocial('google')}
       >
         <Image src="/google.png" width="16" height="16" alt="Google image" />
         Sign in with Google
       </Button>
       <Button
+        type="button"
         className="w-full flex items-center gap-2"
         variant="secondary"
         size="s"
+        disabled={isLoading}
+        onClick={() => signinSocial('github')}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

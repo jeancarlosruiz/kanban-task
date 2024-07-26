@@ -4,7 +4,7 @@ import { Submit } from '@/components/index'
 function SignoutForm() {
   return (
     <form action={signout}>
-      <Submit variant="destructive" label="Sign Out" />
+      <Submit variant="destructive">Sign Out</Submit>
     </form>
   )
 }

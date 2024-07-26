@@ -12,7 +12,7 @@ const { auth } = NextAuth(authConfig)
 export default auth(async function middleware(req) {
   const { nextUrl } = req
   const isLoggedIn = !!req.auth
-  const isApiAuthRoute = apiAuthPrefix.includes(nextUrl.pathname)
+  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
   const isAuthRoute = authRoutes.includes(nextUrl.pathname)
   console.log('1')
 
@@ -34,6 +34,7 @@ export default auth(async function middleware(req) {
   if (!isLoggedIn) {
     console.log('5')
     return Response.redirect(new URL('/signin', nextUrl))
+    return null
   }
 
   console.log('6')

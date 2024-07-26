@@ -7,6 +7,14 @@ import { AuthError } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { ZodError } from 'zod'
 
+export const signinGithub = async () => {
+  await signIn('github', { redirectTo: DEFAULT_REDIRECT })
+}
+
+export const signinGoogle = async () => {
+  await signIn('google', { redirectTo: DEFAULT_REDIRECT })
+}
+
 export const signup = async (formData: FormData) => {
   try {
     const email = formData.get('email')
@@ -21,6 +29,7 @@ export const signup = async (formData: FormData) => {
       repeatPassword,
     })
 
+    // todo: is not the same password
     if (password !== repeatPassword) return null
     await register(credentials)
   } catch (error) {
@@ -29,6 +38,7 @@ export const signup = async (formData: FormData) => {
       return null
     }
   }
+  // redirect('/dashboard')
 }
 
 export const login = async (formData: FormData) => {

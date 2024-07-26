@@ -56,7 +56,7 @@ function SingupForm() {
         />
       </div>
 
-      <Submit variant="default" label="Sign up" />
+      <Submit variant="default">Sign up</Submit>
 
       <Link href="/signin" className="text-sm">
         Have an account?

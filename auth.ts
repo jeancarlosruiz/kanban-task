@@ -5,6 +5,11 @@ import authConfig from '@/auth.config'
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  events: {
+    async linkAccount({ user }) {
+      console.log(user)
+    },
+  },
   callbacks: {
     async session({ token, session }) {
       if (token.sub && session.user) {
@@ -14,11 +19,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (token.role && session.user) {
         session.user.role = token.role as 'USER' | 'ADMIN'
       }
-
-      // console.log({
-      //   tokenSession: token,
-      //   session,
-      // })
       return session
     },
     async jwt({ token }) {

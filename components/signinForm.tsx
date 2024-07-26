@@ -32,7 +32,7 @@ function SigninForm() {
         />
       </div>
 
-      <Submit variant="default" label="Sign in" />
+      <Submit variant="default">Sign in</Submit>
     </form>
   )
 }
