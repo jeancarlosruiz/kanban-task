@@ -1,13 +1,12 @@
 import { signup } from '@/actions'
 import { Submit } from './index'
 import { Input, Label } from './ui'
-import Link from 'next/link'
 
 function SingupForm() {
   return (
     <form
       action={signup}
-      className="w-custom flex flex-col gap-5 justify-center items-center bg-white-100 dark:bg-black-600 px-[24px] py-[24px] mx-auto rounded-md"
+      className="min-w-full flex flex-col gap-5 justify-center items-center"
     >
       <div className="w-full">
         <Label htmlFor="signup-username" className="text-base">
@@ -57,10 +56,6 @@ function SingupForm() {
       </div>
 
       <Submit variant="default">Sign up</Submit>
-
-      <Link href="/signin" className="text-sm">
-        Have an account?
-      </Link>
     </form>
   )
 }

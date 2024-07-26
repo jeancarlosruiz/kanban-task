@@ -13,7 +13,10 @@ function Home() {
             or
           </small>
         </div>
-        <SigninProviders />
+        <SigninProviders
+          googleLabel="Sign in with Google"
+          githubLabel="Sign in with Github"
+        />
         <Link href="/signup" className="text-sm hover:underline">
           Don&apos;t have an account? Sign up
         </Link>
