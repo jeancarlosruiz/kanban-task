@@ -20,7 +20,7 @@ function Home() {
         />
 
         <Link href="/signin" className="text-sm hover:underline">
-          Have an account?
+          Have an account? Sign in
         </Link>
       </section>
     </main>

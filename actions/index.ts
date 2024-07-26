@@ -41,34 +41,61 @@ export const signup = async (formData: FormData) => {
   // redirect('/dashboard')
 }
 
-export const login = async (formData: FormData) => {
-  const formEmail = formData.get('email')
-  const formPassword = formData.get('password')
-
-  const isValid = signInSchema.safeParse({
-    email: formEmail,
-    password: formPassword,
-  })
-
-  if (!isValid.success) {
-    return { error: 'Invalid fields!' }
-  }
-
-  const { email, password } = isValid.data
-
+export const login = async (prevState: any, formData: FormData) => {
   try {
-    await signIn('credentials', {
-      email,
-      password,
-      redirectTo: DEFAULT_REDIRECT,
+    const isValid = signInSchema.parse({
+      email: formData.get('email'),
+      password: formData.get('password'),
     })
+
+    if (isValid) {
+      const { email, password } = isValid
+
+      await signIn('credentials', {
+        email,
+        password,
+        redirectTo: DEFAULT_REDIRECT,
+      })
+    }
+
+    return {
+      message: 'success',
+      errors: null,
+      data: null,
+      fieldValues: {
+        email: '',
+        password: '',
+      },
+    }
   } catch (error) {
     if (error instanceof AuthError) {
+      console.log(error.type)
+
       switch (error.type) {
         case 'CredentialsSignin':
           return { error: 'Invalid credentials' }
         default:
           return { error: 'Something went wrong' }
+      }
+    }
+
+    if (error instanceof ZodError) {
+      console.log(error)
+
+      const zodError = error as ZodError
+      const errorMap = zodError.flatten().fieldErrors
+      const { email, password } = errorMap
+
+      return {
+        message: 'error',
+        errors: {
+          email,
+          password,
+        },
+        fieldValues: {
+          email: formData.get('email'),
+          password: formData.get('password'),
+        },
       }
     }
 
