@@ -2,6 +2,7 @@ import { db } from '@/db'
 import { eq } from 'drizzle-orm'
 import { users } from '@/db/schema'
 import { hashPW } from '@/utils/auth'
+import { UserExistError } from '@/lib/zod'
 
 export const getUserById = async (id: string) => {
   try {
@@ -40,16 +41,13 @@ export const register = async ({
   const userExist = await getUserByEmail(email)
 
   if (userExist) {
-    return { error: 'User already exist' }
+    throw new UserExistError()
   }
 
-  console.log('first')
   await db.insert(users).values({ name, email, password: hashedPW }).returning({
     id: users.id,
     name: users.name,
     email: users.email,
     createdAt: users.createdAt,
   })
-
-  return { success: 'User created' }
 }

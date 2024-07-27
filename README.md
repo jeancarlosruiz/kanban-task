@@ -97,13 +97,14 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 - [Implementing GraphQL and Apollo Server with Next.js 13.4: A Simple Guide (App Directory)](https://medium.com/@jareerzeenam/implementing-graphql-and-apollo-server-with-next-js-13-4-a-simple-guide-app-directory-77e38eb697e3) - This helped me to run Nextjs + Apollo + Graphql.
 
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [Password confirm with zod (.refine)](https://zod.dev/?id=refine) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+
+- [ISSUE: redirect after signOut with AuthJS](https://github.com/nextauthjs/next-auth/discussions/8686) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Website - [Jean Ruiz](https://www.your-site.com)
+- Frontend Mentor - [@jeancarlosruiz](https://www.frontendmentor.io/profile/yourusername)
 
 ## Acknowledgments
 

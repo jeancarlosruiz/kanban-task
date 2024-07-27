@@ -1,13 +1,16 @@
 'use client'
 import Cookies from 'js-cookie'
+import { useEffect } from 'react'
 
 const Logo = () => {
   const savedTheme = Cookies.get('color-theme')
   const theme = savedTheme || 'dark'
 
+  // useEffect(()=>{},[])
+
   return (
     <>
-      {theme === 'dark' ? (
+      {/* {theme === 'dark' ? (
         <svg
           width="153"
           height="26"
@@ -47,13 +50,13 @@ const Logo = () => {
             </g>
           </g>
         </svg>
-      )}
+      )} */}
 
       <svg
         width="24"
         height="25"
         xmlns="http://www.w3.org/2000/svg"
-        className="block sm:hidden"
+        // className="block sm:hidden"
       >
         <g fill="#635FC7" fillRule="evenodd">
           <rect width="6" height="25" rx="2" />

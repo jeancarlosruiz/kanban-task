@@ -26,7 +26,10 @@ const SigninForm = () => {
     if (state.message === 'error' && state.errors) {
       setErrors(state.errors)
     }
-    console.log({ state })
+
+    if (state?.error) {
+      setErrors(null)
+    }
   }, [state])
 
   return (
@@ -40,16 +43,16 @@ const SigninForm = () => {
           className="text-base w-full inline-flex items-center justify-between"
         >
           Email:
-          {/* {state.message === 'error' && state?.errors && (
-            <small className="text-red-300">{state?.errors?.email[0]}</small>
-          )} */}
+          {errors !== null && errors.email && (
+            <small className="text-red-300">{errors.email[0]}</small>
+          )}
         </Label>
         <Input
           id="signin-email"
           placeholder="example@email.com"
           name="email"
           className={`text-base ${
-            state.message === 'error'
+            state.message === 'error' || state.error
               ? 'border-red-300 dark:border-red-300'
               : ''
           }`}
@@ -61,9 +64,9 @@ const SigninForm = () => {
           className="text-base w-full inline-flex items-center justify-between"
         >
           Password:
-          {/* {state?.errors !== undefined && (
-            <small className="text-red-300">{state?.errors?.password[0]}</small>
-          )} */}
+          {errors !== null && errors.password && (
+            <small className="text-red-300">{errors.password[0]}</small>
+          )}
         </Label>
         <Input
           id="signin-pw"
@@ -71,12 +74,18 @@ const SigninForm = () => {
           placeholder="******"
           name="password"
           className={`text-base ${
-            state.message === 'error'
+            state.message === 'error' || state.error
               ? 'border-red-300 dark:border-red-300'
               : ''
           }`}
         />
       </div>
+
+      {state?.error && (
+        <div className="w-full rounded bg-red-300/70 text-center py-1">
+          <span className="text-sm text-white-100">Invalid credentials</span>
+        </div>
+      )}
 
       <Submit variant="default">Sign in</Submit>
     </form>

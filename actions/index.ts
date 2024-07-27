@@ -1,7 +1,7 @@
 'use server'
 import { signIn, signOut } from '@/auth'
 import { register } from '@/db/user'
-import { signInSchema, signupSchema } from '@/lib/zod'
+import { signInSchema, signupSchema, UserExistError } from '@/lib/zod'
 import { DEFAULT_REDIRECT } from '@/utils/routes'
 import { AuthError } from 'next-auth'
 import { redirect } from 'next/navigation'
@@ -15,30 +15,70 @@ export const signinGoogle = async () => {
   await signIn('google', { redirectTo: DEFAULT_REDIRECT })
 }
 
-export const signup = async (formData: FormData) => {
+export const signup = async (prevState: any, formData: FormData) => {
   try {
-    const email = formData.get('email')
-    const name = formData.get('name')
-    const password = formData.get('password')
-    const repeatPassword = formData.get('repeatPassword')
-
-    const credentials = await signupSchema.parseAsync({
-      email,
-      name,
-      password,
-      repeatPassword,
+    const isValid = signupSchema.parse({
+      name: formData.get('name'),
+      email: formData.get('email'),
+      password: formData.get('password'),
+      repeatPassword: formData.get('repeatPassword'),
     })
 
-    // todo: is not the same password
-    if (password !== repeatPassword) return null
-    await register(credentials)
+    if (isValid) {
+      await register(isValid)
+    }
+
+    return {
+      message: 'success',
+      errors: null,
+      data: null,
+      fieldValues: {
+        name: '',
+        email: '',
+        password: '',
+        repeatPassword: '',
+      },
+    }
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log(error)
-      return null
+      const zodError = error as ZodError
+      const errorMap = zodError.flatten().fieldErrors
+      const { name, email, password, repeatPassword } = errorMap
+
+      return {
+        message: 'error',
+        errors: {
+          name,
+          email,
+          password,
+          repeatPassword,
+        },
+        fieldValues: {
+          name: formData.get('name'),
+          email: formData.get('email'),
+          password: formData.get('password'),
+          repeatPassword: formData.get('repeatPassword'),
+        },
+      }
     }
+
+    if (error instanceof UserExistError) {
+      return {
+        message: 'error',
+        errors: {
+          email: ['Email is already used'],
+        },
+        fieldValues: {
+          name: formData.get('name'),
+          email: formData.get('email'),
+          password: formData.get('password'),
+          repeatPassword: formData.get('repeatPassword'),
+        },
+      }
+    }
+
+    throw error
   }
-  // redirect('/dashboard')
 }
 
 export const login = async (prevState: any, formData: FormData) => {
@@ -104,6 +144,5 @@ export const login = async (prevState: any, formData: FormData) => {
 }
 
 export const signout = async () => {
-  await signOut()
-  redirect('/signin')
+  await signOut({ redirectTo: '/signin' })
 }
