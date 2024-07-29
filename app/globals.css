@@ -2,17 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
+  .text-balance {
+    text-wrap: balance;
+  }
 
-    .w-custom {
-        width: min(calc(100% - 1rem), 30rem);
-    }
+  .w-custom {
+    width: min(calc(100% - 2rem), 30rem);
+  }
 
-    .h-custom-dvh {
-        min-height: calc(100dvh - 64px);
-    }
+  .h-custom-dvh {
+    min-height: calc(100dvh - 64px);
+  }
 }

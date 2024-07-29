@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers'
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
-import GQLProvider from './gqlProvider'
 import './globals.css'
 
 const PJS = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['500', '700'] })
@@ -24,7 +23,7 @@ export default function RootLayout({
       <body
         className={`${PJS.className} bg-white-300 dark:bg-black-700 text-clr-black dark:text-clr-white`}
       >
-        <GQLProvider>{children}</GQLProvider>
+        {children}
       </body>
     </html>
   )
