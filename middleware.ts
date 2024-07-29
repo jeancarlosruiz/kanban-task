@@ -36,6 +36,10 @@ export default auth(async function middleware(req) {
     return Response.redirect(new URL('/signin', nextUrl))
   }
 
+  if (nextUrl.pathname === '/' && isLoggedIn) {
+    return Response.redirect(new URL(DEFAULT_REDIRECT, nextUrl))
+  }
+
   // console.log('6')
   return null
 })
