@@ -9,6 +9,7 @@ import resolvers from './resolvers'
 import { NextRequest } from 'next/server'
 import { gql } from '@urql/next'
 import { getUserFromToken } from '@/utils/auth'
+import { getToken } from '@/utils/token'
 
 let plugins = []
 if (process.env.NODE_ENV === 'production') {
@@ -31,6 +32,9 @@ const server = new ApolloServer({
 const handler = startServerAndCreateNextHandler<NextRequest>(server, {
   context: async (req) => {
     const user = await getUserFromToken(req.headers.get('authorization') ?? '')
+    const token = getToken()
+
+    console.log({ token })
 
     return {
       req,

@@ -8,7 +8,8 @@ import {
 } from '@urql/next'
 import { cacheExchange } from '@urql/exchange-graphcache'
 import { url } from '@/utils/url'
-import { getToken } from '@/utils/token'
+// import { getToken } from '@/utils/token'
+import { getToken } from '@/actions'
 
 export default function GQLProvider({ children }: PropsWithChildren) {
   const [client, ssr] = useMemo(() => {

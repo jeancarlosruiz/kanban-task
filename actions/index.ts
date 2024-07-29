@@ -6,6 +6,11 @@ import { DEFAULT_REDIRECT } from '@/utils/routes'
 import { AuthError } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { ZodError } from 'zod'
+import { cookies } from 'next/headers'
+
+export const getToken = async () => {
+  return cookies().get('authjs.session-token') || ''
+}
 
 export const signinGithub = async () => {
   await signIn('github', { redirectTo: DEFAULT_REDIRECT })

@@ -39,7 +39,7 @@ export const getUserFromToken = async (header?: string) => {
     where: eq(users.id, id),
     columns: {
       id: true,
-      username: true,
+      name: true,
       email: true,
     },
   })
