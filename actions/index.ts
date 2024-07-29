@@ -4,9 +4,14 @@ import { register } from '@/db/user'
 import { signInSchema, signupSchema, UserExistError } from '@/lib/zod'
 import { DEFAULT_REDIRECT } from '@/utils/routes'
 import { AuthError } from 'next-auth'
-import { redirect } from 'next/navigation'
 import { ZodError } from 'zod'
 import { cookies } from 'next/headers'
+
+export const getCurrentTheme = async () => {
+  const currentTheme = cookies().get('color-theme')
+  const value = currentTheme?.value
+  return value
+}
 
 export const getToken = async () => {
   return cookies().get('authjs.session-token') || ''
@@ -114,7 +119,7 @@ export const login = async (prevState: any, formData: FormData) => {
     }
   } catch (error) {
     if (error instanceof AuthError) {
-      console.log(error.type)
+      // console.log(error.type)
 
       switch (error.type) {
         case 'CredentialsSignin':
@@ -125,7 +130,7 @@ export const login = async (prevState: any, formData: FormData) => {
     }
 
     if (error instanceof ZodError) {
-      console.log(error)
+      // console.log(error)
 
       const zodError = error as ZodError
       const errorMap = zodError.flatten().fieldErrors
