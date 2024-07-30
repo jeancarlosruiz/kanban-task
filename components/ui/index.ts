@@ -48,3 +48,4 @@ export {
 } from './dropdown-menu'
 
 export { Avatar, AvatarImage, AvatarFallback } from './avatar'
+export { Textarea } from './textarea'

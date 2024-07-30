@@ -34,14 +34,16 @@ async function Options() {
         </svg>
         <span className="sr-only">Open</span>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[12rem]">
+      <DropdownMenuContent className="w-[12rem] ">
         <DropdownMenuLabel>
           <Avatar>
             <AvatarImage src={user?.image || ''} />
             <AvatarFallback>{name}</AvatarFallback>
           </Avatar>
 
-          {user?.name && <span> {fullName && fullName[0]}</span>}
+          {user?.name && (
+            <span className="text-[1rem]"> {fullName && fullName[0]}</span>
+          )}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Profile</DropdownMenuItem>
