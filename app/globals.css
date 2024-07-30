@@ -8,6 +8,10 @@
   }
 
   .w-custom {
+    width: min(calc(100% - 2rem), 90rem);
+  }
+
+  .w-custom-form {
     width: min(calc(100% - 2rem), 30rem);
   }
 

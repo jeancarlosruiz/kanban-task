@@ -5,7 +5,7 @@ const Header = () => {
     <header className="w-custom mx-auto py-[16px] flex items-center gap-[1rem] ">
       <Logo />
       <BoardsMenu />
-      <Button className="h-[2rem] px-[18px] ml-auto" disabled>
+      <Button className="h-[2rem] px-[18px] ml-auto mr-[-5px]" disabled>
         <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
           <path
             fill="#FFF"

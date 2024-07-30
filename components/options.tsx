@@ -1,4 +1,4 @@
-import { auth } from '@/auth'
+import { getCurrentUser } from '@/actions'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,14 +12,15 @@ import {
 } from '@/components/ui'
 
 async function Options() {
-  const session = await auth()
+  const session = await getCurrentUser()
+
   const user = session?.user
   const name = user?.name && user?.name[0]
   const fullName = user?.name && user?.name.split(' ')
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="px-[10px] rounded-full inline-flex justify-center">
         <svg width="5" height="20" xmlns="http://www.w3.org/2000/svg">
           <g fill="#828FA3" fillRule="evenodd">
             <circle cx="2.308" cy="2.308" r="2.308" />

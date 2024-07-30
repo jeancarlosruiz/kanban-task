@@ -4,7 +4,7 @@ import Link from 'next/link'
 function Home() {
   return (
     <main className="flex h-custom-dvh place-items-center">
-      <section className="w-custom flex flex-col gap-5 justify-center items-center bg-white-100 dark:bg-black-600 px-[24px] py-[24px] mx-auto rounded-md">
+      <section className="w-custom-form flex flex-col gap-5 justify-center items-center bg-white-100 dark:bg-black-600 px-[24px] py-[24px] mx-auto rounded-md">
         <SignupForm />
 
         <div className="w-full relative">

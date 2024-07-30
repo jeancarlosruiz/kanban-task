@@ -1,11 +1,17 @@
 'use server'
-import { signIn, signOut } from '@/auth'
+import { auth, signIn, signOut } from '@/auth'
 import { register } from '@/db/user'
 import { signInSchema, signupSchema, UserExistError } from '@/lib/zod'
 import { DEFAULT_REDIRECT } from '@/utils/routes'
 import { AuthError } from 'next-auth'
 import { ZodError } from 'zod'
 import { cookies } from 'next/headers'
+
+
+export const getCurrentUser = async () => {
+  const session = await auth()
+  return session
+}
 
 export const getCurrentTheme = async () => {
   const currentTheme = cookies().get('color-theme')
