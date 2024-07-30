@@ -7,10 +7,13 @@ import { AuthError } from 'next-auth'
 import { ZodError } from 'zod'
 import { cookies } from 'next/headers'
 
-
 export const getCurrentUser = async () => {
   const session = await auth()
-  return session
+  const user = session?.user
+  const name = user?.name && user?.name[0]
+  const fullName = user?.name && user?.name.split(' ')
+
+  return { session, user, name, fullName }
 }
 
 export const getCurrentTheme = async () => {

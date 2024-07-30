@@ -1,4 +1,4 @@
-import { getCurrentTheme } from '@/actions'
+import { getCurrentTheme } from '@/actions/auth'
 import { ToggleTheme } from '@/components/index'
 import {
   Dialog,

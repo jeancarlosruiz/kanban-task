@@ -1,7 +1,7 @@
 'use client'
 import { Input, Label } from './ui'
 import { Submit } from './index'
-import { login } from '@/actions'
+import { login } from '@/actions/auth'
 import { useFormState } from 'react-dom'
 import { useEffect, useState } from 'react'
 

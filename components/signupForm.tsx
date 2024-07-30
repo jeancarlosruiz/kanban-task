@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { signup } from '@/actions'
+import { signup } from '@/actions/auth'
 import { Submit } from './index'
 import { Input, Label } from './ui'
 import { useFormState } from 'react-dom'

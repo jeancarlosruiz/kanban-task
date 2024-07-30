@@ -1,9 +1,8 @@
-import { Header, SignoutForm } from '@/components/index'
+import { Header } from '@/components/index'
 async function Page() {
   return (
     <main>
       <Header />
-      <SignoutForm />
     </main>
   )
 }

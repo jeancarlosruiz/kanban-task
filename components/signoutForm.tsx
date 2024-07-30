@@ -1,4 +1,4 @@
-import { signout } from '@/actions'
+import { signout } from '@/actions/auth'
 import { Submit } from '@/components/index'
 
 function SignoutForm() {
