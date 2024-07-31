@@ -1,4 +1,3 @@
-import { getCurrentTheme } from '@/actions/auth'
 import { ToggleTheme, AddNewBoard } from '@/components/index'
 import {
   Dialog,
@@ -10,8 +9,6 @@ import {
 } from '@/components/ui'
 
 async function BoardsMenu() {
-  const currentTheme = await getCurrentTheme()
-
   return (
     <Dialog>
       <DialogTrigger className="text-[1.125rem] font-bold">
@@ -88,7 +85,7 @@ async function BoardsMenu() {
           </li>
         </ul>
 
-        <ToggleTheme initialTheme={currentTheme} />
+        <ToggleTheme />
       </DialogContent>
     </Dialog>
   )
