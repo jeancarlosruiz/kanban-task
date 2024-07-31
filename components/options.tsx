@@ -10,7 +10,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from '@/components/ui'
-import { SignoutForm } from './index'
+import { Signout, DeleteBoard } from '@/components/index'
 
 async function Options() {
   const { user, name, fullName } = await getCurrentUser()
@@ -46,14 +46,11 @@ async function Options() {
           )}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
         <DropdownMenuItem>Edit Board</DropdownMenuItem>
-        <DropdownMenuItem className="text-red-300">
-          Delete Board
-        </DropdownMenuItem>
-        <div className="px-[16px] pt-[8px] pb-[16px]">
-          <SignoutForm />
-        </div>
+        <DeleteBoard />
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <Signout />
       </DropdownMenuContent>
     </DropdownMenu>
   )

@@ -95,11 +95,15 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 ### Useful resources
 
-- [Implementing GraphQL and Apollo Server with Next.js 13.4: A Simple Guide (App Directory)](https://medium.com/@jareerzeenam/implementing-graphql-and-apollo-server-with-next-js-13-4-a-simple-guide-app-directory-77e38eb697e3) - This helped me to run Nextjs + Apollo + Graphql.
+<!-- - [Implementing GraphQL and Apollo Server with Next.js 13.4: A Simple Guide (App Directory)](https://medium.com/@jareerzeenam/implementing-graphql-and-apollo-server-with-next-js-13-4-a-simple-guide-app-directory-77e38eb697e3) - This helped me to run Nextjs + Apollo + Graphql. -->
 
 - [Password confirm with zod (.refine)](https://zod.dev/?id=refine) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
 
 - [ISSUE: redirect after signOut with AuthJS](https://github.com/nextauthjs/next-auth/discussions/8686) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+
+- [Shadcn Dialog inside of Dropdown closes automatically](https://stackoverflow.com/questions/77185827/shadcn-dialog-inside-of-dropdown-closes-automatically) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+
+- [React feather icons](https://feathericons.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
 
 ## Author
 
