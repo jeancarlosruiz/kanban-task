@@ -1,6 +1,11 @@
+import { boardSelected } from '@/actions/boards'
 import { Header } from '@/components/index'
 import { Button } from '@/components/ui'
-async function Page() {
+const Page = async () => {
+  await boardSelected()
+
+  // console.log({ board })
+
   return (
     <main>
       <Header />

@@ -1,4 +1,4 @@
-import { object, string, ZodError, ZodIssue, ZodIssueCode } from 'zod'
+import { array, object, string, ZodError, ZodIssue, ZodIssueCode } from 'zod'
 
 export const signInSchema = object({
   email: string({ required_error: 'Email is required' })
@@ -41,3 +41,13 @@ export class UserExistError extends ZodError {
     super([issue])
   }
 }
+
+export const boardSchema = object({
+  name: string({ required_error: 'Required' }).min(1, 'Required'),
+})
+
+export const columnSchema = array(
+  object({
+    name: string({ required_error: 'Required' }).min(1, 'Required'),
+  })
+)

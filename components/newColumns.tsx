@@ -46,7 +46,7 @@ function NewColumns() {
   const onChangeFn = (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
     const columnsUpdated = columns.map((column) => {
       if (column.id === id) {
-        return { ...column, title: event.target.value }
+        return { ...column, name: event.target.value }
       }
 
       return column
@@ -68,7 +68,7 @@ function NewColumns() {
             onChangeFn={onChangeFn(id)}
           />
         ))}
-        <Input type="hidden" value={JSON.stringify(columns)} />
+        <Input type="hidden" value={JSON.stringify(columns)} name="columns" />
       </div>
       <Button
         variant="secondary"

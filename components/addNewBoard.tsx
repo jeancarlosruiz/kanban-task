@@ -1,3 +1,4 @@
+'use client'
 import {
   Dialog,
   DialogContent,
@@ -8,12 +9,27 @@ import {
   Input,
   Label,
 } from '@/components/ui'
-
 import { Submit, NewColumns } from '@/components/index'
+import { useFormState } from 'react-dom'
+import { createBoard } from '@/actions/boards'
+import { useState } from 'react'
+
+const initialState = {
+  message: '',
+  data: null,
+  errors: null,
+  fieldValues: {
+    name: '',
+    columns: '',
+  },
+}
 
 function AddNewBoard() {
+  const [state, formAction] = useFormState(createBoard, initialState)
+  const [open, setOpen] = useState(false)
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500">
           <svg
@@ -32,7 +48,7 @@ function AddNewBoard() {
           + Create New Board
         </button>
       </DialogTrigger>
-      <DialogContent className="w-custom-form rounded-lg p-[16px] ">
+      <DialogContent className="w-custom-form rounded-lg p-[16px]">
         <DialogHeader>
           <DialogTitle className="text-left text-[1.125rem]">
             Add New Board
@@ -42,12 +58,18 @@ function AddNewBoard() {
           </DialogDescription>
         </DialogHeader>
 
-        <form action="" className="flex flex-col gap-[1.5rem]">
+        <form
+          action={async (formData: FormData) => {
+            formAction(formData)
+            setOpen(false)
+          }}
+          className="flex flex-col gap-[1.5rem]"
+        >
           <div>
             <Label htmlFor="title" className="text-[0.75rem] font-bold">
               Title
             </Label>
-            <Input id="title" placeholder="e.g. Web Design" name="title" />
+            <Input id="title" placeholder="e.g. Web Design" name="name" />
           </div>
 
           <NewColumns />
