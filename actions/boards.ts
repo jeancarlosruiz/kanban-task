@@ -19,8 +19,6 @@ export const boardSelected = async () => {
         where: eq(boards.userId, id),
       })
 
-      console.log(firstBoard)
-
       if (firstBoard) {
         const boardId = firstBoard?.id as string
 
@@ -50,15 +48,28 @@ export const boardSelected = async () => {
 export const getBoardSelected = async (id: string) => {}
 
 export const getBoards = async () => {
-  const session = await auth()
-  const { id }: any = session?.user
+  try {
+    //todo:
+    const session = await auth()
+    const { id }: any = session?.user
 
-  const allBoards = await db
-    .select({ id: boards.id, name: boards.name })
-    .from(boards)
-    .where(eq(boards.userId, id))
+    const user = await getUserById(id)
+    const board = user?.boardSelected as string
 
-  return allBoards
+    const allBoards = await db
+      .select({ id: boards.id, name: boards.name })
+      .from(boards)
+      .where(eq(boards.userId, board))
+
+    const boardSelected = db
+      .select({ id: boards.id, name: boards.name })
+      .from(boards)
+      .where(eq(boards.userId, board))
+
+    return { allBoards, boardSelected }
+  } catch (error) {
+    console.log(error, '')
+  }
 }
 
 export const createBoard = async (prevState: any, formData: FormData) => {
