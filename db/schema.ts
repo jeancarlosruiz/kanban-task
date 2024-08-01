@@ -87,6 +87,7 @@ export const users = sqliteTable('user', {
   name: text('name').notNull(),
   email: text('email').unique().notNull(),
   emailVerified: integer('emailVerified', { mode: 'timestamp_ms' }),
+  boardSelected: text('boardSelected'),
   password: text('password'),
   role: text('role', { enum: ['USER', 'ADMIN'] }).default('USER'),
   image: text('image'),
