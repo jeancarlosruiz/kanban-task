@@ -19,6 +19,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (token.role && session.user) {
         session.user.role = token.role as 'USER' | 'ADMIN'
       }
+
+      if (token.boardSelected && session.user) {
+        session.user.boardSelected = token.boardSelected
+      }
+
       return session
     },
     async jwt({ token }) {
@@ -29,6 +34,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (!user) return token
 
       token.role = user.role
+
+      token.boardSelected = user.boardSelected
 
       return token
     },

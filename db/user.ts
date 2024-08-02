@@ -4,8 +4,10 @@ import { users } from '@/db/schema'
 import { hashPW } from '@/utils/auth'
 import { UserExistError } from '@/lib/zod'
 
-export const getUserById = async (id: string) => {
+export const getUserById = async (id: string | undefined) => {
   try {
+    if (!id) return null
+
     const user = await db.query.users.findFirst({
       where: eq(users.id, id),
     })

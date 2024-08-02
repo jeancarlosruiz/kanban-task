@@ -5,72 +5,43 @@ import { auth } from '@/auth'
 import { and, eq } from 'drizzle-orm'
 import { boardSchema } from '@/lib/zod'
 import { ZodError } from 'zod'
-import { getUserById } from '@/db/user'
+import { memoize } from 'nextjs-better-unstable-cache'
+import { revalidateTag } from 'next/cache'
+import { getCurrentUser } from './auth'
 
-export const boardSelected = async () => {
-  try {
-    const session = await auth()
+export const setBoardSelected = async (id: string) => {
+  const { user } = await getCurrentUser()
 
-    const { id }: any = session?.user
-    const user = await getUserById(id)
+  if (!user) return null
 
-    if (!user?.boardSelected) {
-      const firstBoard = await db.query.boards.findFirst({
-        where: eq(boards.userId, id),
-      })
+  const userId = user?.id as string
 
-      if (firstBoard) {
-        const boardId = firstBoard?.id as string
-
-        await db
-          .update(users)
-          .set({
-            boardSelected: boardId,
-          })
-          .where(eq(users.id, id))
-
-        return firstBoard
-      }
-
-      return []
-    }
-
-    const getSavedBoard = await db.query.boards.findFirst({
-      where: and(eq(boards.userId, id), eq(boards.id, user?.boardSelected)),
+  await db
+    .update(users)
+    .set({
+      boardSelected: id,
     })
+    .where(eq(users.id, userId))
 
-    return getSavedBoard
-  } catch (error) {
-    console.log(error, 'Algo ah salido mal')
-  }
+  revalidateTag('dashboard:boardSelected')
 }
 
-export const getBoardSelected = async (id: string) => {}
-
-export const getBoards = async () => {
-  try {
-    //todo:
-    const session = await auth()
-    const { id }: any = session?.user
-
-    const user = await getUserById(id)
-    const board = user?.boardSelected as string
-
+export const getBoards = memoize(
+  async (userId: string) => {
     const allBoards = await db
       .select({ id: boards.id, name: boards.name })
       .from(boards)
-      .where(eq(boards.userId, board))
+      .where(eq(boards.userId, userId))
 
-    const boardSelected = db
-      .select({ id: boards.id, name: boards.name })
-      .from(boards)
-      .where(eq(boards.userId, board))
-
-    return { allBoards, boardSelected }
-  } catch (error) {
-    console.log(error, '')
+    return allBoards ?? []
+  },
+  {
+    persist: true,
+    revalidateTags: () => ['dashboard:boards'],
+    suppressWarnings: true,
+    logid: 'events',
   }
-}
+)
 
 export const createBoard = async (prevState: any, formData: FormData) => {
   const session = await auth()
@@ -99,6 +70,9 @@ export const createBoard = async (prevState: any, formData: FormData) => {
         })
       })
     }
+
+    revalidateTag('dashboard:boards')
+    revalidateTag('dashboard:boardSelected')
 
     return {
       message: 'success',
