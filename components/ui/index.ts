@@ -49,3 +49,4 @@ export {
 
 export { Avatar, AvatarImage, AvatarFallback } from './avatar'
 export { Textarea } from './textarea'
+export { ScrollArea, ScrollBar } from './scroll-area'

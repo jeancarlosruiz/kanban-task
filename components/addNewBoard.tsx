@@ -9,7 +9,7 @@ import {
   Input,
   Label,
 } from '@/components/ui'
-import { Submit, NewColumns } from '@/components/index'
+import { Submit, BoardColumns } from '@/components/index'
 import { useFormState } from 'react-dom'
 import { createBoard } from '@/actions/boards'
 import { useState } from 'react'
@@ -72,7 +72,7 @@ function AddNewBoard() {
             <Input id="title" placeholder="e.g. Web Design" name="name" />
           </div>
 
-          <NewColumns />
+          <BoardColumns />
 
           <Submit variant="default">Create New Board</Submit>
         </form>

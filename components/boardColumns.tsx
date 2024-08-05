@@ -25,7 +25,7 @@ const initialState = [
   },
 ]
 
-function NewColumns() {
+function BoardColumns() {
   const [columns, setColumns] = useState<NewColumn[]>(initialState)
 
   const addNewSubTask = () => {
@@ -120,4 +120,4 @@ function Column({
   )
 }
 
-export default NewColumns
+export default BoardColumns

@@ -9,20 +9,22 @@ import {
 } from '@/components/ui'
 import { useState } from 'react'
 
-function StatusSelect() {
-  const [status, setStatus] = useState<string | 'TODO' | 'DOING' | 'DONE'>(
-    'TODO'
-  )
+type StatusType = 'TODO' | 'DOING' | 'DONE'
+
+function CurrentStatus({ status }: { status: StatusType }) {
+  const [currentStatus, setCurrentStatus] = useState(status)
 
   return (
     <div>
-      <Label htmlFor="status" className="text-[0.75rem] font-bold">
-        Status
+      <h3 className="font-bold text-[0.75rem] mb-[8px]">Current Status</h3>
+      <Label htmlFor="status" className="text-[0.75rem] font-bold sr-only">
+        Current status
       </Label>
       <Select
         value={status}
         name="status"
-        onValueChange={(value) => setStatus(value)}
+        onValueChange={(value: StatusType) => setCurrentStatus(value)}
+        disabled
       >
         <SelectTrigger id="status">
           <SelectValue />
@@ -37,4 +39,4 @@ function StatusSelect() {
   )
 }
 
-export default StatusSelect
+export default CurrentStatus

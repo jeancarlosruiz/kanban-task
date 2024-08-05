@@ -4,11 +4,13 @@ import {
   AddTaskModal,
   BoardsMenu,
   BubbleTask,
+  Column,
   EmptyBoard,
   Logo,
+  NewColumn,
   Options,
 } from '@/components/index'
-import { Button } from '@/components/ui'
+import { ScrollArea, ScrollBar } from '@/components/ui'
 const Page = async () => {
   const { user } = await getCurrentUser()
   const userId = user?.id as string
@@ -29,11 +31,19 @@ const Page = async () => {
         </div>
       </header>
       <main>
-        {/* <section className="h-custom-dvh flex justify-center items-center px-[16px] pt-[24px]"> */}
-        <section className="px-[16px] pt-[24px]">
-          {/* https://ui.shadcn.com/docs/components/scroll-area */}
-          {allBoards?.length ? <BubbleTask /> : <EmptyBoard />}
-        </section>
+        <ScrollArea className="w-full">
+          <section className="h-custom-dvh px-[16px] py-[24px] flex gap-6">
+            {allBoards?.length ? (
+              <>
+                <Column />
+                <NewColumn />
+              </>
+            ) : (
+              <EmptyBoard />
+            )}
+          </section>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </main>
     </>
   )
