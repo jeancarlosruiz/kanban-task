@@ -3,6 +3,7 @@ import { getBoards, getBoardSelected } from '@/utils/boards'
 import {
   AddTaskModal,
   BoardsMenu,
+  BubbleTask,
   EmptyBoard,
   Logo,
   Options,
@@ -12,9 +13,9 @@ const Page = async () => {
   const { user } = await getCurrentUser()
   const userId = user?.id as string
   const allBoards = await getBoards(userId)
-  const boardSelected = await getBoardSelected(userId, user?.boardSelected)
+  const boardSelected: any = await getBoardSelected(userId, user?.boardSelected)
 
-  console.log(boardSelected)
+  // console.log(boardSelected)
 
   return (
     <>
@@ -31,17 +32,7 @@ const Page = async () => {
         {/* <section className="h-custom-dvh flex justify-center items-center px-[16px] pt-[24px]"> */}
         <section className="px-[16px] pt-[24px]">
           {/* https://ui.shadcn.com/docs/components/scroll-area */}
-          {allBoards?.length ? (
-            <div className="max-w-[17.5rem]">
-              <h2 className="uppercase text-left text-[0.75rem] tracking-[.2em] text-gray-300 font-bold">
-                Todo (4)
-              </h2>
-
-              <div className="w-full bg-white-100 dark:bg-black-600 rounded-lg p-[16px] shadow-[0px_5px_10px_0px_rgba(54,78,126,0.25)]"></div>
-            </div>
-          ) : (
-            <EmptyBoard />
-          )}
+          {allBoards?.length ? <BubbleTask /> : <EmptyBoard />}
         </section>
       </main>
     </>
