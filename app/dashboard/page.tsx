@@ -24,7 +24,6 @@ const Page = async () => {
       <header className=" bg-white-100 dark:bg-black-600">
         <div className="w-custom mx-auto py-[16px] flex items-center gap-[1rem]">
           <Logo />
-          {/* Corregir este error */}
           <BoardsMenu boards={allBoards} boardSelected={boardSelected} />
           <AddTaskModal />
           <Options />

@@ -1,4 +1,5 @@
 'use client'
+
 import {
   useState,
   useId,
@@ -9,66 +10,60 @@ import {
 import { Button, Input, Label } from './ui'
 import { uniqueId } from '@/utils/helpers'
 
-interface NewColumn {
+interface EditSubtask {
   id: string
-  name: string
+  title: string
+  isCompleted: boolean
+  placeholder?: string
 }
 
-const initialState = [
-  {
-    id: uniqueId(),
-    name: 'Todo',
-  },
-  {
-    id: uniqueId(),
-    name: 'Doing',
-  },
-]
-
-function BoardColumns() {
-  const [columns, setColumns] = useState<NewColumn[]>(initialState)
+function EditSubtasks({ savedSubtasks }: { savedSubtasks: EditSubtask[] }) {
+  const [subtasks, setSubtasks] = useState<EditSubtask[]>(savedSubtasks)
 
   const addNewSubTask = () => {
-    const newColumn = {
+    const newSubtask = {
       id: uniqueId(),
-      name: '',
+      title: '',
+      isCompleted: false,
     }
 
-    setColumns([...columns, newColumn])
+    setSubtasks([...subtasks, newSubtask])
   }
 
-  const deleteColumn = (id: string) => {
-    const newcolumns = columns.filter((sub) => sub.id !== id)
+  const deleteSubtask = (id: string) => {
+    const newSubtasks = subtasks.filter((sub) => sub.id !== id)
 
-    setColumns(newcolumns)
+    setSubtasks(newSubtasks)
   }
 
   const onChangeFn = (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
-    const columnsUpdated = columns.map((column) => {
-      if (column.id === id) {
-        return { ...column, name: event.target.value }
+    const subtasksUpdated = subtasks.map((subtask) => {
+      if (subtask.id === id) {
+        return { ...subtask, title: event.target.value }
       }
 
-      return column
+      return subtask
     })
 
-    setColumns(columnsUpdated)
+    setSubtasks(subtasksUpdated)
   }
+
   return (
     <div>
-      <p className="text-[0.75rem] font-bold">Board Columns</p>
+      <p className="text-[0.75rem] font-bold">Subtasks</p>
 
       <div className="max-h-[8.75rem] overflow-y-auto">
-        {columns.map(({ id, name }) => (
-          <Column
+        {subtasks.map(({ id, title, placeholder }) => (
+          <Subtask
             key={id}
             id={id}
-            value={name}
-            onClickFn={() => deleteColumn(id)}
+            value={title}
+            placeholder={placeholder}
+            onClickFn={() => deleteSubtask(id)}
             onChangeFn={onChangeFn(id)}
           />
         ))}
-        <Input type="hidden" value={JSON.stringify(columns)} name="columns" />
+        <Input type="hidden" value={JSON.stringify(subtasks)} />
       </div>
       <Button
         variant="secondary"
@@ -77,19 +72,21 @@ function BoardColumns() {
         onClick={addNewSubTask}
         className="text-[0.8125rem] w-full mt-[6px]"
       >
-        + Add New Column
+        + Add New Subtask
       </Button>
     </div>
   )
 }
 
-function Column({
+function Subtask({
   value,
+  placeholder,
   onChangeFn,
   onClickFn,
 }: {
   value: string
   id: string
+  placeholder?: string
   onChangeFn: ChangeEventHandler
   onClickFn: MouseEventHandler
 }) {
@@ -99,7 +96,13 @@ function Column({
       <Label htmlFor={labelId} className="sr-only">
         input label
       </Label>
-      <Input id={labelId} type="text" value={value} onChange={onChangeFn} />
+      <Input
+        id={labelId}
+        type="text"
+        value={value}
+        placeholder={placeholder}
+        onChange={onChangeFn}
+      />
       <Button variant="ghost" onClick={onClickFn} type="button">
         <svg
           width="15"
@@ -108,16 +111,16 @@ function Column({
           role="img"
           aria-labelledby="delete-icon"
         >
-          <title id="delete-icon">Delete this column</title>
+          <title id="delete-icon">Delete this subtask</title>
           <g fill="#828FA3" fillRule="evenodd">
             <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
             <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
           </g>
         </svg>
-        <span className="sr-only">Delete this column</span>
+        <span className="sr-only">Delete this subtask</span>
       </Button>
     </div>
   )
 }
 
-export default BoardColumns
+export default EditSubtasks

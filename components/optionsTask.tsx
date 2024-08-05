@@ -1,9 +1,11 @@
+'use client'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui'
+import { EditTask } from '@/components/index'
 function OptionsTask() {
   return (
     <DropdownMenu>
@@ -25,7 +27,9 @@ function OptionsTask() {
         <span className="sr-only">Open</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[12rem] ">
-        <DropdownMenuItem>Edit task</DropdownMenuItem>
+        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+          <EditTask />
+        </DropdownMenuItem>
         <DropdownMenuItem className="text-red-300">
           Delete task
         </DropdownMenuItem>

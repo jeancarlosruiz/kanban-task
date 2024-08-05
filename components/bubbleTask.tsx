@@ -7,12 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui'
-import {
-  CurrentStatus,
-  OptionsTask,
-  StatusSelect,
-  Subtask,
-} from '@/components/index'
+import { CurrentStatus, OptionsTask, Subtask } from '@/components/index'
 
 function BubbleTask() {
   return (
