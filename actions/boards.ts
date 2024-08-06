@@ -9,6 +9,39 @@ import { memoize } from 'nextjs-better-unstable-cache'
 import { revalidateTag } from 'next/cache'
 import { getCurrentUser } from './auth'
 
+export const deleteCurrentBoard = async (id: string) => {
+  await db.delete(boards).where(eq(boards.id, id))
+
+  const { user } = await getCurrentUser()
+
+  if (!user) return
+
+  const userId = user.id as string
+
+  const firstBoard = await db.query.boards.findFirst({
+    where: eq(boards.userId, userId),
+  })
+
+  if (firstBoard) {
+    await db
+      .update(users)
+      .set({
+        boardSelected: firstBoard.id,
+      })
+      .where(eq(users.id, userId))
+  } else {
+    await db
+      .update(users)
+      .set({
+        boardSelected: null,
+      })
+      .where(eq(users.id, userId))
+  }
+
+  revalidateTag('dashboard:boardSelected')
+  revalidateTag('dashboard:boards')
+}
+
 export const setBoardSelected = async (id: string) => {
   const { user } = await getCurrentUser()
 

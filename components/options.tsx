@@ -1,3 +1,4 @@
+'use server'
 import { getCurrentUser } from '@/actions/auth'
 import {
   DropdownMenu,
@@ -11,9 +12,11 @@ import {
   AvatarImage,
 } from '@/components/ui'
 import { Signout, DeleteBoard, EditBoard } from '@/components/index'
+import { getBoardSelected } from '@/utils/boards'
 
 async function Options() {
   const { user, name, fullName } = await getCurrentUser()
+  const currentBoard = await getBoardSelected(user?.id, user?.boardSelected)
 
   return (
     <DropdownMenu>
@@ -45,9 +48,9 @@ async function Options() {
             <span className="text-[1rem]"> {fullName && fullName[0]}</span>
           )}
         </DropdownMenuLabel>
-        <EditBoard />
-        <DeleteBoard />
         <DropdownMenuItem>Profile</DropdownMenuItem>
+        <EditBoard disabled={!currentBoard} />
+        <DeleteBoard currentBoard={currentBoard} disabled={!currentBoard} />
         <DropdownMenuSeparator />
         <Signout />
       </DropdownMenuContent>

@@ -25,12 +25,12 @@ const initialState = {
   },
 }
 
-function EditBoard() {
+function EditBoard({ disabled }: { disabled: any }) {
   const [state, formAction] = useFormState(createBoard, initialState)
   const [open, setOpen] = useState(false)
 
   return (
-    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+    <DropdownMenuItem onSelect={(e) => e.preventDefault()} disabled={disabled}>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger>Edit board</DialogTrigger>
         <DialogContent className="w-custom-form rounded-lg p-[16px]">

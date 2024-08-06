@@ -10,22 +10,29 @@ export const getBoardSelected = memoize(
       if (!boardSelectedId) {
         const firstBoard = await db.query.boards.findFirst({
           where: eq(boards.userId, userId),
+          with: {
+            columns: {
+              with: {
+                tasks: {
+                  with: { subtasks: true },
+                },
+              },
+            },
+          },
         })
 
-        if (firstBoard) {
-          const boardId = firstBoard?.id as string
+        if (!firstBoard) return null
 
-          await db
-            .update(users)
-            .set({
-              boardSelected: boardId,
-            })
-            .where(eq(users.id, userId))
+        const boardId = firstBoard?.id as string
 
-          return firstBoard
-        }
+        await db
+          .update(users)
+          .set({
+            boardSelected: boardId,
+          })
+          .where(eq(users.id, userId))
 
-        return {}
+        return firstBoard
       }
 
       const getSavedBoard = await db.query.boards.findFirst({

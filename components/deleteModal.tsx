@@ -9,21 +9,29 @@ import {
   DialogClose,
   Button,
 } from '@/components/ui'
-import { MouseEventHandler } from 'react'
+
+import { useState } from 'react'
 
 function DeleteModal({
   children,
   title,
   description,
-}: //   action,
-{
+  action,
+}: {
   children: React.ReactNode
   title: string
   description: string
-  //   action: MouseEventHandler
+  action: () => void
 }) {
+  const [open, setOpen] = useState(false)
+
+  const handleOnClick = async () => {
+    await action()
+
+    setOpen(false)
+  }
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>{children}</DialogTrigger>
       <DialogContent className="w-custom-form rounded-lg p-[24px] ">
         <DialogHeader>
@@ -35,7 +43,9 @@ function DeleteModal({
           </DialogDescription>
         </DialogHeader>
 
-        <Button variant="destructive">Delete</Button>
+        <Button variant="destructive" onClick={() => handleOnClick()}>
+          Delete
+        </Button>
         <DialogClose asChild>
           <Button variant="secondary">Cancel</Button>
         </DialogClose>

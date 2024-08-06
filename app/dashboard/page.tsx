@@ -17,8 +17,6 @@ const Page = async () => {
   const allBoards = await getBoards(userId)
   const boardSelected: any = await getBoardSelected(userId, user?.boardSelected)
 
-  // console.log(boardSelected)
-
   return (
     <>
       <header className=" bg-white-100 dark:bg-black-600">
@@ -32,9 +30,9 @@ const Page = async () => {
       <main>
         <ScrollArea className="w-full">
           <section className="h-custom-dvh px-[16px] py-[24px] flex gap-6">
-            {allBoards?.length ? (
+            {boardSelected ? (
               <>
-                <Column />
+                <Column board={boardSelected} />
                 <NewColumn />
               </>
             ) : (

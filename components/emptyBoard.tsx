@@ -3,7 +3,7 @@ import { Button } from './ui'
 
 function EmptyBoard() {
   return (
-    <div className="mt-[-30px] w-full flex items-center flex-col gap-[1.5625rem]">
+    <div className="self-center mt-[-30px] w-full flex items-center flex-col gap-[1.5625rem]">
       <p className="text-center text-[1.125rem] text-gray-300 font-bold">
         This board is empty. Create a new column to get started.
       </p>
