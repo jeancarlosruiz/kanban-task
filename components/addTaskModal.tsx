@@ -1,3 +1,4 @@
+'use client'
 import {
   Dialog,
   DialogContent,
@@ -11,10 +12,25 @@ import {
   Textarea,
 } from '@/components/ui'
 import { NewSubtasks, Submit, StatusSelect } from '@/components/index'
+import { addNewTask } from '@/actions/task'
+import { useFormState } from 'react-dom'
+import { useState } from 'react'
+
+const initialState = {
+  message: '',
+  errors: null,
+  fieldValues: {
+    title: '',
+    description: '',
+    subtasks: [],
+  },
+}
 
 function AddTaskModal() {
+  const [state, formAction] = useFormState(addNewTask, initialState)
+  const [open, setOpen] = useState(false)
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className=" h-[2rem] px-[18px] ml-auto mr-[-5px]">
           <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +51,13 @@ function AddTaskModal() {
           </DialogDescription>
         </DialogHeader>
 
-        <form action="" className="flex flex-col gap-[1.5rem]">
+        <form
+          action={(formData: FormData) => {
+            formAction(formData)
+            setOpen(false)
+          }}
+          className="flex flex-col gap-[1.5rem]"
+        >
           <div>
             <Label htmlFor="title" className="text-[0.75rem] font-bold">
               Title

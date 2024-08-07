@@ -1,4 +1,12 @@
-import { array, object, string, ZodError, ZodIssue, ZodIssueCode } from 'zod'
+import {
+  array,
+  object,
+  optional,
+  string,
+  ZodError,
+  ZodIssue,
+  ZodIssueCode,
+} from 'zod'
 
 export const signInSchema = object({
   email: string({ required_error: 'Email is required' })
@@ -51,3 +59,19 @@ export const columnSchema = array(
     name: string({ required_error: 'Required' }).min(1, 'Required'),
   })
 )
+
+export const taskSchema = object({
+  title: string({ required_error: 'Required' }).min(1, 'Required'),
+  description: string({ required_error: 'Required' }).min(1, 'Required'),
+  subtasks: array(
+    optional(
+      object({
+        title: string({ required_error: 'Required' }).min(1, 'Required'),
+      })
+    )
+  ),
+  status: object({
+    id: string({ required_error: 'Required' }).min(1, 'Required'),
+    name: string({ required_error: 'Required' }).min(1, 'Required'),
+  }),
+})

@@ -9,6 +9,63 @@ import { memoize } from 'nextjs-better-unstable-cache'
 import { revalidateTag } from 'next/cache'
 import { getCurrentUser } from './auth'
 
+export const getBoardSelected = memoize(
+  async (userId: string, boardSelectedId: string) => {
+    try {
+      if (!boardSelectedId) {
+        const firstBoard = await db.query.boards.findFirst({
+          where: eq(boards.userId, userId),
+          with: {
+            columns: {
+              with: {
+                tasks: {
+                  with: { subtasks: true },
+                },
+              },
+            },
+          },
+        })
+
+        if (!firstBoard) return null
+
+        const boardId = firstBoard?.id as string
+
+        await db
+          .update(users)
+          .set({
+            boardSelected: boardId,
+          })
+          .where(eq(users.id, userId))
+
+        return firstBoard
+      }
+
+      const getSavedBoard = await db.query.boards.findFirst({
+        where: and(eq(boards.userId, userId), eq(boards.id, boardSelectedId)),
+        with: {
+          columns: {
+            with: {
+              tasks: {
+                with: { subtasks: true },
+              },
+            },
+          },
+        },
+      })
+
+      return getSavedBoard
+    } catch (error) {
+      console.log(error, 'Algo ah salido mal')
+    }
+  },
+  {
+    persist: true,
+    revalidateTags: () => ['dashboard:boardSelected'],
+    suppressWarnings: true,
+    logid: 'events',
+  }
+)
+
 export const deleteCurrentBoard = async (id: string) => {
   await db.delete(boards).where(eq(boards.id, id))
 

@@ -35,9 +35,7 @@ export const tasks = sqliteTable('tasks', {
   createdAt: createdAt(),
   title: text('title').notNull(),
   description: text('description'),
-  status: text('status', { enum: ['Todo', 'Doing', 'Done'] })
-    .default('Todo')
-    .notNull(),
+  status: text('status'),
   columnId: text('columnId').references(() => columns.id, {
     onDelete: 'cascade',
   }),

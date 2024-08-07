@@ -27,7 +27,7 @@ const initialState = [
     id: uniqueId(),
     title: '',
     placeholder: 'e.g. Drink coffee & smile',
-    isCompleted: true,
+    isCompleted: false,
   },
 ]
 
@@ -77,7 +77,7 @@ function NewSubtasks() {
             onChangeFn={onChangeFn(id)}
           />
         ))}
-        <Input type="hidden" value={JSON.stringify(subtasks)} />
+        <Input type="hidden" value={JSON.stringify(subtasks)} name="subtasks" />
       </div>
       <Button
         variant="secondary"

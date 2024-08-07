@@ -1,5 +1,6 @@
 import { getCurrentUser } from '@/actions/auth'
-import { getBoards, getBoardSelected } from '@/utils/boards'
+import { getBoards } from '@/utils/boards'
+import { getBoardSelected } from '@/actions/boards'
 import {
   AddTaskModal,
   BoardsMenu,
@@ -29,7 +30,7 @@ const Page = async () => {
       </header>
       <main>
         <ScrollArea className="w-full">
-          <section className="h-custom-dvh px-[16px] py-[24px] flex gap-6">
+          <section className="h-custom-dvh w-custom py-[24px] flex gap-6 mx-auto">
             {boardSelected ? (
               <>
                 <Column board={boardSelected} />

@@ -1,4 +1,5 @@
 'use client'
+import { getCurrentUser } from '@/actions/auth'
 import {
   Select,
   SelectContent,
@@ -7,12 +8,39 @@ import {
   SelectValue,
   Label,
 } from '@/components/ui'
-import { useState } from 'react'
+import { getBoardSelected } from '@/actions/boards'
+import { useEffect, useState } from 'react'
+
+interface StatusState {
+  id: string
+  name: string
+}
 
 function StatusSelect() {
-  const [status, setStatus] = useState<string | 'TODO' | 'DOING' | 'DONE'>(
-    'TODO'
-  )
+  const [status, setStatus] = useState<StatusState[] | undefined>([])
+  const [statusSelected, setStatuSelected] = useState<string>('')
+
+  const getColumns = async () => {
+    const { user } = await getCurrentUser()
+
+    if (!user) return
+    const userId = user.id as string
+    const boardId = user.boardSelected
+    const board = await getBoardSelected(userId, boardId)
+    const statusFromColumns = board?.columns.map(({ id, name }) => {
+      return {
+        id,
+        name,
+      }
+    })
+
+    // console.log(statusFromColumns)
+    setStatus(statusFromColumns)
+  }
+
+  useEffect(() => {
+    getColumns()
+  }, [])
 
   return (
     <div>
@@ -20,17 +48,26 @@ function StatusSelect() {
         Status
       </Label>
       <Select
-        value={status}
+        value={statusSelected}
         name="status"
-        onValueChange={(value) => setStatus(value)}
+        onValueChange={(value) => setStatuSelected(value)}
       >
         <SelectTrigger id="status">
-          <SelectValue />
+          <SelectValue
+            placeholder={
+              status?.find((s) => s.id === statusSelected)?.name ||
+              'Select a status'
+            }
+          />
         </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="TODO">Todo</SelectItem>
-          <SelectItem value="DOING">Doing</SelectItem>
-          <SelectItem value="DONE">Done</SelectItem>
+        <SelectContent position="popper" side="top">
+          {status?.map(({ id, name }) => (
+            <SelectItem key={id} value={JSON.stringify({ id, name })}>
+              {name}
+            </SelectItem>
+          ))}
+          {/* <SelectItem value={'asdadasd'}>{'HOla'}</SelectItem>
+          <SelectItem value={'asasdewasd'}>{'HOla'}</SelectItem> */}
         </SelectContent>
       </Select>
     </div>
