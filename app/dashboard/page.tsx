@@ -1,6 +1,6 @@
 import { getCurrentUser } from '@/actions/auth'
 import { getBoards } from '@/utils/boards'
-import { getBoardSelected } from '@/actions/boards'
+import { getBoardSelected } from '@/utils/boards'
 import {
   AddTaskModal,
   BoardsMenu,
@@ -12,6 +12,7 @@ import {
   Options,
 } from '@/components/index'
 import { ScrollArea, ScrollBar } from '@/components/ui'
+
 const Page = async () => {
   const { user } = await getCurrentUser()
   const userId = user?.id as string
@@ -33,7 +34,9 @@ const Page = async () => {
           <section className="h-custom-dvh w-custom py-[24px] flex gap-6 mx-auto">
             {boardSelected ? (
               <>
-                <Column board={boardSelected} />
+                {boardSelected.columns.map((column: any) => (
+                  <Column key={column.id} column={column} />
+                ))}
                 <NewColumn />
               </>
             ) : (

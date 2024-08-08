@@ -15,13 +15,6 @@ export const addNewTask = async (prev: any, formData: FormData) => {
   const newSubtasks = JSON.parse(subtasksJSON)
   const status = JSON.parse(statusJSON)
 
-  console.log({
-    title: formData.get('title'),
-    description: formData.get('description'),
-    subtasks: newSubtasks,
-    status,
-  })
-
   try {
     const newTask = taskSchema.parse({
       title: formData.get('title'),
@@ -51,7 +44,7 @@ export const addNewTask = async (prev: any, formData: FormData) => {
 
     revalidateTag('dashboard:boardSelected')
 
-    console.log('here')
+    // console.log('here')
 
     return {
       message: 'success',
@@ -68,6 +61,8 @@ export const addNewTask = async (prev: any, formData: FormData) => {
       const errorMap = zodError.flatten().fieldErrors
       //!  const { name, columns } = errorMap
 
+      console.log('zod error', error)
+
       return {
         message: 'error',
         errors: errorMap,
@@ -77,5 +72,7 @@ export const addNewTask = async (prev: any, formData: FormData) => {
         },
       }
     }
+
+    console.log(error)
   }
 }

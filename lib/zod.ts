@@ -62,7 +62,7 @@ export const columnSchema = array(
 
 export const taskSchema = object({
   title: string({ required_error: 'Required' }).min(1, 'Required'),
-  description: string({ required_error: 'Required' }).min(1, 'Required'),
+  description: string(),
   subtasks: array(
     optional(
       object({

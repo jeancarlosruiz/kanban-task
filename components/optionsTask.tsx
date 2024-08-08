@@ -9,7 +9,7 @@ import { EditTask } from '@/components/index'
 function OptionsTask() {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="rounded-full inline-flex justify-center">
+      <DropdownMenuTrigger className="rounded-full inline-flex justify-center ml-auto">
         <svg
           width="5"
           height="20"

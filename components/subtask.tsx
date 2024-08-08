@@ -1,17 +1,36 @@
+'use client'
+import { useState } from 'react'
 import { Checkbox, Label } from './ui'
+import { completeSubtask } from '@/actions/subtasks'
 
 function Subtask({
   id,
   title,
   isCompleted,
+  columnId,
 }: {
   id: string
   title: string
   isCompleted: boolean
+  columnId: string
 }) {
+  const [checked, setChecked] = useState(isCompleted)
+  const [loading, setLoading] = useState(false)
+
+  const handleOnChecked = async (newValue: boolean) => {
+    setLoading(true)
+    await completeSubtask(id, newValue, columnId)
+    setChecked(newValue)
+    setLoading(false)
+  }
   return (
     <div className="flex items-center rounded space-x-2 h-10 px-[12px] py-[12px] bg-gray-200 hover:bg-purple-200/50 dark:bg-black-700">
-      <Checkbox id={id} checked={isCompleted} />
+      <Checkbox
+        id={id}
+        checked={checked}
+        onCheckedChange={(val: boolean) => handleOnChecked(val)}
+        disabled={loading}
+      />
       <Label htmlFor={id}>{title}</Label>
     </div>
   )
