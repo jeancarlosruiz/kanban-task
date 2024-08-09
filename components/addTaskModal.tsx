@@ -12,7 +12,7 @@ import {
   Textarea,
 } from '@/components/ui'
 import { NewSubtasks, Submit, StatusSelect } from '@/components/index'
-import { addNewTask } from '@/actions/task'
+import { addNewTask } from '@/actions/tasks'
 import { useFormState } from 'react-dom'
 import { useState } from 'react'
 

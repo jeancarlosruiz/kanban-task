@@ -14,19 +14,8 @@ interface NewColumn {
   name: string
 }
 
-const initialState = [
-  {
-    id: uniqueId(),
-    name: 'Todo',
-  },
-  {
-    id: uniqueId(),
-    name: 'Doing',
-  },
-]
-
-function BoardColumns() {
-  const [columns, setColumns] = useState<NewColumn[]>(initialState)
+function BoardColumns({ columnsArr }: { columnsArr: any }) {
+  const [columns, setColumns] = useState<NewColumn[]>(columnsArr)
 
   const addNewSubTask = () => {
     const newColumn = {

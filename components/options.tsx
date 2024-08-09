@@ -16,7 +16,8 @@ import { getBoardSelected } from '@/utils/boards'
 
 async function Options() {
   const { user, name, fullName } = await getCurrentUser()
-  const currentBoard = await getBoardSelected(user?.id, user?.boardSelected)
+  const userId = user?.id as string
+  const currentBoard = await getBoardSelected(userId, user?.boardSelected)
 
   return (
     <DropdownMenu>
@@ -49,7 +50,7 @@ async function Options() {
           )}
         </DropdownMenuLabel>
         <DropdownMenuItem>Profile</DropdownMenuItem>
-        <EditBoard disabled={!currentBoard} />
+        <EditBoard disabled={!currentBoard} board={currentBoard} />
         <DeleteBoard currentBoard={currentBoard} disabled={!currentBoard} />
         <DropdownMenuSeparator />
         <Signout />

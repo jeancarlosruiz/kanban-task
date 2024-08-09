@@ -5,10 +5,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui'
-import { EditTask } from '@/components/index'
-function OptionsTask() {
+import { DeleteModal, EditTask } from '@/components/index'
+import { deleteTask } from '@/actions/tasks'
+import { useState } from 'react'
+function OptionsTask({ task }: { task: any }) {
+  const [open, setOpen] = useState(false)
+  const handleDeleteTask = async () => {
+    const taskId = task.id
+    await deleteTask(taskId)
+    setOpen(false)
+  }
+
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger className="rounded-full inline-flex justify-center ml-auto">
         <svg
           width="5"
@@ -30,8 +39,19 @@ function OptionsTask() {
         <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
           <EditTask />
         </DropdownMenuItem>
-        <DropdownMenuItem className="text-red-300">
-          Delete task
+        <DropdownMenuItem
+          className="text-red-300"
+          onSelect={(e) => e.preventDefault()}
+        >
+          <DeleteModal
+            title="Delete this task?"
+            description={`Are you sure you want to delete the ‘${
+              task && task.title
+            }’ task? This action will remove all columns and tasks and cannot be reversed.`}
+            action={handleDeleteTask}
+          >
+            Delete task
+          </DeleteModal>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

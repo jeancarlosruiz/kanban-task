@@ -11,18 +11,18 @@ import { CurrentStatus, OptionsTask, Subtask } from '@/components/index'
 import { useEffect, useState } from 'react'
 
 function BubbleTask({ task }: { task: any }) {
-  const [subtaskCompleted, setSubtaskCompleted] = useState(() => {
-    const completed = task.subtasks.filter(
-      (sub: any) => sub.isCompleted === true
-    )
-
-    return completed.length
-  })
+  const [subtaskCompleted, setSubtaskCompleted] = useState(0)
 
   const [subtasks, setSubtasks] = useState([])
 
   useEffect(() => {
     if (task.subtasks.length) {
+      const completed = task.subtasks.filter(
+        (sub: any) => sub.isCompleted === true
+      )
+
+      setSubtaskCompleted(completed.length)
+
       return setSubtasks(task.subtasks)
     }
   }, [task])
@@ -46,7 +46,7 @@ function BubbleTask({ task }: { task: any }) {
               {task.title}
             </DialogTitle>
 
-            <OptionsTask />
+            <OptionsTask task={task} />
           </div>
           <DialogDescription className="text-left">
             {task.description}
@@ -74,7 +74,6 @@ function BubbleTask({ task }: { task: any }) {
                     id={id}
                     title={title}
                     isCompleted={isCompleted}
-                    columnId={task.columnId}
                   />
                 )
               )}

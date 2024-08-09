@@ -9,6 +9,42 @@ import { memoize } from 'nextjs-better-unstable-cache'
 import { revalidateTag } from 'next/cache'
 import { getCurrentUser } from './auth'
 
+export const editBoard = async (
+  prev: any,
+  formData: FormData,
+  boardId: string
+) => {
+  try {
+    return {
+      message: '',
+      data: null,
+      errors: null,
+      fieldValues: {
+        name: '',
+        columns: '',
+      },
+    }
+  } catch (error) {
+    if (error instanceof ZodError) {
+      const zodError = error as ZodError
+      const errorMap = zodError.flatten().fieldErrors
+      const { name, columns } = errorMap
+
+      return {
+        message: 'error',
+        errors: {
+          name,
+          columns,
+        },
+        fieldValues: {
+          name: formData.get('name'),
+          columns: formData.get('columns'),
+        },
+      }
+    }
+  }
+}
+
 export const getBoardSelected = memoize(
   async (userId: string, boardSelectedId: string) => {
     try {

@@ -12,8 +12,8 @@ import {
 } from '@/components/ui'
 import { Submit, BoardColumns } from '@/components/index'
 import { useFormState } from 'react-dom'
-import { createBoard } from '@/actions/boards'
-import { useState } from 'react'
+import { editBoard } from '@/actions/boards'
+import { useEffect, useState } from 'react'
 
 const initialState = {
   message: '',
@@ -25,9 +25,13 @@ const initialState = {
   },
 }
 
-function EditBoard({ disabled }: { disabled: any }) {
-  const [state, formAction] = useFormState(createBoard, initialState)
+function EditBoard({ disabled, board }: { disabled: any; board: any }) {
+  const [state, formAction] = useFormState(editBoard, initialState)
   const [open, setOpen] = useState(false)
+
+  console.log({ board })
+
+  useEffect(() => {}, [])
 
   return (
     <DropdownMenuItem onSelect={(e) => e.preventDefault()} disabled={disabled}>
@@ -36,10 +40,10 @@ function EditBoard({ disabled }: { disabled: any }) {
         <DialogContent className="w-custom-form rounded-lg p-[16px]">
           <DialogHeader>
             <DialogTitle className="text-left text-[1.125rem]">
-              Add New Board
+              Edit Board
             </DialogTitle>
             <DialogDescription className="sr-only">
-              Add new board form
+              Edit board form
             </DialogDescription>
           </DialogHeader>
 
@@ -54,10 +58,15 @@ function EditBoard({ disabled }: { disabled: any }) {
               <Label htmlFor="title" className="text-[0.75rem] font-bold">
                 Title
               </Label>
-              <Input id="title" placeholder="e.g. Web Design" name="name" />
+              <Input
+                id="title"
+                placeholder="e.g. Web Design"
+                name="name"
+                defaultValue={board.name}
+              />
             </div>
 
-            <BoardColumns />
+            <BoardColumns columnsArr={board.columns} />
 
             <Submit variant="default">Save Changes</Submit>
           </form>

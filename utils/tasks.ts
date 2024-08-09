@@ -4,12 +4,9 @@ import { db } from '@/db'
 import { eq, and } from 'drizzle-orm'
 import { memoize } from 'nextjs-better-unstable-cache'
 
-let tag: string
-
 export const getTasks = memoize(
   async (columnId: string) => {
     try {
-      tag = columnId
       return await db.query.tasks.findMany({
         where: eq(tasks.columnId, columnId),
         with: {
@@ -22,12 +19,10 @@ export const getTasks = memoize(
   },
   {
     persist: true,
-    revalidateTags: () => [`dashboard:tasks:${tag}`],
+    revalidateTags: () => [`dashboard:tasks`],
     suppressWarnings: true,
     // Enable logs to see timer or whether it triggers ODR or BR
     log: ['dedupe', 'datacache', 'verbose'],
     logid: 'tasks',
   }
 )
-
-// console.log(tag)

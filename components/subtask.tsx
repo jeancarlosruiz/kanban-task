@@ -7,19 +7,17 @@ function Subtask({
   id,
   title,
   isCompleted,
-  columnId,
 }: {
   id: string
   title: string
   isCompleted: boolean
-  columnId: string
 }) {
   const [checked, setChecked] = useState(isCompleted)
   const [loading, setLoading] = useState(false)
 
   const handleOnChecked = async (newValue: boolean) => {
     setLoading(true)
-    await completeSubtask(id, newValue, columnId)
+    await completeSubtask(id, newValue)
     setChecked(newValue)
     setLoading(false)
   }

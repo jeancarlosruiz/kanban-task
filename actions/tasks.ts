@@ -9,6 +9,15 @@ import { memoize } from 'nextjs-better-unstable-cache'
 import { revalidateTag } from 'next/cache'
 import { getCurrentUser } from './auth'
 
+export const deleteTask = async (id: string) => {
+  try {
+    await db.delete(tasks).where(eq(tasks.id, id))
+    revalidateTag(`dashboard:tasks`)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const addNewTask = async (prev: any, formData: FormData) => {
   const subtasksJSON: any = formData.get('subtasks')
   const statusJSON: any = formData.get('status')
@@ -43,8 +52,6 @@ export const addNewTask = async (prev: any, formData: FormData) => {
     }
 
     revalidateTag('dashboard:boardSelected')
-
-    // console.log('here')
 
     return {
       message: 'success',

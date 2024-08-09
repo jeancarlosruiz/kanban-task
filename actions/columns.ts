@@ -9,14 +9,8 @@ import { memoize } from 'nextjs-better-unstable-cache'
 import { revalidateTag } from 'next/cache'
 import { getCurrentUser } from './auth'
 
-export const completeSubtask = async (id: string, bool: boolean) => {
+export const addNewColumn = async (boardId: string) => {
   try {
-    await db
-      .update(subtasks)
-      .set({ isCompleted: bool })
-      .where(eq(subtasks.id, id))
-
-    revalidateTag(`dashboard:tasks`)
   } catch (error) {
     console.log(error)
   }
