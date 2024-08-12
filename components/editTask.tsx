@@ -10,7 +10,7 @@ import {
   Label,
   Textarea,
 } from '@/components/ui'
-import { Submit, StatusSelect, EditSubtasks } from '@/components/index'
+import { Submit, EditStatusSelect, EditSubtasks } from '@/components/index'
 
 function EditTask({ taskSaved }: { taskSaved: any }) {
   return (
@@ -54,7 +54,7 @@ function EditTask({ taskSaved }: { taskSaved: any }) {
           </div>
 
           <EditSubtasks savedSubtasks={taskSaved.subtasks} />
-          <StatusSelect statusLabel={taskSaved.status} />
+          <EditStatusSelect statusLabel={taskSaved.status} />
 
           <Submit variant="default">Edit Task</Submit>
         </form>

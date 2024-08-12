@@ -16,9 +16,9 @@ interface StatusState {
   name: string
 }
 
-function StatusSelect() {
+function EditStatusSelect({ statusLabel }: { statusLabel?: any }) {
   const [status, setStatus] = useState<StatusState[] | undefined>([])
-  const [statusSelected, setStatuSelected] = useState<string>('')
+  const [statusSelected, setStatuSelected] = useState<StatusState | undefined>()
 
   const getColumns = async () => {
     const { user } = await getCurrentUser()
@@ -34,8 +34,23 @@ function StatusSelect() {
       }
     })
 
-    // console.log(statusFromColumns)
+    const currentStatusSelected = statusFromColumns?.find(
+      (s) => s.name.toLowerCase() === statusLabel.toLowerCase()
+    )
+
     setStatus(statusFromColumns)
+    setStatuSelected(currentStatusSelected)
+  }
+
+  const handleValueChange = (value: string) => {
+    if (!value) return
+
+    try {
+      const parseValue = JSON.parse(value)
+      setStatuSelected(parseValue)
+    } catch (error) {
+      console.error('Error parsing JSON:', error)
+    }
   }
 
   useEffect(() => {
@@ -48,17 +63,12 @@ function StatusSelect() {
         Status
       </Label>
       <Select
-        value={statusSelected}
+        value={statusSelected?.name}
         name="status"
-        onValueChange={(value) => setStatuSelected(value)}
+        onValueChange={(value) => handleValueChange(value)}
       >
         <SelectTrigger id="status">
-          <SelectValue
-            placeholder={
-              status?.find((s) => s.id === statusSelected)?.name ||
-              'Select a status'
-            }
-          />
+          <SelectValue>{statusSelected && statusSelected?.name}</SelectValue>
         </SelectTrigger>
         <SelectContent position="popper" side="top">
           {status?.map(({ id, name }) => (
@@ -72,4 +82,4 @@ function StatusSelect() {
   )
 }
 
-export default StatusSelect
+export default EditStatusSelect

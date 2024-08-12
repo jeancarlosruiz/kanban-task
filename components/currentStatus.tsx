@@ -1,18 +1,16 @@
-'use client'
+// 'use client'
 import {
   Select,
-  SelectContent,
-  SelectItem,
+  // SelectContent,
+  // SelectItem,
   SelectTrigger,
   SelectValue,
   Label,
 } from '@/components/ui'
-import { useState } from 'react'
+// import { useState } from 'react'
 
-type StatusType = 'TODO' | 'DOING' | 'DONE'
-
-function CurrentStatus({ status }: { status: StatusType }) {
-  const [currentStatus, setCurrentStatus] = useState(status)
+function CurrentStatus({ status }: { status: string }) {
+  // const [currentStatus, setCurrentStatus] = useState(status)
 
   return (
     <div>
@@ -20,20 +18,15 @@ function CurrentStatus({ status }: { status: StatusType }) {
       <Label htmlFor="status" className="text-[0.75rem] font-bold sr-only">
         Current status
       </Label>
-      <Select
-        value={status}
-        name="status"
-        onValueChange={(value: StatusType) => setCurrentStatus(value)}
-        disabled
-      >
+      <Select name="status" defaultValue={status} disabled>
         <SelectTrigger id="status">
-          <SelectValue />
+          <SelectValue>{status}</SelectValue>
         </SelectTrigger>
-        <SelectContent>
+        {/* <SelectContent>
           <SelectItem value="TODO">Todo</SelectItem>
           <SelectItem value="DOING">Doing</SelectItem>
           <SelectItem value="DONE">Done</SelectItem>
-        </SelectContent>
+        </SelectContent> */}
       </Select>
     </div>
   )
