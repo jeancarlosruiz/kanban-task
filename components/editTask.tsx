@@ -11,10 +11,41 @@ import {
   Textarea,
 } from '@/components/ui'
 import { Submit, EditStatusSelect, EditSubtasks } from '@/components/index'
+import { useFormState } from 'react-dom'
+import { updateTask } from '@/actions/tasks'
+import { useEffect, useState } from 'react'
 
-function EditTask({ taskSaved }: { taskSaved: any }) {
+const initialState = {
+  message: '',
+  errors: null,
+  fieldValues: {
+    title: '',
+    description: '',
+    subtasks: [],
+  },
+}
+
+function EditTask({
+  taskSaved,
+  isOpen,
+  setIsOpen,
+}: {
+  taskSaved: any
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+}) {
+  const handleFormState = (prev: any, formData: FormData) =>
+    updateTask(prev, formData, taskSaved.id)
+  const [title, setTitle] = useState(taskSaved.title)
+  const [description, setDescription] = useState(taskSaved.description)
+  const [state, formAction] = useFormState(handleFormState, initialState)
+
+  useEffect(() => {
+    console.log({ title, description })
+  }, [title, description])
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger className="w-full text-left">Edit task</DialogTrigger>
       <DialogContent className="w-custom-form rounded-lg p-[16px] ">
         <DialogHeader>
@@ -26,16 +57,24 @@ function EditTask({ taskSaved }: { taskSaved: any }) {
           </DialogDescription>
         </DialogHeader>
 
-        <form action="" className="flex flex-col gap-[1.5rem]">
+        <form
+          action={(formData: FormData) => {
+            formAction(formData)
+          }}
+          className="flex flex-col gap-[1.5rem]"
+        >
           <div>
             <Label htmlFor="title" className="text-[0.75rem] font-bold">
               Title
             </Label>
             <Input
               id="title"
+              value={title}
               placeholder="e.g. Take coffee break"
               name="title"
-              defaultValue={taskSaved.title}
+              onChange={(e) => {
+                setTitle(e.target.value)
+              }}
             />
           </div>
 
@@ -49,7 +88,8 @@ function EditTask({ taskSaved }: { taskSaved: any }) {
         15 minute break will  recharge the batteries 
         a little."
               name="description"
-              defaultValue={taskSaved.description}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
 

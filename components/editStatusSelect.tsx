@@ -48,6 +48,7 @@ function EditStatusSelect({ statusLabel }: { statusLabel?: any }) {
     try {
       const parseValue = JSON.parse(value)
       setStatuSelected(parseValue)
+      console.log({ statusSelected })
     } catch (error) {
       console.error('Error parsing JSON:', error)
     }

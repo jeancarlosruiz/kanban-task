@@ -1,13 +1,61 @@
 'use server'
-import { boards, columns, subtasks, tasks, users } from '@/db/schema'
+import { subtasks, tasks } from '@/db/schema'
 import { db } from '@/db'
-import { auth } from '@/auth'
 import { and, eq } from 'drizzle-orm'
-import { boardSchema, taskSchema } from '@/lib/zod'
+import { taskSchema } from '@/lib/zod'
 import { ZodError } from 'zod'
-import { memoize } from 'nextjs-better-unstable-cache'
 import { revalidateTag } from 'next/cache'
-import { getCurrentUser } from './auth'
+import { updateSubtasks } from './subtasks'
+
+export const updateTask = async (prev: any, formData: FormData, id: string) => {
+  const subtasksJSON: any = formData.get('subtasks')
+  const statusJSON: any = formData.get('status')
+  const newSubtasks = JSON.parse(subtasksJSON)
+  const status = JSON.parse(statusJSON)
+
+  console.log({ status })
+
+  try {
+    // await db.update(tasks).set({
+    //   title: formData.get('title'),
+    //   description: formData.get('description'),
+    //   status: status.name,
+    // })
+
+    // await updateSubtasks(newSubtasks, id)
+
+    revalidateTag('dashboard:boardSelected')
+
+    return {
+      message: 'success',
+      errors: null,
+      fieldValues: {
+        title: '',
+        description: '',
+        subtasks: [],
+      },
+    }
+  } catch (error) {
+    if (error instanceof ZodError) {
+      const zodError = error as ZodError
+      const errorMap = zodError.flatten().fieldErrors
+      //!  const { name, columns } = errorMap
+
+      console.log('zod error', error)
+
+      return {
+        message: 'error',
+        errors: errorMap,
+        fieldValues: {
+          title: formData.get('title'),
+          description: formData.get('description'),
+        },
+      }
+    }
+
+    console.log(error)
+  }
+}
 
 export const deleteTask = async (id: string) => {
   try {

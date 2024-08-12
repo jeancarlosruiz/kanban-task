@@ -36,7 +36,7 @@ function EditSubtasks({ savedSubtasks }: { savedSubtasks: EditSubtask[] }) {
     setSubtasks(newSubtasks)
   }
 
-  const onChangeFn = (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeFn = (event: any, id: string) => {
     const subtasksUpdated = subtasks.map((subtask) => {
       if (subtask.id === id) {
         return { ...subtask, title: event.target.value }
@@ -60,10 +60,10 @@ function EditSubtasks({ savedSubtasks }: { savedSubtasks: EditSubtask[] }) {
             value={title}
             placeholder={placeholder}
             onClickFn={() => deleteSubtask(id)}
-            onChangeFn={onChangeFn(id)}
+            onChangeFn={(e) => onChangeFn(e, id)}
           />
         ))}
-        <Input type="hidden" value={JSON.stringify(subtasks)} />
+        <Input type="hidden" value={JSON.stringify(subtasks)} name="subtasks" />
       </div>
       <Button
         variant="secondary"
@@ -101,7 +101,9 @@ function Subtask({
         type="text"
         value={value}
         placeholder={placeholder}
-        onChange={onChangeFn}
+        onChange={(e) => {
+          onChangeFn(e)
+        }}
       />
       <Button variant="ghost" onClick={onClickFn} type="button">
         <svg
