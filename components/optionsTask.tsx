@@ -37,7 +37,7 @@ function OptionsTask({ task }: { task: any }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[12rem] ">
         <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-          <EditTask />
+          <EditTask taskSaved={task} />
         </DropdownMenuItem>
         <DropdownMenuItem
           className="text-red-300"

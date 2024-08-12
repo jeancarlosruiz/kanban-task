@@ -11,17 +11,11 @@ import {
   Textarea,
 } from '@/components/ui'
 import { Submit, StatusSelect, EditSubtasks } from '@/components/index'
-import { ReactNode } from 'react'
 
-const savedSubtasks = [
-  { id: '123', title: 'Define user model', isCompleted: false },
-  { id: '456', title: 'Add auth endpoints', isCompleted: true },
-]
-
-function EditTask() {
+function EditTask({ taskSaved }: { taskSaved: any }) {
   return (
     <Dialog>
-      <DialogTrigger>Edit task</DialogTrigger>
+      <DialogTrigger className="w-full text-left">Edit task</DialogTrigger>
       <DialogContent className="w-custom-form rounded-lg p-[16px] ">
         <DialogHeader>
           <DialogTitle className="text-left text-[1.125rem]">
@@ -41,6 +35,7 @@ function EditTask() {
               id="title"
               placeholder="e.g. Take coffee break"
               name="title"
+              defaultValue={taskSaved.title}
             />
           </div>
 
@@ -54,11 +49,12 @@ function EditTask() {
         15 minute break will  recharge the batteries 
         a little."
               name="description"
+              defaultValue={taskSaved.description}
             />
           </div>
 
-          <EditSubtasks savedSubtasks={savedSubtasks} />
-          <StatusSelect />
+          <EditSubtasks savedSubtasks={taskSaved.subtasks} />
+          <StatusSelect statusLabel={taskSaved.status} />
 
           <Submit variant="default">Edit Task</Submit>
         </form>

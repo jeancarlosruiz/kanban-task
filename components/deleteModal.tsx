@@ -32,7 +32,7 @@ function DeleteModal({
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>{children}</DialogTrigger>
+      <DialogTrigger className="w-full text-left">{children}</DialogTrigger>
       <DialogContent className="w-custom-form rounded-lg p-[24px] ">
         <DialogHeader>
           <DialogTitle className="text-left text-[1.125rem] text-red-300">

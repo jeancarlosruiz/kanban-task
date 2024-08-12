@@ -11,6 +11,7 @@ import { CurrentStatus, OptionsTask, Subtask } from '@/components/index'
 import { useEffect, useState } from 'react'
 
 function BubbleTask({ task }: { task: any }) {
+  const [open, setOpen] = useState(false)
   const [subtaskCompleted, setSubtaskCompleted] = useState(0)
 
   const [subtasks, setSubtasks] = useState([])
@@ -22,13 +23,12 @@ function BubbleTask({ task }: { task: any }) {
       )
 
       setSubtaskCompleted(completed.length)
-
-      return setSubtasks(task.subtasks)
+      setSubtasks(task.subtasks)
     }
   }, [task])
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="w-full">
         <div className="w-[17.5rem] flex flex-col gap-1 bg-white-100 dark:bg-black-600 rounded-lg px-[16px] py-[23px] shadow-[0px_5px_10px_0px_rgba(54,78,126,0.25)]">
           <h3 className="text-[0.9375rem] font-bold text-left">{task.title}</h3>
@@ -81,7 +81,7 @@ function BubbleTask({ task }: { task: any }) {
           </div>
         )}
 
-        <CurrentStatus status="DOING" />
+        <CurrentStatus status={task.status} />
       </DialogContent>
     </Dialog>
   )
