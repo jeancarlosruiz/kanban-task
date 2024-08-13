@@ -64,7 +64,7 @@ function EditStatusSelect({ statusLabel }: { statusLabel?: any }) {
         Status
       </Label>
       <Select
-        value={statusSelected?.name}
+        value={JSON.stringify(statusSelected)}
         name="status"
         onValueChange={(value) => handleValueChange(value)}
       >

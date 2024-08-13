@@ -13,16 +13,18 @@ export const updateTask = async (prev: any, formData: FormData, id: string) => {
   const newSubtasks = JSON.parse(subtasksJSON)
   const status = JSON.parse(statusJSON)
 
-  console.log({ status })
-
   try {
-    // await db.update(tasks).set({
-    //   title: formData.get('title'),
-    //   description: formData.get('description'),
-    //   status: status.name,
-    // })
+    await db
+      .update(tasks)
+      .set({
+        title: formData.get('title'),
+        description: formData.get('description'),
+        status: status.name,
+        columnId: status.id,
+      })
+      .where(eq(tasks.id, id))
 
-    // await updateSubtasks(newSubtasks, id)
+    await updateSubtasks(newSubtasks, id)
 
     revalidateTag('dashboard:boardSelected')
 

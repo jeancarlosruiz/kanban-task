@@ -13,7 +13,7 @@ import {
 import { Submit, BoardColumns } from '@/components/index'
 import { useFormState } from 'react-dom'
 import { editBoard } from '@/actions/boards'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const initialState = {
   message: '',
@@ -26,17 +26,28 @@ const initialState = {
 }
 
 function EditBoard({ disabled, board }: { disabled: any; board: any }) {
-  const [state, formAction] = useFormState(editBoard, initialState)
+  const handleAction = (prev: any, formData: FormData) =>
+    editBoard(prev, formData, board?.id)
+
+  const [state, formAction] = useFormState(handleAction, initialState)
   const [open, setOpen] = useState(false)
 
-  console.log({ board })
-
-  useEffect(() => {}, [])
-
   return (
-    <DropdownMenuItem onSelect={(e) => e.preventDefault()} disabled={disabled}>
+    <>
+      <DropdownMenuItem
+        onSelect={(e) => e.preventDefault()}
+        disabled={disabled}
+      >
+        <button
+          onClick={() => setOpen(true)}
+          className="w-full text-left"
+          disabled={disabled}
+        >
+          Edit board
+        </button>
+      </DropdownMenuItem>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger>Edit board</DialogTrigger>
+        <DialogTrigger className="hidden">Edit board</DialogTrigger>
         <DialogContent className="w-custom-form rounded-lg p-[16px]">
           <DialogHeader>
             <DialogTitle className="text-left text-[1.125rem]">
@@ -72,7 +83,7 @@ function EditBoard({ disabled, board }: { disabled: any; board: any }) {
           </form>
         </DialogContent>
       </Dialog>
-    </DropdownMenuItem>
+    </>
   )
 }
 

@@ -37,7 +37,7 @@ const Page = async () => {
                 {boardSelected.columns.map((column: any) => (
                   <Column key={column.id} column={column} />
                 ))}
-                <NewColumn />
+                <NewColumn boardId={boardSelected.id} />
               </>
             ) : (
               <EmptyBoard />

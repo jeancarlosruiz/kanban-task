@@ -33,7 +33,7 @@ function BoardsMenu({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="text-[1.125rem] font-bold">
+      <DialogTrigger className="text-[1.125rem] font-bold self-end">
         {boardSelected && Object.keys(boardSelected).length !== 0
           ? boardSelected?.name
           : 'Create a new board'}

@@ -13,7 +13,7 @@ import {
 import { Submit, EditStatusSelect, EditSubtasks } from '@/components/index'
 import { useFormState } from 'react-dom'
 import { updateTask } from '@/actions/tasks'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const initialState = {
   message: '',
@@ -40,10 +40,6 @@ function EditTask({
   const [description, setDescription] = useState(taskSaved.description)
   const [state, formAction] = useFormState(handleFormState, initialState)
 
-  useEffect(() => {
-    console.log({ title, description })
-  }, [title, description])
-
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger className="w-full text-left">Edit task</DialogTrigger>
@@ -60,6 +56,7 @@ function EditTask({
         <form
           action={(formData: FormData) => {
             formAction(formData)
+            setIsOpen(false)
           }}
           className="flex flex-col gap-[1.5rem]"
         >
@@ -96,7 +93,7 @@ function EditTask({
           <EditSubtasks savedSubtasks={taskSaved.subtasks} />
           <EditStatusSelect statusLabel={taskSaved.status} />
 
-          <Submit variant="default">Edit Task</Submit>
+          <Submit variant="default">Save changes</Submit>
         </form>
       </DialogContent>
     </Dialog>

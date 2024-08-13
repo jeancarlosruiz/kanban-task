@@ -72,7 +72,7 @@ function AddNewBoard() {
             <Input id="title" placeholder="e.g. Web Design" name="name" />
           </div>
 
-          <BoardColumns />
+          <BoardColumns columnsArr={[]} />
 
           <Submit variant="default">Create New Board</Submit>
         </form>

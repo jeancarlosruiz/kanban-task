@@ -8,6 +8,7 @@ import { ZodError } from 'zod'
 import { memoize } from 'nextjs-better-unstable-cache'
 import { revalidateTag } from 'next/cache'
 import { getCurrentUser } from './auth'
+import { updateColumns } from './columns'
 
 export const editBoard = async (
   prev: any,
@@ -15,8 +16,23 @@ export const editBoard = async (
   boardId: string
 ) => {
   try {
+    const title = formData.get('name')
+    const columnsJSON: any = formData.get('columns')
+    const columnsParse = JSON.parse(columnsJSON)
+
+    await db
+      .update(boards)
+      .set({
+        name: title,
+      })
+      .where(eq(boards.id, boardId))
+
+    await updateColumns(columnsParse, boardId)
+
+    revalidateTag('dashboard:boardSelected')
+
     return {
-      message: '',
+      message: 'Success',
       data: null,
       errors: null,
       fieldValues: {

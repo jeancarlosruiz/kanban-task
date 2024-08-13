@@ -50,6 +50,14 @@ async function Options() {
           )}
         </DropdownMenuLabel>
         <DropdownMenuItem>Profile</DropdownMenuItem>
+        {/* <DropdownMenuItem>
+          <button
+            onClick={() => setIsEditOpen(true)}
+            className="w-full text-left"
+          >
+            Edit board
+          </button>
+        </DropdownMenuItem> */}
         <EditBoard disabled={!currentBoard} board={currentBoard} />
         <DeleteBoard currentBoard={currentBoard} disabled={!currentBoard} />
         <DropdownMenuSeparator />
