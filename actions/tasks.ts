@@ -74,9 +74,11 @@ export const addNewTask = async (prev: any, formData: FormData) => {
   const newSubtasks = JSON.parse(subtasksJSON)
   const status = JSON.parse(statusJSON)
 
+  console.log({ status })
+
   try {
     const newTask = taskSchema.parse({
-      title: formData.get('title'),
+      name: formData.get('name'),
       description: formData.get('description'),
       subtasks: newSubtasks,
       status,
@@ -86,7 +88,7 @@ export const addNewTask = async (prev: any, formData: FormData) => {
       .insert(tasks)
       .values({
         columnId: status.id,
-        title: newTask.title,
+        title: newTask.name,
         description: newTask.description,
         status: status.name,
       })
@@ -109,16 +111,14 @@ export const addNewTask = async (prev: any, formData: FormData) => {
       fieldValues: {
         title: '',
         description: '',
-        subtasks: [],
+        subtasks: '',
+        status: '',
       },
     }
   } catch (error) {
     if (error instanceof ZodError) {
       const zodError = error as ZodError
       const errorMap = zodError.flatten().fieldErrors
-      //!  const { name, columns } = errorMap
-
-      console.log('zod error', error)
 
       return {
         message: 'error',
@@ -126,6 +126,8 @@ export const addNewTask = async (prev: any, formData: FormData) => {
         fieldValues: {
           title: formData.get('title'),
           description: formData.get('description'),
+          subtasks: formData.get('subtasks'),
+          status: formData.get('status'),
         },
       }
     }

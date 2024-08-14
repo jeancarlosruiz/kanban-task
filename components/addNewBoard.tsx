@@ -12,7 +12,7 @@ import {
 import { Submit, BoardColumns } from '@/components/index'
 import { useFormState } from 'react-dom'
 import { createBoard } from '@/actions/boards'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const initialState = {
   message: '',
@@ -24,14 +24,23 @@ const initialState = {
   },
 }
 
-function AddNewBoard() {
+function AddNewBoard({
+  boardDialog,
+  setBoardDialog,
+}: {
+  boardDialog: boolean
+  setBoardDialog: any
+}) {
   const [state, formAction] = useFormState(createBoard, initialState)
-  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (state?.message === 'success') setBoardDialog(false)
+  }, [state])
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={boardDialog} onOpenChange={setBoardDialog}>
       <DialogTrigger asChild>
-        <button className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500">
+        <button className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] items-center gap-3 text-purple-500 hidden">
           <svg
             width="16"
             height="16"
@@ -58,21 +67,30 @@ function AddNewBoard() {
           </DialogDescription>
         </DialogHeader>
 
-        <form
-          action={async (formData: FormData) => {
-            formAction(formData)
-            setOpen(false)
-          }}
-          className="flex flex-col gap-[1.5rem]"
-        >
+        <form action={formAction} className="flex flex-col gap-[1.5rem]">
           <div>
-            <Label htmlFor="title" className="text-[0.75rem] font-bold">
+            <Label
+              htmlFor="title"
+              className="text-[0.75rem] font-bold w-full inline-flex items-center justify-between"
+            >
               Title
+              {state?.message === 'error' && state.errors?.name?.length && (
+                <small className="text-red-300">{state.errors?.name[0]}</small>
+              )}
             </Label>
-            <Input id="title" placeholder="e.g. Web Design" name="name" />
+            <Input
+              id="title"
+              placeholder="e.g. Web Design"
+              name="name"
+              className={
+                state?.message === 'error' && state.errors?.name?.length
+                  ? 'border-red-300 dark:border-red-300'
+                  : ''
+              }
+            />
           </div>
 
-          <BoardColumns columnsArr={[]} />
+          <BoardColumns columnsArr={[]} state={state} />
 
           <Submit variant="default">Create New Board</Submit>
         </form>

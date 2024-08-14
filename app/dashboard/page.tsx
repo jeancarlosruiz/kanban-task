@@ -13,11 +13,16 @@ import {
 } from '@/components/index'
 import { ScrollArea, ScrollBar } from '@/components/ui'
 
+// Todo: validaciones.
+// Todo: diseno para desktop.
+
 const Page = async () => {
   const { user } = await getCurrentUser()
   const userId = user?.id as string
   const allBoards = await getBoards(userId)
   const boardSelected: any = await getBoardSelected(userId, user?.boardSelected)
+
+  console.log({ boardSelected })
 
   return (
     <>
@@ -25,7 +30,7 @@ const Page = async () => {
         <div className="w-custom mx-auto py-[16px] flex items-center gap-[1rem]">
           <Logo />
           <BoardsMenu boards={allBoards} boardSelected={boardSelected} />
-          <AddTaskModal />
+          <AddTaskModal boardExist={boardSelected} />
           <Options />
         </div>
       </header>

@@ -13,6 +13,7 @@ import {
 } from '@/components/ui'
 import { Signout, DeleteBoard, EditBoard } from '@/components/index'
 import { getBoardSelected } from '@/utils/boards'
+import Link from 'next/link'
 
 async function Options() {
   const { user, name, fullName } = await getCurrentUser()
@@ -49,7 +50,11 @@ async function Options() {
             <span className="text-[1rem]"> {fullName && fullName[0]}</span>
           )}
         </DropdownMenuLabel>
-        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/profile" className="block w-full">
+            Profile
+          </Link>
+        </DropdownMenuItem>
         {/* <DropdownMenuItem>
           <button
             onClick={() => setIsEditOpen(true)}

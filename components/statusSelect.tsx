@@ -16,7 +16,7 @@ interface StatusState {
   name: string
 }
 
-function StatusSelect() {
+function StatusSelect({ state }: { state: any }) {
   const [status, setStatus] = useState<StatusState[] | undefined>([])
   const [statusSelected, setStatuSelected] = useState<string>('')
 
@@ -33,8 +33,6 @@ function StatusSelect() {
         name,
       }
     })
-
-    // console.log(statusFromColumns)
     setStatus(statusFromColumns)
   }
 
@@ -55,12 +53,21 @@ function StatusSelect() {
         <SelectTrigger id="status">
           <SelectValue
             placeholder={
-              status?.find((s) => s.id === statusSelected)?.name ||
+              // status?.find((s) => s.id === statusSelected)?.name ||
+              // 'Select a status'
               'Select a status'
             }
           />
         </SelectTrigger>
-        <SelectContent position="popper" side="top">
+        <SelectContent
+          position="popper"
+          side="top"
+          className={
+            state?.message === 'error' && state.errors?.status?.length
+              ? 'border-red-300 dark:border-red-300'
+              : ''
+          }
+        >
           {status?.map(({ id, name }) => (
             <SelectItem key={id} value={JSON.stringify({ id, name })}>
               {name}

@@ -50,26 +50,57 @@ export class UserExistError extends ZodError {
   }
 }
 
-export const boardSchema = object({
+export const columnObjSchema = object({
   name: string({ required_error: 'Required' }).min(1, 'Required'),
 })
 
-export const columnSchema = array(
+export const columnArrSchema = array(
   object({
-    name: string({ required_error: 'Required' }).min(1, 'Required'),
+    name: string(),
   })
+).refine(
+  (arr) => arr.every((obj) => obj.name.trim() !== ''),
+  (arr) => {
+    const i = arr.findIndex((obj) => obj.name.trim() === '')
+
+    return {
+      params: { index: i, message: 'Required' },
+      message: 'Required',
+      path: ['name'],
+    }
+  }
+)
+
+export const boardSchema = object({
+  name: string({ required_error: 'Required' }).min(1, 'Required'),
+  columns: columnArrSchema.optional(),
+})
+
+export const subtasks = object({
+  title: string(),
+})
+
+export const subtaskArrSchema = array(
+  object({
+    name: string(),
+  })
+).refine(
+  (arr) => arr.every((obj) => obj.name.trim() !== ''),
+  (arr) => {
+    const i = arr.findIndex((obj) => obj.name.trim() === '')
+
+    return {
+      params: { index: i, message: 'Required' },
+      message: 'Required',
+      path: ['name'],
+    }
+  }
 )
 
 export const taskSchema = object({
-  title: string({ required_error: 'Required' }).min(1, 'Required'),
+  name: string({ required_error: 'Required' }).min(1, 'Required'),
   description: string(),
-  subtasks: array(
-    optional(
-      object({
-        title: string({ required_error: 'Required' }).min(1, 'Required'),
-      })
-    )
-  ),
+  subtasks: subtaskArrSchema.optional(),
   status: object({
     id: string({ required_error: 'Required' }).min(1, 'Required'),
     name: string({ required_error: 'Required' }).min(1, 'Required'),

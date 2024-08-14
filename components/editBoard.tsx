@@ -1,6 +1,7 @@
 'use client'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -13,7 +14,7 @@ import {
 import { Submit, BoardColumns } from '@/components/index'
 import { useFormState } from 'react-dom'
 import { editBoard } from '@/actions/boards'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const initialState = {
   message: '',
@@ -25,12 +26,16 @@ const initialState = {
   },
 }
 
-function EditBoard({ disabled, board }: { disabled: any; board: any }) {
+function EditBoard({ disabled, board }: { disabled: boolean; board: any }) {
   const handleAction = (prev: any, formData: FormData) =>
     editBoard(prev, formData, board?.id)
 
   const [state, formAction] = useFormState(handleAction, initialState)
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (state?.message === 'Success') setOpen(false)
+  }, [state])
 
   return (
     <>
@@ -58,29 +63,37 @@ function EditBoard({ disabled, board }: { disabled: any; board: any }) {
             </DialogDescription>
           </DialogHeader>
 
-          <form
-            action={async (formData: FormData) => {
-              formAction(formData)
-              setOpen(false)
-            }}
-            className="flex flex-col gap-[1.5rem]"
-          >
+          <form action={formAction} className="flex flex-col gap-[1.5rem]">
             <div>
-              <Label htmlFor="title" className="text-[0.75rem] font-bold">
+              <Label
+                htmlFor="title"
+                className="text-[0.75rem] font-bold w-full inline-flex items-center justify-between"
+              >
                 Title
+                {state?.message === 'error' && state.errors?.name?.length && (
+                  <small className="text-red-300">
+                    {state.errors?.name[0]}
+                  </small>
+                )}
               </Label>
               <Input
                 id="title"
                 placeholder="e.g. Web Design"
                 name="name"
-                defaultValue={board.name}
+                defaultValue={board?.name}
+                className={
+                  state?.message === 'error' && state.errors?.name?.length
+                    ? 'border-red-300 dark:border-red-300'
+                    : ''
+                }
               />
             </div>
 
-            <BoardColumns columnsArr={board.columns} />
+            <BoardColumns columnsArr={board?.columns} state={state} />
 
             <Submit variant="default">Save Changes</Submit>
           </form>
+          <DialogClose onClick={() => setOpen(false)} />
         </DialogContent>
       </Dialog>
     </>

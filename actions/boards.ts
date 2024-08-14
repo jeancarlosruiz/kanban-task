@@ -8,7 +8,7 @@ import { ZodError } from 'zod'
 import { memoize } from 'nextjs-better-unstable-cache'
 import { revalidateTag } from 'next/cache'
 import { getCurrentUser } from './auth'
-import { updateColumns } from './columns'
+import { createColumns, updateColumns } from './columns'
 
 export const editBoard = async (
   prev: any,
@@ -16,14 +16,18 @@ export const editBoard = async (
   boardId: string
 ) => {
   try {
-    const title = formData.get('name')
     const columnsJSON: any = formData.get('columns')
     const columnsParse = JSON.parse(columnsJSON)
+
+    const board = boardSchema.parse({
+      name: formData.get('name'),
+      columns: columnsParse,
+    })
 
     await db
       .update(boards)
       .set({
-        name: title,
+        name: board.name,
       })
       .where(eq(boards.id, boardId))
 
@@ -194,6 +198,7 @@ export const createBoard = async (prevState: any, formData: FormData) => {
   try {
     const board = boardSchema.parse({
       name: formData.get('name'),
+      columns: newColumns,
     })
 
     const newBoard = await db
@@ -205,12 +210,7 @@ export const createBoard = async (prevState: any, formData: FormData) => {
       .returning({ id: boards.id })
 
     if (newColumns.length > 0) {
-      newColumns.forEach(async (el: any) => {
-        await db.insert(columns).values({
-          boardId: newBoard[0].id,
-          name: el.name,
-        })
-      })
+      await createColumns(board.columns, newBoard[0].id)
     }
 
     revalidateTag('dashboard:boards')

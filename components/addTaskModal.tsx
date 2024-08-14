@@ -14,7 +14,7 @@ import {
 import { NewSubtasks, Submit, StatusSelect } from '@/components/index'
 import { addNewTask } from '@/actions/tasks'
 import { useFormState } from 'react-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const initialState = {
   message: '',
@@ -22,17 +22,28 @@ const initialState = {
   fieldValues: {
     title: '',
     description: '',
-    subtasks: [],
+    subtasks: '',
+    status: '',
   },
 }
 
-function AddTaskModal() {
+function AddTaskModal({ boardExist }: { boardExist: any }) {
   const [state, formAction] = useFormState(addNewTask, initialState)
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (state?.message === 'success') setOpen(false)
+
+    console.log(state)
+  }, [state])
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className=" h-[2rem] px-[18px] ml-auto mr-[-5px]">
+        <Button
+          className=" h-[2rem] px-[18px] ml-auto mr-[-5px]"
+          disabled={!boardExist || boardExist.columns.length === 0}
+        >
           <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
             <path
               fill="#FFF"
@@ -51,13 +62,7 @@ function AddTaskModal() {
           </DialogDescription>
         </DialogHeader>
 
-        <form
-          action={(formData: FormData) => {
-            formAction(formData)
-            setOpen(false)
-          }}
-          className="flex flex-col gap-[1.5rem]"
-        >
+        <form action={formAction} className="flex flex-col gap-[1.5rem]">
           <div>
             <Label htmlFor="title" className="text-[0.75rem] font-bold">
               Title
@@ -65,7 +70,12 @@ function AddTaskModal() {
             <Input
               id="title"
               placeholder="e.g. Take coffee break"
-              name="title"
+              name="name"
+              className={
+                state?.message === 'error' && state.errors?.name?.length
+                  ? 'border-red-300 dark:border-red-300'
+                  : ''
+              }
             />
           </div>
 
@@ -82,8 +92,8 @@ function AddTaskModal() {
             />
           </div>
 
-          <NewSubtasks />
-          <StatusSelect />
+          <NewSubtasks state={state} />
+          <StatusSelect state={state} />
 
           <Submit variant="default">Create Task</Submit>
         </form>

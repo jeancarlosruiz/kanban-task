@@ -31,7 +31,7 @@ const initialState = [
   },
 ]
 
-function NewSubtasks() {
+function NewSubtasks({ state }: { state: any }) {
   const [subtasks, setSubtasks] = useState<NewSubtask[]>(initialState)
 
   const addNewSubTask = () => {

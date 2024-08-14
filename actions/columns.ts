@@ -1,13 +1,10 @@
 'use server'
 import { columns } from '@/db/schema'
 import { db } from '@/db'
-import { auth } from '@/auth'
-import { and, eq } from 'drizzle-orm'
-import { boardSchema, taskSchema } from '@/lib/zod'
+import { eq } from 'drizzle-orm'
+import { columnObjSchema } from '@/lib/zod'
 import { ZodError } from 'zod'
-import { memoize } from 'nextjs-better-unstable-cache'
 import { revalidateTag } from 'next/cache'
-import { getCurrentUser } from './auth'
 
 export const updateColumns = async (columnsArr: any, boardId: string) => {
   try {
@@ -73,30 +70,51 @@ export const addNewColumn = async (
   boardId: string
 ) => {
   try {
-    const title = formData.get('name')
+    const column = columnObjSchema.parse({
+      name: formData.get('name'),
+    })
 
     await db.insert(columns).values({
-      name: title,
+      name: column.name,
       boardId,
     })
 
     revalidateTag('dashboard:boardSelected')
 
     return {
-      message: 'Success',
+      message: 'success',
       errors: null,
       fieldValues: {
-        title: '',
+        name: '',
       },
     }
   } catch (error) {
-    console.log(error)
-    return {
-      message: 'Error',
-      errors: null,
-      fieldValues: {
-        title: '',
-      },
+    if (error instanceof ZodError) {
+      const zodError = error as ZodError
+      const errorMap = zodError.flatten().fieldErrors
+      const { name } = errorMap
+      return {
+        message: 'error',
+        errors: {
+          name,
+        },
+        fieldValues: {
+          name: '',
+        },
+      }
     }
+  }
+}
+
+export const createColumns = async (columnsArr: any, boardId: string) => {
+  try {
+    columnsArr.forEach(async (el: any) => {
+      await db.insert(columns).values({
+        boardId,
+        name: el.name,
+      })
+    })
+  } catch (error) {
+    console.log(error)
   }
 }

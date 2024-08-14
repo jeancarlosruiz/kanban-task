@@ -14,7 +14,7 @@ interface NewColumn {
   name: string
 }
 
-function BoardColumns({ columnsArr }: { columnsArr: any }) {
+function BoardColumns({ columnsArr, state }: { columnsArr: any; state: any }) {
   const [columns, setColumns] = useState<NewColumn[]>(columnsArr)
 
   const addNewSubTask = () => {
@@ -55,6 +55,7 @@ function BoardColumns({ columnsArr }: { columnsArr: any }) {
             value={name}
             onClickFn={() => deleteColumn(id)}
             onChangeFn={onChangeFn(id)}
+            state={state}
           />
         ))}
         <Input type="hidden" value={JSON.stringify(columns)} name="columns" />
@@ -76,11 +77,13 @@ function Column({
   value,
   onChangeFn,
   onClickFn,
+  state,
 }: {
   value: string
   id: string
   onChangeFn: ChangeEventHandler
   onClickFn: MouseEventHandler
+  state: any
 }) {
   const labelId = useId()
   return (
@@ -88,7 +91,19 @@ function Column({
       <Label htmlFor={labelId} className="sr-only">
         input label
       </Label>
-      <Input id={labelId} type="text" value={value} onChange={onChangeFn} />
+      <Input
+        id={labelId}
+        type="text"
+        value={value}
+        onChange={onChangeFn}
+        className={
+          state?.message === 'error' &&
+          state.errors?.columns?.length &&
+          value === ''
+            ? 'border-red-300 dark:border-red-300'
+            : ''
+        }
+      />
       <Button variant="ghost" onClick={onClickFn} type="button">
         <svg
           width="15"
