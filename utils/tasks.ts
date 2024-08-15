@@ -1,7 +1,7 @@
 import 'server-only'
-import { boards, columns, users, tasks } from '@/db/schema'
+import { tasks } from '@/db/schema'
 import { db } from '@/db'
-import { eq, and } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 import { memoize } from 'nextjs-better-unstable-cache'
 
 export const getTasks = memoize(

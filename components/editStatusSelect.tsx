@@ -16,7 +16,13 @@ interface StatusState {
   name: string
 }
 
-function EditStatusSelect({ statusLabel }: { statusLabel?: any }) {
+function EditStatusSelect({
+  statusLabel,
+  state,
+}: {
+  statusLabel?: any
+  state: any
+}) {
   const [status, setStatus] = useState<StatusState[] | undefined>([])
   const [statusSelected, setStatuSelected] = useState<StatusState | undefined>()
 
@@ -48,7 +54,6 @@ function EditStatusSelect({ statusLabel }: { statusLabel?: any }) {
     try {
       const parseValue = JSON.parse(value)
       setStatuSelected(parseValue)
-      console.log({ statusSelected })
     } catch (error) {
       console.error('Error parsing JSON:', error)
     }
@@ -68,7 +73,14 @@ function EditStatusSelect({ statusLabel }: { statusLabel?: any }) {
         name="status"
         onValueChange={(value) => handleValueChange(value)}
       >
-        <SelectTrigger id="status">
+        <SelectTrigger
+          id="status"
+          className={
+            state?.message === 'error' && state.errors?.status?.length
+              ? 'border-red-300 dark:border-red-300'
+              : ''
+          }
+        >
           <SelectValue>{statusSelected && statusSelected?.name}</SelectValue>
         </SelectTrigger>
         <SelectContent position="popper" side="top">

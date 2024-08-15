@@ -1,26 +1,32 @@
 'use server'
-import { subtasks, tasks } from '@/db/schema'
+import { tasks } from '@/db/schema'
 import { db } from '@/db'
-import { and, eq } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 import { taskSchema } from '@/lib/zod'
 import { ZodError } from 'zod'
 import { revalidateTag } from 'next/cache'
-import { updateSubtasks } from './subtasks'
+import { createSubtasks, updateSubtasks } from './subtasks'
 
 export const updateTask = async (prev: any, formData: FormData, id: string) => {
   const subtasksJSON: any = formData.get('subtasks')
   const statusJSON: any = formData.get('status')
   const newSubtasks = JSON.parse(subtasksJSON)
-  const status = JSON.parse(statusJSON)
 
   try {
+    const taskUpdated = taskSchema.parse({
+      name: formData.get('title'),
+      description: formData.get('description'),
+      subtasks: newSubtasks,
+      status: statusJSON ? JSON.parse(statusJSON) : '',
+    })
+
     await db
       .update(tasks)
       .set({
-        title: formData.get('title'),
-        description: formData.get('description'),
-        status: status.name,
-        columnId: status.id,
+        title: taskUpdated.name,
+        description: taskUpdated.description,
+        status: taskUpdated.status.name,
+        columnId: taskUpdated.status.id,
       })
       .where(eq(tasks.id, id))
 
@@ -41,9 +47,6 @@ export const updateTask = async (prev: any, formData: FormData, id: string) => {
     if (error instanceof ZodError) {
       const zodError = error as ZodError
       const errorMap = zodError.flatten().fieldErrors
-      //!  const { name, columns } = errorMap
-
-      console.log('zod error', error)
 
       return {
         message: 'error',
@@ -72,35 +75,27 @@ export const addNewTask = async (prev: any, formData: FormData) => {
   const subtasksJSON: any = formData.get('subtasks')
   const statusJSON: any = formData.get('status')
   const newSubtasks = JSON.parse(subtasksJSON)
-  const status = JSON.parse(statusJSON)
-
-  console.log({ status })
 
   try {
     const newTask = taskSchema.parse({
       name: formData.get('name'),
       description: formData.get('description'),
       subtasks: newSubtasks,
-      status,
+      status: statusJSON ? JSON.parse(statusJSON) : '',
     })
 
     const taskRow = await db
       .insert(tasks)
       .values({
-        columnId: status.id,
+        columnId: newTask?.status?.id,
         title: newTask.name,
         description: newTask.description,
-        status: status.name,
+        status: newTask.status.name,
       })
       .returning({ id: tasks.id })
 
     if (newSubtasks.length) {
-      newSubtasks.forEach(async ({ title }: { title: string }) => {
-        await db.insert(subtasks).values({
-          taskId: taskRow[0].id,
-          title,
-        })
-      })
+      await createSubtasks(newTask.subtasks, taskRow[0].id)
     }
 
     revalidateTag('dashboard:boardSelected')

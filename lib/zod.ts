@@ -82,12 +82,12 @@ export const subtasks = object({
 
 export const subtaskArrSchema = array(
   object({
-    name: string(),
+    title: string(),
   })
 ).refine(
-  (arr) => arr.every((obj) => obj.name.trim() !== ''),
+  (arr) => arr.every((obj) => obj.title.trim() !== ''),
   (arr) => {
-    const i = arr.findIndex((obj) => obj.name.trim() === '')
+    const i = arr.findIndex((obj) => obj.title.trim() === '')
 
     return {
       params: { index: i, message: 'Required' },

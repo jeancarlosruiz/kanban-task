@@ -31,8 +31,6 @@ function NewColumn({ boardId }: { boardId: string }) {
 
   useEffect(() => {
     if (state?.message === 'success') setOpen(false)
-
-    console.log(state)
   }, [state])
   return (
     <div className="flex flex-col gap-6">

@@ -128,8 +128,6 @@ export const login = async (prevState: any, formData: FormData) => {
     }
   } catch (error) {
     if (error instanceof AuthError) {
-      // console.log(error.type)
-
       switch (error.type) {
         case 'CredentialsSignin':
           return { error: 'Invalid credentials' }
@@ -139,8 +137,6 @@ export const login = async (prevState: any, formData: FormData) => {
     }
 
     if (error instanceof ZodError) {
-      // console.log(error)
-
       const zodError = error as ZodError
       const errorMap = zodError.flatten().fieldErrors
       const { email, password } = errorMap

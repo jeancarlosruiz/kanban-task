@@ -13,7 +13,7 @@ import {
 import { Submit, EditStatusSelect, EditSubtasks } from '@/components/index'
 import { useFormState } from 'react-dom'
 import { updateTask } from '@/actions/tasks'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const initialState = {
   message: '',
@@ -40,6 +40,10 @@ function EditTask({
   const [description, setDescription] = useState(taskSaved.description)
   const [state, formAction] = useFormState(handleFormState, initialState)
 
+  useEffect(() => {
+    if (state?.message === 'success') setIsOpen(false)
+  }, [state])
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger className="w-full text-left">Edit task</DialogTrigger>
@@ -53,13 +57,7 @@ function EditTask({
           </DialogDescription>
         </DialogHeader>
 
-        <form
-          action={(formData: FormData) => {
-            formAction(formData)
-            setIsOpen(false)
-          }}
-          className="flex flex-col gap-[1.5rem]"
-        >
+        <form action={formAction} className="flex flex-col gap-[1.5rem]">
           <div>
             <Label htmlFor="title" className="text-[0.75rem] font-bold">
               Title
@@ -72,6 +70,11 @@ function EditTask({
               onChange={(e) => {
                 setTitle(e.target.value)
               }}
+              className={
+                state?.message === 'error' && state.errors?.name?.length
+                  ? 'border-red-300 dark:border-red-300'
+                  : ''
+              }
             />
           </div>
 
@@ -90,8 +93,8 @@ function EditTask({
             />
           </div>
 
-          <EditSubtasks savedSubtasks={taskSaved.subtasks} />
-          <EditStatusSelect statusLabel={taskSaved.status} />
+          <EditSubtasks savedSubtasks={taskSaved.subtasks} state={state} />
+          <EditStatusSelect statusLabel={taskSaved.status} state={state} />
 
           <Submit variant="default">Save changes</Submit>
         </form>

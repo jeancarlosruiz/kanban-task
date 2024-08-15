@@ -17,7 +17,13 @@ interface EditSubtask {
   placeholder?: string
 }
 
-function EditSubtasks({ savedSubtasks }: { savedSubtasks: EditSubtask[] }) {
+function EditSubtasks({
+  savedSubtasks,
+  state,
+}: {
+  savedSubtasks: EditSubtask[]
+  state: any
+}) {
   const [subtasks, setSubtasks] = useState<EditSubtask[]>(savedSubtasks)
 
   const addNewSubTask = () => {
@@ -61,6 +67,7 @@ function EditSubtasks({ savedSubtasks }: { savedSubtasks: EditSubtask[] }) {
             placeholder={placeholder}
             onClickFn={() => deleteSubtask(id)}
             onChangeFn={(e) => onChangeFn(e, id)}
+            state={state}
           />
         ))}
         <Input type="hidden" value={JSON.stringify(subtasks)} name="subtasks" />
@@ -81,12 +88,14 @@ function EditSubtasks({ savedSubtasks }: { savedSubtasks: EditSubtask[] }) {
 function Subtask({
   value,
   placeholder,
+  state,
   onChangeFn,
   onClickFn,
 }: {
   value: string
   id: string
   placeholder?: string
+  state: any
   onChangeFn: ChangeEventHandler
   onClickFn: MouseEventHandler
 }) {
@@ -104,6 +113,13 @@ function Subtask({
         onChange={(e) => {
           onChangeFn(e)
         }}
+        className={
+          state?.message === 'error' &&
+          state.errors?.subtasks?.length &&
+          value === ''
+            ? 'border-red-300 dark:border-red-300'
+            : ''
+        }
       />
       <Button variant="ghost" onClick={onClickFn} type="button">
         <svg

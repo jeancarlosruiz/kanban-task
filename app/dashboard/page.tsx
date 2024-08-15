@@ -22,8 +22,6 @@ const Page = async () => {
   const allBoards = await getBoards(userId)
   const boardSelected: any = await getBoardSelected(userId, user?.boardSelected)
 
-  console.log({ boardSelected })
-
   return (
     <>
       <header className=" bg-white-100 dark:bg-black-600">

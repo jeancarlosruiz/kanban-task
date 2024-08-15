@@ -33,8 +33,6 @@ function AddTaskModal({ boardExist }: { boardExist: any }) {
 
   useEffect(() => {
     if (state?.message === 'success') setOpen(false)
-
-    console.log(state)
   }, [state])
 
   return (

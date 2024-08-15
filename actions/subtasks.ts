@@ -25,12 +25,8 @@ export const updateSubtasks = async (subtasksToUpdate: any, taskId: string) => {
         sst.taskId && !subtasksToUpdate.some((ssu: any) => ssu.id === sst.id)
     )
 
-    // console.log({ subtasksToUpdate, savedSubtasks, subtasksToDelete })
-
     subtasksToUpdate.forEach(async (sub: any) => {
       const isIncluded = savedSubtasks.some((ss) => ss.id === sub.id)
-
-      // console.log(sub.taskId)
 
       if (isIncluded) {
         await db
@@ -61,6 +57,19 @@ export const completeSubtask = async (id: string, bool: boolean) => {
       .where(eq(subtasks.id, id))
 
     revalidateTag('dashboard:boardSelected')
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const createSubtasks = async (subtasksArr: any, taskId: string) => {
+  try {
+    subtasksArr.forEach(async ({ title }: { title: string }) => {
+      await db.insert(subtasks).values({
+        taskId,
+        title,
+      })
+    })
   } catch (error) {
     console.log(error)
   }

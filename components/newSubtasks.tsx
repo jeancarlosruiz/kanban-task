@@ -75,6 +75,7 @@ function NewSubtasks({ state }: { state: any }) {
             placeholder={placeholder}
             onClickFn={() => deleteSubtask(id)}
             onChangeFn={onChangeFn(id)}
+            state={state}
           />
         ))}
         <Input type="hidden" value={JSON.stringify(subtasks)} name="subtasks" />
@@ -95,12 +96,14 @@ function NewSubtasks({ state }: { state: any }) {
 function Subtask({
   value,
   placeholder,
+  state,
   onChangeFn,
   onClickFn,
 }: {
   value: string
   id: string
   placeholder?: string
+  state: any
   onChangeFn: ChangeEventHandler
   onClickFn: MouseEventHandler
 }) {
@@ -116,6 +119,13 @@ function Subtask({
         value={value}
         placeholder={placeholder}
         onChange={onChangeFn}
+        className={
+          state?.message === 'error' &&
+          state.errors?.subtasks?.length &&
+          value === ''
+            ? 'border-red-300 dark:border-red-300'
+            : ''
+        }
       />
       <Button variant="ghost" onClick={onClickFn} type="button">
         <svg
