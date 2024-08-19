@@ -45,7 +45,7 @@ function BoardsMenu({
         />
       )}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className="text-[1.125rem] font-bold self-end">
+        <DialogTrigger className="text-[1.125rem] font-bold sm:hidden">
           {boardSelected && Object.keys(boardSelected).length !== 0
             ? boardSelected?.name
             : 'Create a new board'}
@@ -118,6 +118,11 @@ function BoardsMenu({
           <ToggleTheme />
         </DialogContent>
       </Dialog>
+      <h2 className="hidden sm:inline-block text-[1.5rem]">
+        {boardSelected && Object.keys(boardSelected).length !== 0
+          ? boardSelected?.name
+          : 'Create a new board'}
+      </h2>
     </>
   )
 }

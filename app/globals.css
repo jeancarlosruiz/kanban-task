@@ -18,4 +18,16 @@
   .h-custom-dvh {
     min-height: calc(100dvh - 64px);
   }
+
+  @media (min-width: 640px) {
+    .h-custom-dvh {
+      min-height: calc(100dvh - 80px);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .h-custom-dvh {
+      min-height: calc(100dvh - 96px);
+    }
+  }
 }

@@ -3,6 +3,7 @@ import { getBoards } from '@/utils/boards'
 import { getBoardSelected } from '@/utils/boards'
 import {
   AddTaskModal,
+  AsideNav,
   BoardsMenu,
   Column,
   EmptyBoard,
@@ -20,15 +21,16 @@ const Page = async () => {
 
   return (
     <>
-      <header className="bg-white-100 dark:bg-black-600">
-        <div className="mx-auto px-[16px] sm:px-[24px] py-[16px] flex items-center gap-[1rem]">
+      <header className=" bg-white-100 dark:bg-black-600">
+        <div className="mx-auto pr-[16px] sm:pr-[24px] flex items-center gap-4 md:gap-6">
           <Logo />
           <BoardsMenu boards={allBoards} boardSelected={boardSelected} />
           <AddTaskModal boardExist={boardSelected} />
           <Options />
         </div>
       </header>
-      <main>
+      <main className="relative flex overflow-hidden">
+        <AsideNav boards={allBoards} boardSelected={boardSelected} />
         <ScrollArea className="w-full">
           <section className="h-custom-dvh px-[16px] sm:px-[24px] pt-[27px] sm:pt-[24px] pb-[24px] flex gap-6 mx-auto">
             {boardSelected ? (
@@ -39,7 +41,6 @@ const Page = async () => {
                 <NewColumn boardId={boardSelected.id} />
               </>
             ) : (
-              // <EmptyBoard />
               <div className="self-center mt-[-30px] w-full flex items-center flex-col gap-[1.5625rem]">
                 <p className="text-center text-[1.125rem] text-gray-300 font-bold">
                   Start by creating a new board 😊

@@ -32,6 +32,7 @@ const config: Config = {
     },
     screens: {
       sm: '48rem',
+      md: '70rem',
     },
     extend: {
       colors: {

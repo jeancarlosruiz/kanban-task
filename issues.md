@@ -2,4 +2,4 @@
 2. Hacer loadings de todo que se requiera.
 3. Limpiar todos los any
 4. Poner las validaciones, nombre de inputs y schema homogeneos.
-5. El select selecciona el primer item por defecto.
+5. Existe un error en el orden de las columnas, poner filtro por fecha de creacion.

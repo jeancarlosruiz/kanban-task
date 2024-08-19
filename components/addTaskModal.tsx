@@ -39,15 +39,21 @@ function AddTaskModal({ boardExist }: { boardExist: any }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className=" h-[2rem] px-[18px] ml-auto mr-[-5px]"
+          className="px-[18px] ml-auto mr-[-5px]"
           disabled={!boardExist || boardExist.columns.length === 0}
         >
-          <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            width="12"
+            height="12"
+            xmlns="http://www.w3.org/2000/svg"
+            className="sm:hidden"
+          >
             <path
               fill="#FFF"
               d="M7.368 12V7.344H12V4.632H7.368V0H4.656v4.632H0v2.712h4.656V12z"
             />
           </svg>
+          <span className="hidden sm:inline">+ Add New Task</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="w-custom-form rounded-lg p-[16px] ">
