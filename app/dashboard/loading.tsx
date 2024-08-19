@@ -5,7 +5,7 @@ import React from 'react'
 function Loading() {
   return (
     <header className=" bg-white-100 dark:bg-black-600">
-      <div className="w-custom mx-auto py-[8px] flex items-center gap-[1rem]">
+      <div className="mx-auto px-[16px] sm:px-[24px] py-[8px] flex items-center gap-[1rem]">
         <Logo />
 
         <div role="status" className="animate-pulse">

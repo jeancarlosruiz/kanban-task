@@ -8,9 +8,10 @@ import { revalidateTag } from 'next/cache'
 
 export const updateColumns = async (columnsArr: any, boardId: string) => {
   try {
+    // if (columnsArr?.length === 0) return
     const savedColumns = await getColumns(boardId)
 
-    if (savedColumns?.length === 0) return
+    console.log({ savedColumns })
 
     const columnsToDelete = savedColumns?.filter(
       (sst) => sst.boardId && !columnsArr.some((ssu: any) => ssu.id === sst.id)

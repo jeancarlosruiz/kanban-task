@@ -4,7 +4,6 @@ import { getBoardSelected } from '@/utils/boards'
 import {
   AddTaskModal,
   BoardsMenu,
-  BubbleTask,
   Column,
   EmptyBoard,
   Logo,
@@ -12,9 +11,6 @@ import {
   Options,
 } from '@/components/index'
 import { ScrollArea, ScrollBar } from '@/components/ui'
-
-// Todo: validaciones.
-// Todo: diseno para desktop.
 
 const Page = async () => {
   const { user } = await getCurrentUser()
@@ -24,8 +20,8 @@ const Page = async () => {
 
   return (
     <>
-      <header className=" bg-white-100 dark:bg-black-600">
-        <div className="w-custom mx-auto py-[16px] flex items-center gap-[1rem]">
+      <header className="bg-white-100 dark:bg-black-600">
+        <div className="mx-auto px-[16px] sm:px-[24px] py-[16px] flex items-center gap-[1rem]">
           <Logo />
           <BoardsMenu boards={allBoards} boardSelected={boardSelected} />
           <AddTaskModal boardExist={boardSelected} />
@@ -34,7 +30,7 @@ const Page = async () => {
       </header>
       <main>
         <ScrollArea className="w-full">
-          <section className="h-custom-dvh w-custom py-[24px] flex gap-6 mx-auto">
+          <section className="h-custom-dvh px-[16px] sm:px-[24px] pt-[27px] sm:pt-[24px] pb-[24px] flex gap-6 mx-auto">
             {boardSelected ? (
               <>
                 {boardSelected.columns.map((column: any) => (
@@ -43,7 +39,12 @@ const Page = async () => {
                 <NewColumn boardId={boardSelected.id} />
               </>
             ) : (
-              <EmptyBoard />
+              // <EmptyBoard />
+              <div className="self-center mt-[-30px] w-full flex items-center flex-col gap-[1.5625rem]">
+                <p className="text-center text-[1.125rem] text-gray-300 font-bold">
+                  Start by creating a new board 😊
+                </p>
+              </div>
             )}
           </section>
           <ScrollBar orientation="horizontal" />

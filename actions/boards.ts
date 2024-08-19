@@ -31,7 +31,7 @@ export const editBoard = async (
       })
       .where(eq(boards.id, boardId))
 
-    await updateColumns(columnsParse, boardId)
+    await updateColumns(board.columns, boardId)
 
     revalidateTag('dashboard:boardSelected')
 
