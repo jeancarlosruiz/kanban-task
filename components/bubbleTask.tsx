@@ -52,36 +52,36 @@ function BubbleTask({ task }: { task: any }) {
             {task.description}
           </DialogDescription>
         </DialogHeader>
-
-        {subtasks.length && (
-          <div>
-            <h3 className="font-bold text-[0.75rem] mb-[16px]">
-              {`Subtasks (${subtaskCompleted} of ${subtasks.length})`}
-            </h3>
-            <div className="flex flex-col gap-2">
-              {subtasks.map(
-                ({
-                  id,
-                  title,
-                  isCompleted,
-                }: {
-                  id: string
-                  title: string
-                  isCompleted: boolean
-                }) => (
-                  <Subtask
-                    key={id}
-                    id={id}
-                    title={title}
-                    isCompleted={isCompleted}
-                  />
-                )
-              )}
+        <div className="max-h-[400px] overflow-y-auto flex flex-col gap-6">
+          {subtasks.length > 0 && (
+            <div>
+              <h3 className="font-bold text-[0.75rem] mb-[16px]">
+                {`Subtasks (${subtaskCompleted} of ${subtasks.length})`}
+              </h3>
+              <div className="flex flex-col gap-2">
+                {subtasks.map(
+                  ({
+                    id,
+                    title,
+                    isCompleted,
+                  }: {
+                    id: string
+                    title: string
+                    isCompleted: boolean
+                  }) => (
+                    <Subtask
+                      key={id}
+                      id={id}
+                      title={title}
+                      isCompleted={isCompleted}
+                    />
+                  )
+                )}
+              </div>
             </div>
-          </div>
-        )}
-
-        <CurrentStatus status={task.status} />
+          )}
+          <CurrentStatus status={task.status} />
+        </div>
       </DialogContent>
     </Dialog>
   )

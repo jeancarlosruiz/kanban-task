@@ -68,30 +68,33 @@ function AddNewBoard({
         </DialogHeader>
 
         <form action={formAction} className="flex flex-col gap-[1.5rem]">
-          <div>
-            <Label
-              htmlFor="title"
-              className="text-[0.75rem] font-bold w-full inline-flex items-center justify-between"
-            >
-              Title
-              {state?.message === 'error' && state.errors?.name?.length && (
-                <small className="text-red-300">{state.errors?.name[0]}</small>
-              )}
-            </Label>
-            <Input
-              id="title"
-              placeholder="e.g. Web Design"
-              name="name"
-              className={
-                state?.message === 'error' && state.errors?.name?.length
-                  ? 'border-red-300 dark:border-red-300'
-                  : ''
-              }
-            />
+          <div className="flex flex-col gap-[1.5rem] max-h-[400px] overflow-y-auto">
+            <div>
+              <Label
+                htmlFor="title"
+                className="text-[0.75rem] font-bold w-full inline-flex items-center justify-between"
+              >
+                Title
+                {state?.message === 'error' && state.errors?.name?.length && (
+                  <small className="text-red-300">
+                    {state.errors?.name[0]}
+                  </small>
+                )}
+              </Label>
+              <Input
+                id="title"
+                placeholder="e.g. Web Design"
+                name="name"
+                className={
+                  state?.message === 'error' && state.errors?.name?.length
+                    ? 'border-red-300 dark:border-red-300'
+                    : ''
+                }
+              />
+            </div>
+
+            <BoardColumns columnsArr={[]} state={state} />
           </div>
-
-          <BoardColumns columnsArr={[]} state={state} />
-
           <Submit variant="default">Create New Board</Submit>
         </form>
       </DialogContent>

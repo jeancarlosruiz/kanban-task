@@ -47,7 +47,8 @@ function BoardColumns({ columnsArr, state }: { columnsArr: any; state: any }) {
     <div>
       <p className="text-[0.75rem] font-bold">Board Columns</p>
 
-      <div className="max-h-[8.75rem] overflow-y-auto">
+      {/* <div className="max-h-[8.75rem] overflow-y-auto"> */}
+      <div>
         {columns.map(({ id, name }) => (
           <Column
             key={id}
@@ -87,7 +88,7 @@ function Column({
 }) {
   const labelId = useId()
   return (
-    <div className="flex items-center gap-[1rem]">
+    <div className="flex items-center gap-2.5">
       <Label htmlFor={labelId} className="sr-only">
         input label
       </Label>
@@ -104,7 +105,12 @@ function Column({
             : ''
         }
       />
-      <Button variant="ghost" onClick={onClickFn} type="button">
+      <Button
+        variant="ghost"
+        className="min-w-8"
+        onClick={onClickFn}
+        type="button"
+      >
         <svg
           width="15"
           height="15"

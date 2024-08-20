@@ -9,14 +9,12 @@ import { DeleteModal, EditTask } from '@/components/index'
 import { deleteTask } from '@/actions/tasks'
 import { useState } from 'react'
 function OptionsTask({ task }: { task: any }) {
-  // const [open, setOpen] = useState(false)
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
 
   const handleDeleteTask = async () => {
     const taskId = task.id
     await deleteTask(taskId)
-    // setOpen(false)
   }
 
   return (
@@ -29,7 +27,7 @@ function OptionsTask({ task }: { task: any }) {
         />
       )}
       <DropdownMenu>
-        <DropdownMenuTrigger className="rounded-full inline-flex justify-center ml-auto">
+        <DropdownMenuTrigger className="rounded-full inline-flex justify-center ml-auto w-6 h-6 mr-[-8px]">
           <svg
             width="5"
             height="20"
@@ -57,7 +55,7 @@ function OptionsTask({ task }: { task: any }) {
           </DropdownMenuItem>
           <DropdownMenuItem
             className="text-red-300"
-            onSelect={(e) => e.preventDefault()}
+            onSelect={(e: any) => e.preventDefault()}
           >
             <DeleteModal
               title="Delete this task?"

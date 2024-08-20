@@ -70,7 +70,7 @@ function AddTaskModal({ boardExist }: { boardExist: any }) {
 
         <form action={formAction} className="flex flex-col gap-[1.5rem]">
           <div className="flex flex-col gap-[1.5rem] max-h-[400px] overflow-y-auto">
-            <div className="flex flex-col gap-2">
+            <div>
               <Label htmlFor="title" className="text-[0.75rem] font-bold">
                 Title
               </Label>

@@ -55,7 +55,7 @@ function EditSubtasks({
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <p className="text-[0.75rem] font-bold">Subtasks</p>
 
       <div className="max-h-[8.75rem] overflow-y-auto">
@@ -101,7 +101,7 @@ function Subtask({
 }) {
   const labelId = useId()
   return (
-    <div className="flex items-center gap-[1rem]">
+    <div className="flex items-center gap-2.5">
       <Label htmlFor={labelId} className="sr-only">
         input label
       </Label>
@@ -121,7 +121,13 @@ function Subtask({
             : ''
         }
       />
-      <Button variant="ghost" onClick={onClickFn} type="button">
+      <Button
+        variant="ghost"
+        size="sm"
+        className="min-w-8"
+        onClick={onClickFn}
+        type="button"
+      >
         <svg
           width="15"
           height="15"

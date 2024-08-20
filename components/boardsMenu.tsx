@@ -159,7 +159,7 @@ const Chevron = ({ open }: { open: boolean }) => {
       transition={transition}
     >
       <title id="chevron-up">Open board list</title>
-      <path stroke="#635FC7" stroke-width="2" fill="none" d="m1 1 4 4 4-4" />
+      <path stroke="#635FC7" strokeWidth="2" fill="none" d="m1 1 4 4 4-4" />
     </motion.svg>
   )
 }
