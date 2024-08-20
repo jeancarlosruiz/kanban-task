@@ -19,7 +19,7 @@ function SigninProviders({
     await signIn(provider, {
       callbackUrl: DEFAULT_REDIRECT,
     })
-    setIsLoading(false)
+    // setIsLoading(false)
   }
   return (
     <div className="w-full flex flex-col sm:flex-row gap-5">
