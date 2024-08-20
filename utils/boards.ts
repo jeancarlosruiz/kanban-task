@@ -1,7 +1,7 @@
 import 'server-only'
 import { boards, columns, users } from '@/db/schema'
 import { db } from '@/db'
-import { eq, and } from 'drizzle-orm'
+import { eq, and, asc, desc } from 'drizzle-orm'
 import { memoize } from 'nextjs-better-unstable-cache'
 
 export const getBoardSelected = memoize(
@@ -17,6 +17,7 @@ export const getBoardSelected = memoize(
                   with: { subtasks: true },
                 },
               },
+              orderBy: asc(columns.id),
             },
           },
         })
@@ -42,8 +43,11 @@ export const getBoardSelected = memoize(
             with: {
               tasks: {
                 with: { subtasks: true },
+                orderBy: desc(columns.createdAt),
               },
             },
+
+            orderBy: asc(columns.createdAt),
           },
         },
       })
@@ -68,6 +72,7 @@ export const getBoards = memoize(
         .select({ id: boards.id, name: boards.name })
         .from(boards)
         .where(eq(boards.userId, userId))
+        .orderBy(asc(boards.createdAt))
 
       return allBoards ?? []
     } catch (error) {

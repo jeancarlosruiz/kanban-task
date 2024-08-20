@@ -22,7 +22,7 @@ async function Options() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="px-[10px] rounded-full inline-flex justify-center">
+      <DropdownMenuTrigger className="w-6 h-6 rounded-full inline-flex justify-center items-center mr-[-8px]">
         <svg
           width="5"
           height="20"
@@ -37,7 +37,7 @@ async function Options() {
             <circle cx="2.308" cy="17.692" r="2.308" />
           </g>
         </svg>
-        <span className="sr-only">Open</span>
+        <span className="sr-only">Open options</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[12rem] ">
         <DropdownMenuLabel>

@@ -8,6 +8,8 @@ import { revalidateTag } from 'next/cache'
 
 export const updateColumns = async (columnsArr: any, boardId: string) => {
   try {
+    // console.log({ columnsArr })
+
     const savedColumns = await getColumns(boardId)
 
     const columnsToDelete = savedColumns?.filter(
@@ -15,9 +17,13 @@ export const updateColumns = async (columnsArr: any, boardId: string) => {
     )
 
     columnsArr.forEach(async (sub: any) => {
-      const isIncluded = savedColumns?.some((ss) => ss.id === sub.id)
-
+      const isIncluded = savedColumns?.find((ss) => ss.id === sub.id)
       if (isIncluded) {
+        // If havent been edited, skip it
+        if (isIncluded.name.toLowerCase() === sub.name.toLowerCase()) return
+
+        console.log('Hola')
+
         await db
           .update(columns)
           .set({
@@ -54,7 +60,10 @@ export const getColumns = async (boardId: string) => {
   try {
     const allColumns = await db.query.columns.findMany({
       where: eq(columns.boardId, boardId),
+      orderBy: columns.createdAt,
     })
+
+    // console.log({ allColumns })
 
     return allColumns
   } catch (error) {

@@ -5,11 +5,13 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogOverlay,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui'
 import { setBoardSelected } from '@/actions/boards'
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
 interface Board {
   id: string
@@ -45,11 +47,14 @@ function BoardsMenu({
         />
       )}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className="text-[1.125rem] font-bold sm:hidden">
+        <DialogTrigger className="text-[1.125rem] font-bold sm:hidden flex items-center gap-2">
           {boardSelected && Object.keys(boardSelected).length !== 0
             ? boardSelected?.name
             : 'Create a new board'}
+
+          <Chevron open={open} />
         </DialogTrigger>
+        {/* <DialogOverlay className=""> */}
         <DialogContent className="top-[30%] max-w-[16.5rem] rounded-lg p-[16px] shadow-[0px_10px_20px_0px_rgba(54,78,126,0.25)]">
           <DialogHeader className="pl-[8px]">
             <DialogTitle className="uppercase text-left text-[0.75rem] tracking-[.2em] text-gray-300 ">
@@ -117,6 +122,7 @@ function BoardsMenu({
 
           <ToggleTheme />
         </DialogContent>
+        {/* </DialogOverlay> */}
       </Dialog>
       <h2 className="hidden sm:inline-block text-[1.5rem]">
         {boardSelected && Object.keys(boardSelected).length !== 0
@@ -124,6 +130,37 @@ function BoardsMenu({
           : 'Create a new board'}
       </h2>
     </>
+  )
+}
+
+const Chevron = ({ open }: { open: boolean }) => {
+  const [isOpen, setIsOpen] = useState(open)
+
+  useEffect(() => {
+    setIsOpen(open)
+  }, [open])
+
+  const chevronVariants = {
+    closed: { rotate: 0 },
+    open: { rotate: 180 },
+  }
+
+  const transition = { duration: 0.3, ease: 'easeOut' }
+
+  return (
+    <motion.svg
+      width="10"
+      height="7"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-labelledby="chevron-up"
+      variants={chevronVariants}
+      animate={isOpen ? 'open' : 'closed'}
+      transition={transition}
+    >
+      <title id="chevron-up">Open board list</title>
+      <path stroke="#635FC7" stroke-width="2" fill="none" d="m1 1 4 4 4-4" />
+    </motion.svg>
   )
 }
 

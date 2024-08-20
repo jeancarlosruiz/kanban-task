@@ -1,6 +1,5 @@
 import { getCurrentUser } from '@/actions/auth'
-import { getBoards } from '@/utils/boards'
-import { getBoardSelected } from '@/utils/boards'
+import { getBoardSelected, getBoards } from '@/utils/boards'
 import {
   AddTaskModal,
   AsideNav,

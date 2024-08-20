@@ -41,7 +41,7 @@ function StatusSelect({ state }: { state: any }) {
   }, [])
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <Label htmlFor="status" className="text-[0.75rem] font-bold">
         Status
       </Label>

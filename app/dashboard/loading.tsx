@@ -8,7 +8,7 @@ function Loading() {
       <div className="mx-auto pr-[16px] sm:pr-[24px] flex items-center gap-[1rem]">
         <Logo />
 
-        <div role="status" className="animate-pulse sm: hidden">
+        <div role="status" className="animate-pulse sm:hidden">
           <div className="h-2 bg-gray-300 rounded-full dark:bg-black-700 w-48"></div>
           <span className="sr-only">Loading...</span>
         </div>

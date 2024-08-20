@@ -2,7 +2,7 @@
 import { boards, columns, users } from '@/db/schema'
 import { db } from '@/db'
 import { auth } from '@/auth'
-import { and, eq } from 'drizzle-orm'
+import { and, asc, eq } from 'drizzle-orm'
 import { boardSchema } from '@/lib/zod'
 import { ZodError } from 'zod'
 import { memoize } from 'nextjs-better-unstable-cache'
@@ -31,7 +31,7 @@ export const editBoard = async (
       })
       .where(eq(boards.id, boardId))
 
-    await updateColumns(board.columns, boardId)
+    await updateColumns(columnsParse, boardId)
 
     revalidateTag('dashboard:boardSelected')
 
@@ -78,6 +78,7 @@ export const getBoardSelected = memoize(
                   with: { subtasks: true },
                 },
               },
+              orderBy: asc(columns.createdAt),
             },
           },
         })

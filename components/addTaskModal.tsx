@@ -39,7 +39,9 @@ function AddTaskModal({ boardExist }: { boardExist: any }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="px-[18px] ml-auto mr-[-5px]"
+          size="sm"
+          variant="default"
+          className="ml-auto mr-[-5px]"
           disabled={!boardExist || boardExist.columns.length === 0}
         >
           <svg
@@ -67,38 +69,39 @@ function AddTaskModal({ boardExist }: { boardExist: any }) {
         </DialogHeader>
 
         <form action={formAction} className="flex flex-col gap-[1.5rem]">
-          <div>
-            <Label htmlFor="title" className="text-[0.75rem] font-bold">
-              Title
-            </Label>
-            <Input
-              id="title"
-              placeholder="e.g. Take coffee break"
-              name="name"
-              className={
-                state?.message === 'error' && state.errors?.name?.length
-                  ? 'border-red-300 dark:border-red-300'
-                  : ''
-              }
-            />
+          <div className="flex flex-col gap-[1.5rem] max-h-[400px] overflow-y-auto">
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="title" className="text-[0.75rem] font-bold">
+                Title
+              </Label>
+              <Input
+                id="title"
+                placeholder="e.g. Take coffee break"
+                name="name"
+                className={
+                  state?.message === 'error' && state.errors?.name?.length
+                    ? 'border-red-300 dark:border-red-300'
+                    : ''
+                }
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="description" className="text-[0.75rem] font-bold">
+                Description
+              </Label>
+              <Textarea
+                id="description"
+                placeholder="e.g. It’s always good to take a break. This 
+              15 minute break will  recharge the batteries 
+              a little."
+                name="description"
+              />
+            </div>
+
+            <NewSubtasks state={state} />
+            <StatusSelect state={state} />
           </div>
-
-          <div>
-            <Label htmlFor="description" className="text-[0.75rem] font-bold">
-              Description
-            </Label>
-            <Textarea
-              id="description"
-              placeholder="e.g. It’s always good to take a break. This 
-            15 minute break will  recharge the batteries 
-            a little."
-              name="description"
-            />
-          </div>
-
-          <NewSubtasks state={state} />
-          <StatusSelect state={state} />
-
           <Submit variant="default">Create Task</Submit>
         </form>
       </DialogContent>
