@@ -39,9 +39,8 @@ function AddTaskModal({ boardExist }: { boardExist: any }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          size="sm"
           variant="default"
-          className="ml-auto mr-[-5px]"
+          className="h-8 sm:h-12 ml-auto mr-[-5px] sm:px-[24px]"
           disabled={!boardExist || boardExist.columns.length === 0}
         >
           <svg

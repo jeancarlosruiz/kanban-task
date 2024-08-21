@@ -57,21 +57,18 @@ function EditSubtasks({
   return (
     <div className="flex flex-col gap-2">
       <p className="text-[0.75rem] font-bold">Subtasks</p>
-
-      <div className="max-h-[8.75rem] overflow-y-auto">
-        {subtasks.map(({ id, title, placeholder }) => (
-          <Subtask
-            key={id}
-            id={id}
-            value={title}
-            placeholder={placeholder}
-            onClickFn={() => deleteSubtask(id)}
-            onChangeFn={(e) => onChangeFn(e, id)}
-            state={state}
-          />
-        ))}
-        <Input type="hidden" value={JSON.stringify(subtasks)} name="subtasks" />
-      </div>
+      {subtasks.map(({ id, title, placeholder }) => (
+        <Subtask
+          key={id}
+          id={id}
+          value={title}
+          placeholder={placeholder}
+          onClickFn={() => deleteSubtask(id)}
+          onChangeFn={(e) => onChangeFn(e, id)}
+          state={state}
+        />
+      ))}
+      <Input type="hidden" value={JSON.stringify(subtasks)} name="subtasks" />
       <Button
         variant="secondary"
         size="s"

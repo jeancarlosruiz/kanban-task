@@ -124,7 +124,7 @@ function BoardsMenu({
         </DialogContent>
         {/* </DialogOverlay> */}
       </Dialog>
-      <h2 className="hidden sm:inline-block text-[1.5rem]">
+      <h2 className="hidden sm:inline-block text-[1.5rem] font-bold">
         {boardSelected && Object.keys(boardSelected).length !== 0
           ? boardSelected?.name
           : 'Create a new board'}

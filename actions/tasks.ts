@@ -65,7 +65,7 @@ export const updateTask = async (prev: any, formData: FormData, id: string) => {
 export const deleteTask = async (id: string) => {
   try {
     await db.delete(tasks).where(eq(tasks.id, id))
-    revalidateTag(`dashboard:tasks`)
+    revalidateTag(`dashboard:boardSelected`)
   } catch (error) {
     console.log(error)
   }

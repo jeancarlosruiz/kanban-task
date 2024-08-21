@@ -4,7 +4,7 @@ const Logo = () => {
   return (
     // <div className="">
     // <h1 className="block sm:min-w-[18.75rem] sm:border-e sm:border-r-gray-500 pl-[16px] sm:pl-[24px]">
-    <h1 className="inline-flex items-center min-h-[4rem] sm:min-h-[5rem] md:min-h-[6rem] sm:min-w-[18.75rem] sm:border-e sm:border-r-gray-500 pl-[16px] sm:pl-[24px]">
+    <h1 className="inline-flex items-center min-h-[4rem] sm:min-h-[5rem] md:min-h-[6rem] sm:min-w-[16.3125rem] md:min-w-[18.75rem] sm:border-e sm:border-r-gray-500 pl-[16px] sm:pl-[24px]">
       {/* <Link href="/" className=""> */}
       <svg
         width="153"

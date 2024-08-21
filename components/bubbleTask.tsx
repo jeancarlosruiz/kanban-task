@@ -9,6 +9,7 @@ import {
 } from '@/components/ui'
 import { CurrentStatus, OptionsTask, Subtask } from '@/components/index'
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
 function BubbleTask({ task }: { task: any }) {
   const [open, setOpen] = useState(false)
@@ -29,15 +30,20 @@ function BubbleTask({ task }: { task: any }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="w-full">
-        <div className="w-[17.5rem] flex flex-col gap-1 bg-white-100 dark:bg-black-600 rounded-lg px-[16px] py-[23px] shadow-[0px_5px_10px_0px_rgba(54,78,126,0.25)]">
+      <DialogTrigger>
+        <motion.div
+          layout
+          layoutId={task.id}
+          draggable="true"
+          className="w-[17.5rem] flex flex-col gap-1 bg-white-100 dark:bg-black-600 rounded-lg px-[16px] py-[23px] shadow-[0px_5px_10px_0px_rgba(54,78,126,0.25)] active:cursor-grabbing"
+        >
           <h3 className="text-[0.9375rem] font-bold text-left">{task.title}</h3>
           <p className="text-[0.75rem] text-gray-300 font-bold text-left">
             {task.subtasks.length
               ? `${subtaskCompleted} of ${task.subtasks.length} subtasks`
               : 'No subtasks'}
           </p>
-        </div>
+        </motion.div>
       </DialogTrigger>
       <DialogContent className="w-custom-form px-[24px] pb-[32px] rounded-lg shadow-[0px_10px_20px_0px_rgba(54,78,126,0.25)] flex flex-col gap-6">
         <DialogHeader>

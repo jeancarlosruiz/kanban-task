@@ -15,6 +15,7 @@ function OptionsTask({ task }: { task: any }) {
   const handleDeleteTask = async () => {
     const taskId = task.id
     await deleteTask(taskId)
+    setIsEditOpen(false)
   }
 
   return (
@@ -47,7 +48,9 @@ function OptionsTask({ task }: { task: any }) {
         <DropdownMenuContent className="w-[12rem]">
           <DropdownMenuItem>
             <button
-              onClick={() => setIsEditOpen(true)}
+              onClick={() => {
+                setIsEditOpen(true)
+              }}
               className="w-full text-left"
             >
               Edit task
