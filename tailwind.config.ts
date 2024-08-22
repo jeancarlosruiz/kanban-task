@@ -62,6 +62,8 @@ const config: Config = {
         },
         'clr-black': 'hsl(237, 100%, 4%)',
         'clr-white': 'hsl(0, 0%, 100%)',
+        'bg-scroll-white': 'hsl(223, 69%, 94%)',
+        'bg-scroll-black': 'hsl(223, 19%, 22%)',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

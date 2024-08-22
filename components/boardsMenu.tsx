@@ -54,7 +54,6 @@ function BoardsMenu({
 
           <Chevron open={open} />
         </DialogTrigger>
-        {/* <DialogOverlay className=""> */}
         <DialogContent className="top-[30%] max-w-[16.5rem] rounded-lg p-[16px] shadow-[0px_10px_20px_0px_rgba(54,78,126,0.25)]">
           <DialogHeader className="pl-[8px]">
             <DialogTitle className="uppercase text-left text-[0.75rem] tracking-[.2em] text-gray-300 ">
@@ -122,7 +121,6 @@ function BoardsMenu({
 
           <ToggleTheme />
         </DialogContent>
-        {/* </DialogOverlay> */}
       </Dialog>
       <h2 className="hidden sm:inline-block text-[1.5rem] font-bold">
         {boardSelected && Object.keys(boardSelected).length !== 0

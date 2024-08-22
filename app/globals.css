@@ -23,11 +23,19 @@
     .h-custom-dvh {
       min-height: calc(100dvh - 80px);
     }
+
+    .section-custom-dvh {
+      height: calc(100dvh - 80px);
+    }
   }
 
   @media (min-width: 70rem) {
     .h-custom-dvh {
       min-height: calc(100dvh - 96px);
+    }
+
+    .section-custom-dvh {
+      height: calc(100dvh - 96px);
     }
   }
 }

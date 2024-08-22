@@ -41,7 +41,7 @@ async function Options() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[12rem] ">
         <DropdownMenuLabel>
-          <Avatar>
+          <Avatar className="min-h-10 min-w-10">
             <AvatarImage src={user?.image || ''} />
             <AvatarFallback>{name}</AvatarFallback>
           </Avatar>

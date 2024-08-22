@@ -1,11 +1,6 @@
-import Link from 'next/link'
-
 const Logo = () => {
   return (
-    // <div className="">
-    // <h1 className="block sm:min-w-[18.75rem] sm:border-e sm:border-r-gray-500 pl-[16px] sm:pl-[24px]">
-    <h1 className="inline-flex items-center min-h-[4rem] sm:min-h-[5rem] md:min-h-[6rem] sm:min-w-[16.3125rem] md:min-w-[18.75rem] sm:border-e sm:border-r-gray-500 pl-[16px] sm:pl-[24px]">
-      {/* <Link href="/" className=""> */}
+    <h1 className="inline-flex items-center min-h-[4rem] sm:min-h-[5rem] md:min-h-[6rem] sm:min-w-[16.3125rem] md:min-w-[18.75rem] sm:border-e sm:dark:border-r-gray-500 pl-[16px] sm:pl-[24px]">
       <svg
         width="153"
         height="26"
@@ -38,9 +33,7 @@ const Logo = () => {
           <rect opacity=".5" x="18" width="6" height="25" rx="2" />
         </g>
       </svg>
-      {/* </Link> */}
     </h1>
-    // </div>
   )
 }
 

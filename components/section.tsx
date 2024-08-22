@@ -5,8 +5,8 @@ import { Column, NewColumn } from '@/components/index'
 
 function Section({ boardSelected }: { boardSelected: any }) {
   return (
-    <ScrollArea className="w-full">
-      <section className="h-custom-dvh px-[16px] sm:px-[24px] pt-[27px] sm:pt-[24px] pb-[24px] flex gap-6 mx-auto">
+    <ScrollArea className="w-full sm:section-custom-dvh">
+      <section className="px-[16px] sm:px-[24px] pt-[27px] sm:pt-[24px] pb-[24px] flex gap-6 mx-auto">
         {boardSelected ? (
           <>
             {boardSelected.columns.map((column: any) => (
@@ -22,6 +22,7 @@ function Section({ boardSelected }: { boardSelected: any }) {
           </div>
         )}
       </section>
+      <ScrollBar orientation="vertical" />
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
   )
