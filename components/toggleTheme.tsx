@@ -1,28 +1,30 @@
 'use client'
 import { Switch } from '@/components/ui/switch'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
 
-function ToggleTheme() {
-  const initialTheme = Cookies.get('color-theme')
+function ToggleTheme({ initialTheme }: { initialTheme?: string }) {
+  // const initialTheme = Cookies.get('color-theme')
   const initialThemeBoolean = initialTheme === 'dark' ? true : false
   const [themeBoolean, setThemeBoolean] = useState(initialThemeBoolean)
   const [theme, setTheme] = useState(initialTheme)
 
+  // console.log({ initialTheme })
   const handleThemeToggle = () => {
     const nextTheme = theme === 'light' ? 'dark' : 'light'
     const nextThemeBoolean = nextTheme === 'dark' ? true : false
 
-    setTheme(nextTheme)
-    setThemeBoolean(nextThemeBoolean)
-
     // Save the theme to a cookie and expire in 365 days
     Cookies.set('color-theme', nextTheme, { expires: 365 })
+    setTheme(nextTheme)
+    setThemeBoolean(nextThemeBoolean)
 
     const root = document.documentElement
 
     root.setAttribute('data-theme', nextTheme)
   }
+
+  useEffect(() => {}, [])
 
   return (
     <div className="w-full max-w-[14.6875rem] py-[14px] rounded-md flex justify-center items-center gap-[23.67px] bg-gray-200 dark:bg-black-700">

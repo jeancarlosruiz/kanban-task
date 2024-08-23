@@ -1,16 +1,18 @@
 'use client'
 import { setBoardSelected } from '@/actions/boards'
 import { AddNewBoard, ToggleTheme } from '@/components/index'
-import { Button, ScrollArea } from '@/components/ui/index'
+import { Button, ScrollArea, ScrollBar } from '@/components/ui/index'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 function AsideNav({
   boards,
   boardSelected,
+  theme,
 }: {
   boards: any
   boardSelected: any
+  theme?: string
 }) {
   const [boardDialog, setBoardDialog] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
@@ -48,8 +50,8 @@ function AsideNav({
                   : 'All boards'}
               </h2>
 
-              <ScrollArea className="h-[30rem]">
-                <ul className="flex flex-col">
+              <ul className="flex flex-col">
+                <ScrollArea className="h-full max-h-[28rem] overflow-y-auto">
                   {boards &&
                     boards.map(({ id, name }: { id: string; name: string }) => (
                       <li key={id}>
@@ -82,306 +84,34 @@ function AsideNav({
                         </button>
                       </li>
                     ))}
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
+                  <ScrollBar orientation="vertical" />
+                </ScrollArea>
+                <li>
+                  <button
+                    onClick={() => setBoardDialog(true)}
+                    className=" w-full py-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      role="img"
+                      aria-labelledby="board-icon"
                     >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setBoardDialog(true)}
-                      className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
-                    >
-                      <svg
-                        width="16"
-                        height="16"
-                        xmlns="http://www.w3.org/2000/svg"
-                        role="img"
-                        aria-labelledby="board-icon"
-                      >
-                        <title id="board-icon">Board</title>
-                        <path
-                          d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                          fill="#635FC7"
-                        />
-                      </svg>
-                      + Create New Board
-                    </button>
-                  </li>
-                </ul>
-              </ScrollArea>
+                      <title id="board-icon">Board</title>
+                      <path
+                        d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
+                        fill="#635FC7"
+                      />
+                    </svg>
+                    + Create New Board
+                  </button>
+                </li>
+              </ul>
             </div>
 
             <div className="flex flex-col gap-2 pl-[24px] sm:pl-[32px]">
-              <ToggleTheme />
+              <ToggleTheme initialTheme={theme} />
               <Button
                 variant="ghost"
                 onClick={() => setIsVisible(!isVisible)}
