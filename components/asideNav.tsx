@@ -41,7 +41,7 @@ function AsideNav({
               damping: 30,
               duration: 0.5,
             }}
-            className="hidden sm:min-w-[16.3125rem] md:min-w-[18.75rem] h-custom-dvh bg-white-100 dark:bg-black-600 sm:flex flex-col sm:pt-[15px] pb-[24px] pr-[24px] border-e  dark:border-r-gray-500 relative"
+            className="hidden sm:min-w-[16.3125rem] md:min-w-[18.75rem] h-custom-dvh bg-white-100 dark:bg-black-600 sm:flex flex-col sm:pt-[15px] pb-[24px] pr-[24px] border-e dark:border-r-gray-500 relative"
           >
             <div className="flex-1">
               <h2 className="uppercase text-left text-[0.75rem] tracking-[.2em] text-gray-300 w-full pb-[14px] pl-[24px] sm:pl-[32px]">

@@ -1,10 +1,7 @@
 'use client'
 import { BubbleTask } from '@/components/index'
-import { useState } from 'react'
 
 function Column({ column }: { column: any }) {
-  const [active, setActive] = useState(false)
-
   return (
     <div className="min-w-[17.5rem] flex flex-col gap-5 shrink-0">
       <h2 className="before:content-[''] before:w-[0.9375rem] before:h-[0.9375rem] before:rounded-full before:bg-[#49C4E5] before:block inline-flex items-center gap-3 uppercase text-left text-[0.75rem] tracking-[.2em] text-gray-300 font-bold mb-[4px]">
@@ -12,11 +9,7 @@ function Column({ column }: { column: any }) {
       </h2>
 
       <div
-        className={`h-full flex flex-col gap-5 pb-[24px] rounded-md bg-gradient-to-r ${
-          active
-            ? 'from-[#E9EFFA] to-[#E9EFFA]/50 dark:from-black-600 dark:to-black-600/25'
-            : ''
-        }`}
+        className={`h-full flex flex-col gap-5 pb-[24px] rounded-md bg-gradient-to-r`}
       >
         {column.tasks &&
           column.tasks.map((task: any) => (

@@ -1,15 +1,16 @@
 'use client'
-import { Button } from './ui'
+
+import { useState } from 'react'
+import AddNewBoard from './addNewBoard'
 
 function EmptyBoard() {
+  const [open, setOpen] = useState(false)
   return (
-    <div className="self-center mt-[-30px] w-full flex items-center flex-col gap-[1.5625rem]">
+    <div className="self-center mt-[-30px] w-full flex items-center flex-col gap-[1.5625rem] text-center">
       <p className="text-center text-[1.125rem] text-gray-300 font-bold">
-        This board is empty. Create a new column to get started.
+        Start by creating a new board 😊
       </p>
-      <Button className="min-w-[10.875rem] text-[0.9375rem]">
-        + Add New Column
-      </Button>
+      <AddNewBoard boardDialog={open} setBoardDialog={setOpen} />
     </div>
   )
 }
