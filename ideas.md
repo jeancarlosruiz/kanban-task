@@ -1,2 +1,2 @@
 1. Option to delete the whole column
-2. Crear una funcion que se dedique a buscar los task dentro de cada column, de esa forma se podra revalidar el tag solo de esa columna.
+2. Crear en options seleccionar draft, con todos los task que no se guardaron y poder terminar de editarlo o simplemente eliminarlos.
