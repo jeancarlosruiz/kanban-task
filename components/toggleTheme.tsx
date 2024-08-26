@@ -8,7 +8,6 @@ function ToggleTheme({ initialTheme }: { initialTheme?: string }) {
   const [themeBoolean, setThemeBoolean] = useState(initialThemeBoolean)
   const [theme, setTheme] = useState(initialTheme)
 
-  // console.log({ initialTheme })
   const handleThemeToggle = () => {
     const nextTheme = theme === 'light' ? 'dark' : 'light'
     const nextThemeBoolean = nextTheme === 'dark' ? true : false

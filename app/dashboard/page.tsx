@@ -13,12 +13,11 @@ import { cookies } from 'next/headers'
 const Page = async () => {
   const data = await getCurrentUser()
 
-  // console.log({ data: data.name })
   const { user } = data
   const userId = user?.id as string
   const allBoards = await getBoards(userId)
   const boardSelected: any = await getBoardSelected(userId, user?.boardSelected)
-  const theme = cookies().get('color-theme')?.value
+  const theme = cookies().get('color-theme')?.value || 'dark'
 
   return (
     <>

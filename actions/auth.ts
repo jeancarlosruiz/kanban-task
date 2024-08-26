@@ -16,12 +16,6 @@ export const getCurrentUser = async () => {
   return { session, user, name, fullName }
 }
 
-export const getCurrentTheme = async () => {
-  const currentTheme = cookies().get('color-theme')
-  const value = currentTheme?.value
-  return value
-}
-
 export const getToken = async () => {
   return cookies().get('authjs.session-token') || ''
 }
