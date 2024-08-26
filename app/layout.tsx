@@ -2,7 +2,6 @@ import { cookies } from 'next/headers'
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
-import { getCurrentTheme } from '@/actions/theme'
 
 const PJS = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['500', '700'] })
 
