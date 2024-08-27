@@ -1,5 +1,2 @@
-1. Para revalidar tag no se porque no se hace si la funcion memoizada esta en el action.
-2. Hacer loadings de todo que se requiera.
 3. Limpiar todos los any
-4. Poner las validaciones, nombre de inputs y schema homogeneos.
-5. Existe un error en el orden de las columnas, poner filtro por fecha de creacion.
+4. Cuando carga datos no se muestran en el perfil y si no hay boardSelected da error.
