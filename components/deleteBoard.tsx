@@ -2,6 +2,7 @@
 import { DropdownMenuItem } from '@/components/ui'
 import { DeleteModal } from '@/components/index'
 import { deleteCurrentBoard } from '@/actions/boards'
+
 function DeleteBoard({
   currentBoard,
   disabled,
@@ -16,9 +17,9 @@ function DeleteBoard({
 
   return (
     <DropdownMenuItem
-      className="text-red-300"
       onSelect={(e) => e.preventDefault()}
       disabled={disabled}
+      asChild
     >
       <DeleteModal
         title="Delete this board?"
@@ -27,7 +28,9 @@ function DeleteBoard({
         }’ board? This action will remove all columns and tasks and cannot be reversed.`}
         action={handleDeleteBoard}
       >
-        Delete Board
+        <button className="w-full relative text-red-300 flex cursor-pointer select-none items-center rounded-sm px-[16px] py-[8px] text-sm outline-none transition-colors focus:bg-white-200  data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-black-600/50">
+          Delete Board
+        </button>
       </DeleteModal>
     </DropdownMenuItem>
   )

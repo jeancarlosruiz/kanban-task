@@ -11,9 +11,12 @@ import {
   Input,
   Label,
 } from './ui'
-import { Submit } from '@/components/index'
+import { DeleteModal, Submit } from '@/components/index'
 import { useFormState } from 'react-dom'
-import { editProfile } from '@/actions/profile'
+import { deleteUser, editProfile } from '@/actions/profile'
+import { useSession } from 'next-auth/react'
+import { deleteAllColumns } from '@/actions/columns'
+import { signout } from '@/actions/auth'
 
 const initialState = {
   message: '',
@@ -23,20 +26,39 @@ const initialState = {
 function Profile({
   profile,
   setProfile,
-  user,
+  boardSelected,
 }: {
   profile: boolean
   setProfile: any
-  user: any
+  boardSelected: any
 }) {
+  const { update, data } = useSession()
   const handleAction = (prev: any, formData: FormData) =>
-    editProfile(prev, formData, user?.id)
-
+    editProfile(prev, formData, data.user?.id)
   const [state, formAction] = useFormState(handleAction, initialState)
-  const [userName, setUsername] = useState(user?.name)
+  const [userName, setUsername] = useState(data?.user?.name)
+
+  const afterAction = async () => {
+    if (state?.message === 'success') {
+      setProfile(false)
+      await update()
+    }
+  }
+
+  const handleDeleteColumns = async () => {
+    const boardId = boardSelected.id
+    await deleteAllColumns(boardId)
+    setProfile(false)
+  }
+
+  const handleDeleteAccount = async () => {
+    const userId = data?.user?.id as string
+    await deleteUser(userId)
+    await signout()
+  }
 
   useEffect(() => {
-    if (state?.message === 'success') setProfile(false)
+    afterAction()
   }, [state])
 
   return (
@@ -81,7 +103,7 @@ function Profile({
               value={userName}
               onChange={(e) => setUsername(e.target.value)}
               className={
-                state?.message === 'error' && state.errors?.username?.length
+                state?.message === 'error' && state.errors?.name?.length
                   ? 'border-red-300 dark:border-red-300'
                   : ''
               }
@@ -95,7 +117,7 @@ function Profile({
               id="email"
               placeholder="Username"
               name="name"
-              defaultValue={user?.email}
+              defaultValue={data?.user?.email}
               disabled
             />
           </div>
@@ -111,13 +133,20 @@ function Profile({
                   subtasks.
                 </p>
               </div>
-              <Button
-                variant="destructive"
-                size="sm"
-                className="min-w-32 text-[0.75rem]"
+
+              <DeleteModal
+                title="Delete all columns?"
+                description={`Are you sure you want to delete ${boardSelected.name}'columns? This action can't be reverse`}
+                action={handleDeleteColumns}
               >
-                Delete columns
-              </Button>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  className="min-w-32 text-[0.75rem]"
+                >
+                  Delete columns
+                </Button>
+              </DeleteModal>
             </div>
             <div className="flex justify-between items-center">
               <div className="basis-[60%]">
@@ -126,13 +155,19 @@ function Profile({
                   This action can&apos;t be reverse.
                 </p>
               </div>
-              <Button
-                variant="destructive"
-                size="sm"
-                className="min-w-32 text-[0.75rem]"
+              <DeleteModal
+                title="Delete this account?"
+                description={`Are you sure you want to delete this account? This action can't be reverse and you will be sign out.`}
+                action={handleDeleteAccount}
               >
-                Delete user
-              </Button>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  className="min-w-32 text-[0.75rem]"
+                >
+                  Delete user
+                </Button>
+              </DeleteModal>
             </div>
           </div>
           <div className="w-[80%] ml-auto flex gap-3 mt-[20px]">
@@ -145,7 +180,7 @@ function Profile({
             >
               Discard
             </Button>
-            <Submit variant="default" condition={userName === user?.name}>
+            <Submit variant="default" condition={userName === data?.user?.name}>
               Save changes
             </Submit>
           </div>

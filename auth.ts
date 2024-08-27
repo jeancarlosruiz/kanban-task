@@ -24,6 +24,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.boardSelected = token.boardSelected
       }
 
+      if (session.user) {
+        console.log('llego aqui')
+
+        console.log(token.name)
+
+        session.user.name = token.name
+      }
+
       return session
     },
     async jwt({ token }) {
@@ -35,7 +43,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       token.role = user.role
 
+      console.log('from auth.js', user)
+
       token.boardSelected = user.boardSelected
+      token.name = user.name
 
       return token
     },

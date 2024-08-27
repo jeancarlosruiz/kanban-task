@@ -56,6 +56,16 @@ export const deleteColumns = async (columnsArr: any) => {
   }
 }
 
+export const deleteAllColumns = async (boardId: string) => {
+  try {
+    if (!boardId) return
+    await db.delete(columns).where(eq(columns.boardId, boardId))
+    revalidateTag('dashboard:boardSelected')
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const getColumns = async (boardId: string) => {
   try {
     const allColumns = await db.query.columns.findMany({

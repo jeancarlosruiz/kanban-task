@@ -5,7 +5,6 @@ import { signInSchema, signupSchema, UserExistError } from '@/lib/zod'
 import { DEFAULT_REDIRECT } from '@/utils/routes'
 import { AuthError } from 'next-auth'
 import { ZodError } from 'zod'
-import { cookies } from 'next/headers'
 
 export const getCurrentUser = async () => {
   const session = await auth()
@@ -14,10 +13,6 @@ export const getCurrentUser = async () => {
   const fullName = user?.name && user?.name.split(' ')
 
   return { session, user, name, fullName }
-}
-
-export const getToken = async () => {
-  return cookies().get('authjs.session-token') || ''
 }
 
 export const signinGithub = async () => {

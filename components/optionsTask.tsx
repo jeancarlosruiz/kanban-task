@@ -56,10 +56,7 @@ function OptionsTask({ task }: { task: any }) {
               Edit task
             </button>
           </DropdownMenuItem>
-          <DropdownMenuItem
-            className="text-red-300"
-            onSelect={(e: any) => e.preventDefault()}
-          >
+          <DropdownMenuItem onSelect={(e: any) => e.preventDefault()} asChild>
             <DeleteModal
               title="Delete this task?"
               description={`Are you sure you want to delete the ‘${
@@ -67,15 +64,13 @@ function OptionsTask({ task }: { task: any }) {
               }’ task? This action will remove all columns and tasks and cannot be reversed.`}
               action={handleDeleteTask}
             >
-              Delete task
+              <button className="relative w-full text-red-300 flex cursor-pointer select-none items-center rounded-sm px-[16px] py-[8px] text-sm outline-none transition-colors focus:bg-white-200  data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-black-600/50">
+                Delete task
+              </button>
             </DeleteModal>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
-      {/* {editOpen && (
-        <EditTask taskSaved={task} open={editOpen} setOpen={setEditOpen} />
-      )} */}
     </>
   )
 }

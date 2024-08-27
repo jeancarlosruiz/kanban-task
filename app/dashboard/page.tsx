@@ -12,7 +12,6 @@ import { cookies } from 'next/headers'
 
 const Page = async () => {
   const data = await getCurrentUser()
-
   const { user } = data
   const userId = user?.id as string
   const allBoards = await getBoards(userId)
@@ -30,7 +29,7 @@ const Page = async () => {
             theme={theme}
           />
           <AddTaskModal boardExist={boardSelected} />
-          <Options data={data} currentBoard={boardSelected} />
+          <Options boardSelected={boardSelected} />
         </div>
       </header>
       <main className="flex overflow-hidden">

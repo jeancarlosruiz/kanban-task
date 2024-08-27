@@ -14,6 +14,7 @@ import { Submit } from '@/components/index'
 import { useFormState } from 'react-dom'
 import { addNewColumn } from '@/actions/columns'
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
 const initialState = {
   message: '',
@@ -33,7 +34,7 @@ function NewColumn({ boardId }: { boardId: string }) {
     if (state?.message === 'success') setOpen(false)
   }, [state])
   return (
-    <div className="flex flex-col gap-6">
+    <motion.div layout className="flex flex-col gap-6">
       <h2 className="before:content-[''] before:w-[0.9375rem] before:h-[0.9375rem] before:rounded-full before:bg-[#49C4E5] before:block inline-flex items-center gap-3 uppercase text-left text-[0.75rem] tracking-[.2em] text-gray-300 font-bold invisible">
         New column
       </h2>
@@ -87,7 +88,7 @@ function NewColumn({ boardId }: { boardId: string }) {
           </DialogContent>
         </Dialog>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

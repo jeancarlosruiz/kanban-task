@@ -18,7 +18,6 @@ interface StatusState {
 
 function StatusSelect({ state }: { state: any }) {
   const [status, setStatus] = useState<StatusState[] | undefined>([])
-  // const [statusSelected, setStatuSelected] = useState<string>('')
 
   const getColumns = async () => {
     const { user } = await getCurrentUser()

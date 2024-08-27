@@ -10,23 +10,23 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  DialogHeader,
-  DialogDescription,
 } from '@/components/ui'
 import { Signout, DeleteBoard, EditBoard, Profile } from '@/components/index'
-import { DialogTitle } from '@radix-ui/react-dialog'
+import { useSession } from 'next-auth/react'
 
-function Options({ data, currentBoard }: { data: any; currentBoard: any }) {
-  const { user, name, fullName } = data
+function Options({ boardSelected }: { boardSelected: any }) {
+  const { data } = useSession()
+  const username = data?.user?.name.split(' ')[0]
   const [profile, setProfile] = useState(false)
 
   return (
     <>
       {profile && (
-        <Profile profile={profile} setProfile={setProfile} user={user} />
+        <Profile
+          profile={profile}
+          setProfile={setProfile}
+          boardSelected={boardSelected}
+        />
       )}
       <DropdownMenu>
         <DropdownMenuTrigger className="w-6 h-6 rounded-full inline-flex justify-center items-center mr-[-8px]">
@@ -46,22 +46,24 @@ function Options({ data, currentBoard }: { data: any; currentBoard: any }) {
           </svg>
           <span className="sr-only">Open options</span>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[12rem] ">
-          <DropdownMenuLabel>
+        <DropdownMenuContent className="w-[12rem]">
+          <DropdownMenuLabel className="pt-[14px]">
             <Avatar className="block min-h-10 min-w-10">
-              <AvatarImage src={user?.image || ''} />
-              <AvatarFallback>{name}</AvatarFallback>
+              <AvatarImage src={data?.user?.image || ''} />
+              <AvatarFallback>{data?.user?.name[0]}</AvatarFallback>
             </Avatar>
 
-            {user?.name && (
-              <span className="text-[1rem]">{fullName && fullName[0]}</span>
+            {data?.user?.name && (
+              <span className="text-[1rem]">
+                {data?.user.name.split(' ')[0]}
+              </span>
             )}
           </DropdownMenuLabel>
           <DropdownMenuItem onClick={() => setProfile(true)}>
             Profile
           </DropdownMenuItem>
-          <EditBoard disabled={!currentBoard} board={currentBoard} />
-          <DeleteBoard currentBoard={currentBoard} disabled={!currentBoard} />
+          <EditBoard disabled={!boardSelected} board={boardSelected} />
+          <DeleteBoard currentBoard={boardSelected} disabled={!boardSelected} />
           <DropdownMenuSeparator />
           <Signout />
         </DropdownMenuContent>

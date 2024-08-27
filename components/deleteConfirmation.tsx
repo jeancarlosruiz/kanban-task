@@ -1,38 +1,33 @@
 'use client'
+
+import { ReactNode, useState } from 'react'
 import {
+  Button,
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
-  Button,
-} from '@/components/ui'
+} from './ui'
 
-import { useState } from 'react'
-
-function DeleteModal({
+function DeleteConfirmation({
   children,
   title,
   description,
-  action,
+  boardId,
 }: {
-  children: React.ReactNode
+  children: ReactNode
   title: string
   description: string
-  action: () => void
+  boardId: string
 }) {
   const [open, setOpen] = useState(false)
 
-  const handleOnClick = async () => {
-    await action()
-
-    setOpen(false)
-  }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogTrigger className="w-full text-left">{children}</DialogTrigger>
       <DialogContent className="w-custom-form rounded-lg p-[24px] ">
         <DialogHeader>
           <DialogTitle className="text-left text-[1.125rem] text-red-300">
@@ -54,4 +49,4 @@ function DeleteModal({
   )
 }
 
-export default DeleteModal
+export default DeleteConfirmation

@@ -106,3 +106,7 @@ export const taskSchema = object({
     name: string({ required_error: 'Required' }).min(1, 'Required'),
   }),
 })
+
+export const profileSchema = object({
+  name: string({ required_error: 'Required' }).min(1, 'Required'),
+})
