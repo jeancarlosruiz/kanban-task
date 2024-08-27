@@ -32,12 +32,12 @@ function Profile({
   setProfile: any
   boardSelected: any
 }) {
-  const [profileData, setProfileData] = useState<any>({})
   const { update, data } = useSession()
   const handleAction = (prev: any, formData: FormData) =>
     editProfile(prev, formData, profileData?.user?.id)
   const [state, formAction] = useFormState(handleAction, initialState)
-  const [userName, setUsername] = useState(profileData?.user?.name)
+  const [profileData, setProfileData] = useState<any>({})
+  const [userName, setUsername] = useState<any>(data?.user.name)
 
   const afterAction = async () => {
     if (state?.message === 'success') {
@@ -141,13 +141,14 @@ function Profile({
 
               <DeleteModal
                 title="Delete all columns?"
-                description={`Are you sure you want to delete ${boardSelected.name}'columns? This action can't be reverse`}
+                description={`Are you sure you want to delete ${boardSelected?.name}'columns? This action can't be reverse`}
                 action={handleDeleteColumns}
               >
                 <Button
                   variant="destructive"
                   size="sm"
                   className="min-w-32 text-[0.75rem]"
+                  disabled={!boardSelected}
                 >
                   Delete columns
                 </Button>
@@ -185,7 +186,10 @@ function Profile({
             >
               Discard
             </Button>
-            <Submit variant="default" condition={userName === data?.user?.name}>
+            <Submit
+              variant="default"
+              isDisabled={userName === data?.user?.name}
+            >
               Save changes
             </Submit>
           </div>

@@ -26,7 +26,7 @@ const initialState = {
   },
 }
 
-function EditBoard({ disabled, board }: { disabled: boolean; board: any }) {
+function EditBoard({ isDisabled, board }: { isDisabled: boolean; board: any }) {
   const handleAction = (prev: any, formData: FormData) =>
     editBoard(prev, formData, board?.id)
 
@@ -41,12 +41,12 @@ function EditBoard({ disabled, board }: { disabled: boolean; board: any }) {
     <>
       <DropdownMenuItem
         onSelect={(e) => e.preventDefault()}
-        disabled={disabled}
+        disabled={isDisabled}
       >
         <button
           onClick={() => setOpen(true)}
           className="w-full text-left"
-          disabled={disabled}
+          disabled={isDisabled}
         >
           Edit board
         </button>

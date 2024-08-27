@@ -53,7 +53,10 @@ function Options({ boardSelected }: { boardSelected: any }) {
         <DropdownMenuContent className="w-[12rem]">
           <DropdownMenuLabel className="pt-[14px]">
             <Avatar className="block min-h-10 min-w-10">
-              <AvatarImage src={data?.user?.image || ''} />
+              <AvatarImage
+                src={data?.user?.image || ''}
+                alt="user profile image"
+              />
               <AvatarFallback>{profileData?.user?.name[0]}</AvatarFallback>
             </Avatar>
 
@@ -66,8 +69,11 @@ function Options({ boardSelected }: { boardSelected: any }) {
           <DropdownMenuItem onClick={() => setProfile(true)}>
             Profile
           </DropdownMenuItem>
-          <EditBoard disabled={!boardSelected} board={boardSelected} />
-          <DeleteBoard currentBoard={boardSelected} disabled={!boardSelected} />
+          <EditBoard isDisabled={!boardSelected} board={boardSelected} />
+          <DeleteBoard
+            currentBoard={boardSelected}
+            isDisabled={!boardSelected}
+          />
           <DropdownMenuSeparator />
           <Signout />
         </DropdownMenuContent>

@@ -5,11 +5,11 @@ import { Button } from './ui'
 function Submit({
   children,
   variant = 'default',
-  condition,
+  isDisabled,
   ...btnProps
 }: {
   children: React.ReactNode
-  condition?: any
+  isDisabled?: any
   variant: 'default' | 'secondary' | 'ghost' | 'destructive'
 }) {
   const { pending } = useFormStatus()
@@ -17,7 +17,7 @@ function Submit({
     <Button
       variant={variant}
       type="submit"
-      disabled={pending || condition}
+      disabled={pending || isDisabled}
       size="s"
       {...btnProps}
       className="w-full"
