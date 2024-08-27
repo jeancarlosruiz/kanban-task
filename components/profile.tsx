@@ -32,11 +32,12 @@ function Profile({
   setProfile: any
   boardSelected: any
 }) {
+  const [profileData, setProfileData] = useState<any>({})
   const { update, data } = useSession()
   const handleAction = (prev: any, formData: FormData) =>
-    editProfile(prev, formData, data.user?.id)
+    editProfile(prev, formData, profileData?.user?.id)
   const [state, formAction] = useFormState(handleAction, initialState)
-  const [userName, setUsername] = useState(data?.user?.name)
+  const [userName, setUsername] = useState(profileData?.user?.name)
 
   const afterAction = async () => {
     if (state?.message === 'success') {
@@ -60,6 +61,10 @@ function Profile({
   useEffect(() => {
     afterAction()
   }, [state])
+
+  useEffect(() => {
+    setProfileData(data)
+  }, [data])
 
   return (
     <Dialog open={profile} onOpenChange={setProfile}>
@@ -117,7 +122,7 @@ function Profile({
               id="email"
               placeholder="Username"
               name="name"
-              defaultValue={data?.user?.email}
+              defaultValue={profileData?.user?.email}
               disabled
             />
           </div>

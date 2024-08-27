@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,8 +16,12 @@ import { useSession } from 'next-auth/react'
 
 function Options({ boardSelected }: { boardSelected: any }) {
   const { data } = useSession()
-  const username = data?.user?.name.split(' ')[0]
+  const [profileData, setProfileData] = useState<any>({})
   const [profile, setProfile] = useState(false)
+
+  useEffect(() => {
+    setProfileData(data)
+  }, [data])
 
   return (
     <>
@@ -50,7 +54,7 @@ function Options({ boardSelected }: { boardSelected: any }) {
           <DropdownMenuLabel className="pt-[14px]">
             <Avatar className="block min-h-10 min-w-10">
               <AvatarImage src={data?.user?.image || ''} />
-              <AvatarFallback>{data?.user?.name[0]}</AvatarFallback>
+              <AvatarFallback>{profileData?.user?.name[0]}</AvatarFallback>
             </Avatar>
 
             {data?.user?.name && (
