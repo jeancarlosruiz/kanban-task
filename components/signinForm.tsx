@@ -4,6 +4,7 @@ import { Submit } from './index'
 import { login } from '@/actions/auth'
 import { useFormState } from 'react-dom'
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 const initialState = {
   message: '',
@@ -16,11 +17,13 @@ const initialState = {
 }
 
 const SigninForm = () => {
+  const searchParams = useSearchParams()
   const [state, formAction] = useFormState(login, initialState)
   const [errors, setErrors] = useState<{
     email?: string[]
     password?: string[]
   } | null>(null)
+  const [urlError, setUrlError] = useState(false)
 
   useEffect(() => {
     if (state.message === 'error' && state.errors) {
@@ -31,6 +34,12 @@ const SigninForm = () => {
       setErrors(null)
     }
   }, [state])
+
+  useEffect(() => {
+    if (searchParams.get('error') === 'OAuthAccountNotLinked') {
+      setUrlError(true)
+    }
+  }, [searchParams])
 
   return (
     <form
@@ -84,6 +93,14 @@ const SigninForm = () => {
       {state?.error && (
         <div className="w-full rounded bg-red-300/70 text-center py-1">
           <span className="text-sm text-white-100">Invalid credentials</span>
+        </div>
+      )}
+
+      {urlError && (
+        <div className="w-full rounded bg-red-300/70 text-center py-1">
+          <span className="text-sm text-white-100">
+            Email already in use by different provider
+          </span>
         </div>
       )}
 
