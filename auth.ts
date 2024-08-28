@@ -3,11 +3,26 @@ import { getUserById } from './db/user'
 import { db } from '@/db'
 import authConfig from '@/auth.config'
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
+import { users } from './db/schema'
+import { eq } from 'drizzle-orm'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  pages: {
+    signIn: '/signin',
+    error: '/signin',
+  },
   events: {
     async linkAccount({ user }) {
-      console.log(user)
+      const id = user?.id as string
+
+      if (!id) return
+
+      await db
+        .update(users)
+        .set({
+          emailVerified: new Date(),
+        })
+        .where(eq(users.id, id))
     },
   },
   callbacks: {

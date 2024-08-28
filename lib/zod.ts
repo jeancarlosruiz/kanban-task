@@ -1,12 +1,4 @@
-import {
-  array,
-  object,
-  optional,
-  string,
-  ZodError,
-  ZodIssue,
-  ZodIssueCode,
-} from 'zod'
+import { array, object, string, ZodError, ZodIssue, ZodIssueCode } from 'zod'
 
 export const signInSchema = object({
   email: string({ required_error: 'Email is required' })
