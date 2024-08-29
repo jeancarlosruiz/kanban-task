@@ -28,7 +28,7 @@ const Page = async () => {
             boardSelected={boardSelected}
             theme={theme}
           />
-          <AddTaskModal boardExist={boardSelected} />
+          <AddTaskModal currentBoard={boardSelected} />
           <Options boardSelected={boardSelected} />
         </div>
       </header>

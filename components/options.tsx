@@ -13,8 +13,9 @@ import {
 } from '@/components/ui'
 import { Signout, DeleteBoard, EditBoard, Profile } from '@/components/index'
 import { useSession } from 'next-auth/react'
+import { Board } from '@/types'
 
-function Options({ boardSelected }: { boardSelected: any }) {
+function Options({ boardSelected }: { boardSelected: Board }) {
   const { data } = useSession()
   const [profileData, setProfileData] = useState<any>({})
   const [profile, setProfile] = useState(false)

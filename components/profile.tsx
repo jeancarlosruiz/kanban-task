@@ -17,6 +17,7 @@ import { deleteUser, editProfile } from '@/actions/profile'
 import { useSession } from 'next-auth/react'
 import { deleteAllColumns } from '@/actions/columns'
 import { signout } from '@/actions/auth'
+import { Board } from '@/types'
 
 const initialState = {
   message: '',
@@ -29,8 +30,8 @@ function Profile({
   boardSelected,
 }: {
   profile: boolean
-  setProfile: any
-  boardSelected: any
+  setProfile: (prevState: boolean) => void
+  boardSelected: Board
 }) {
   const { update, data } = useSession()
   const handleAction = (prev: any, formData: FormData) =>

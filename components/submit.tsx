@@ -9,7 +9,7 @@ function Submit({
   ...btnProps
 }: {
   children: React.ReactNode
-  isDisabled?: any
+  isDisabled?: boolean
   variant: 'default' | 'secondary' | 'ghost' | 'destructive'
 }) {
   const { pending } = useFormStatus()

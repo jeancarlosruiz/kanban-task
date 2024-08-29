@@ -10,17 +10,13 @@ import {
 } from '@/components/ui'
 import { getBoardSelected } from '@/actions/boards'
 import { useEffect, useState } from 'react'
-
-interface StatusState {
-  id: string
-  name: string
-}
+import { StatusState } from '@/types'
 
 function EditStatusSelect({
   statusLabel,
   state,
 }: {
-  statusLabel?: any
+  statusLabel: string
   state: any
 }) {
   const [status, setStatus] = useState<StatusState[] | undefined>([])

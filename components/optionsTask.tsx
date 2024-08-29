@@ -8,9 +8,10 @@ import {
 import { DeleteModal, EditTask } from '@/components/index'
 import { deleteTask } from '@/actions/tasks'
 import { useState } from 'react'
-function OptionsTask({ task }: { task: any }) {
+import { Task } from '@/types'
+
+function OptionsTask({ task }: { task: Task }) {
   const [isEditOpen, setIsEditOpen] = useState(false)
-  const [editOpen, setEditOpen] = useState(false)
 
   const handleDeleteTask = async () => {
     const taskId = task.id
@@ -56,7 +57,7 @@ function OptionsTask({ task }: { task: any }) {
               Edit task
             </button>
           </DropdownMenuItem>
-          <DropdownMenuItem onSelect={(e: any) => e.preventDefault()} asChild>
+          <DropdownMenuItem onSelect={(e) => e.preventDefault()} asChild>
             <DeleteModal
               title="Delete this task?"
               description={`Are you sure you want to delete the ‘${

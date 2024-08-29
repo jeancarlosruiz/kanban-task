@@ -8,14 +8,16 @@ import {
 } from 'react'
 import { Button, Input, Label } from './ui'
 import { uniqueId } from '@/utils/helpers'
+import { type Column } from '@/types'
 
-interface NewColumn {
-  id: string
-  name: string
-}
-
-function BoardColumns({ columnsArr, state }: { columnsArr: any; state: any }) {
-  const [columns, setColumns] = useState<NewColumn[]>(columnsArr)
+function BoardColumns({
+  columnsArr,
+  state,
+}: {
+  columnsArr: Column[]
+  state: any
+}) {
+  const [columns, setColumns] = useState<Column[]>(columnsArr)
 
   const addNewSubTask = () => {
     const newColumn = {
@@ -46,8 +48,6 @@ function BoardColumns({ columnsArr, state }: { columnsArr: any; state: any }) {
   return (
     <div>
       <p className="text-[0.75rem] font-bold">Board Columns</p>
-
-      {/* <div className="max-h-[8.75rem] overflow-y-auto"> */}
       <div>
         {columns.map(({ id, name }) => (
           <Column

@@ -12,18 +12,14 @@ import {
 import { setBoardSelected } from '@/actions/boards'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-
-interface Board {
-  id: string
-  name: string
-}
+import { Board, BoardNav } from '@/types'
 
 function BoardsMenu({
   boards,
   boardSelected,
   theme,
 }: {
-  boards: Board[] | undefined
+  boards: BoardNav[] | undefined
   boardSelected: Board | undefined
   theme?: string
 }) {

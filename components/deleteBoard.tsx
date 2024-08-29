@@ -2,12 +2,13 @@
 import { DropdownMenuItem } from '@/components/ui'
 import { DeleteModal } from '@/components/index'
 import { deleteCurrentBoard } from '@/actions/boards'
+import { Board } from '@/types'
 
 function DeleteBoard({
   currentBoard,
   isDisabled,
 }: {
-  currentBoard: any
+  currentBoard: Board
   isDisabled: boolean
 }) {
   const handleDeleteBoard = async () => {

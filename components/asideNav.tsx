@@ -4,19 +4,19 @@ import { AddNewBoard, ToggleTheme } from '@/components/index'
 import { Button, ScrollArea, ScrollBar } from '@/components/ui/index'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Board, BoardNav } from '@/types'
 
 function AsideNav({
   boards,
   boardSelected,
   theme,
 }: {
-  boards: any
-  boardSelected: any
+  boards: BoardNav[] | undefined
+  boardSelected: Board
   theme?: string
 }) {
   const [boardDialog, setBoardDialog] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
-
   const handleSet = async (id: string) => {
     await setBoardSelected(id)
   }

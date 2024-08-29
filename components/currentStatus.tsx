@@ -1,17 +1,6 @@
-// 'use client'
-import {
-  Select,
-  // SelectContent,
-  // SelectItem,
-  SelectTrigger,
-  SelectValue,
-  Label,
-} from '@/components/ui'
-// import { useState } from 'react'
+import { Select, SelectTrigger, SelectValue, Label } from '@/components/ui'
 
 function CurrentStatus({ status }: { status: string }) {
-  // const [currentStatus, setCurrentStatus] = useState(status)
-
   return (
     <div>
       <h3 className="font-bold text-[0.75rem] mb-[8px]">Current Status</h3>
@@ -22,11 +11,6 @@ function CurrentStatus({ status }: { status: string }) {
         <SelectTrigger id="status">
           <SelectValue>{status}</SelectValue>
         </SelectTrigger>
-        {/* <SelectContent>
-          <SelectItem value="TODO">Todo</SelectItem>
-          <SelectItem value="DOING">Doing</SelectItem>
-          <SelectItem value="DONE">Done</SelectItem>
-        </SelectContent> */}
       </Select>
     </div>
   )

@@ -10,15 +10,15 @@ import {
 import { CurrentStatus, OptionsTask, Subtask } from '@/components/index'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { Subtasks, Task } from '@/types'
 
-function BubbleTask({ task }: { task: any }) {
-  const [open, setOpen] = useState(false)
-  const [subtaskCompleted, setSubtaskCompleted] = useState(0)
-
-  const [subtasks, setSubtasks] = useState([])
+function BubbleTask({ task }: { task: Task }) {
+  const [open, setOpen] = useState<boolean>(false)
+  const [subtaskCompleted, setSubtaskCompleted] = useState<number>(0)
+  const [subtasks, setSubtasks] = useState<Subtasks[]>([])
 
   useEffect(() => {
-    if (task.subtasks.length) {
+    if (task.subtasks && task.subtasks.length) {
       const completed = task.subtasks.filter(
         (sub: any) => sub.isCompleted === true
       )
@@ -39,7 +39,7 @@ function BubbleTask({ task }: { task: any }) {
         >
           <h3 className="text-[0.9375rem] font-bold text-left">{task.title}</h3>
           <p className="text-[0.75rem] text-gray-300 font-bold text-left">
-            {task.subtasks.length
+            {task.subtasks && task.subtasks.length !== 0
               ? `${subtaskCompleted} of ${task.subtasks.length} subtasks`
               : 'No subtasks'}
           </p>

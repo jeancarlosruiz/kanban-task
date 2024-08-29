@@ -15,6 +15,7 @@ import { NewSubtasks, Submit, StatusSelect } from '@/components/index'
 import { addNewTask } from '@/actions/tasks'
 import { useFormState } from 'react-dom'
 import { useEffect, useState } from 'react'
+import { Board } from '@/types'
 
 const initialState = {
   message: '',
@@ -27,7 +28,7 @@ const initialState = {
   },
 }
 
-function AddTaskModal({ boardExist }: { boardExist: any }) {
+function AddTaskModal({ currentBoard }: { currentBoard: Board }) {
   const [state, formAction] = useFormState(addNewTask, initialState)
   const [open, setOpen] = useState(false)
 
@@ -41,7 +42,7 @@ function AddTaskModal({ boardExist }: { boardExist: any }) {
         <Button
           variant="default"
           className="h-8 sm:h-12 ml-auto mr-[-5px] sm:px-[24px]"
-          disabled={!boardExist || boardExist.columns.length === 0}
+          disabled={!currentBoard || currentBoard.columns.length === 0}
         >
           <svg
             width="12"

@@ -14,6 +14,7 @@ import { Submit, EditStatusSelect, EditSubtasks } from '@/components/index'
 import { useFormState } from 'react-dom'
 import { updateTask } from '@/actions/tasks'
 import { useEffect, useState } from 'react'
+import { Task } from '@/types'
 
 const initialState = {
   message: '',
@@ -30,7 +31,7 @@ function EditTask({
   isOpen,
   setIsOpen,
 }: {
-  taskSaved: any
+  taskSaved: Task
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
@@ -94,7 +95,7 @@ function EditTask({
               />
             </div>
 
-            <EditSubtasks savedSubtasks={taskSaved.subtasks} state={state} />
+            <EditSubtasks savedSubtasks={taskSaved.subtasks!} state={state} />
             <EditStatusSelect statusLabel={taskSaved.status} state={state} />
           </div>
           <Submit variant="default">Save changes</Submit>

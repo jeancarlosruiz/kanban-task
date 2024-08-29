@@ -12,7 +12,7 @@ import {
 import { Submit, BoardColumns } from '@/components/index'
 import { useFormState } from 'react-dom'
 import { createBoard } from '@/actions/boards'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 const initialState = {
   message: '',
@@ -29,7 +29,7 @@ function AddNewBoard({
   setBoardDialog,
 }: {
   boardDialog: boolean
-  setBoardDialog: any
+  setBoardDialog: (boardDialog: boolean) => void
 }) {
   const [state, formAction] = useFormState(createBoard, initialState)
 

@@ -1,21 +1,9 @@
 'use client'
 
-import {
-  useState,
-  useId,
-  ChangeEventHandler,
-  MouseEventHandler,
-  ChangeEvent,
-} from 'react'
+import { useState, useId, ChangeEventHandler, MouseEventHandler } from 'react'
 import { Button, Input, Label } from './ui'
 import { uniqueId } from '@/utils/helpers'
-
-interface EditSubtask {
-  id: string
-  title: string
-  isCompleted: boolean
-  placeholder?: string
-}
+import { EditSubtask } from '@/types'
 
 function EditSubtasks({
   savedSubtasks,

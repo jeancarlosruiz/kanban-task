@@ -15,6 +15,7 @@ import { Submit, BoardColumns } from '@/components/index'
 import { useFormState } from 'react-dom'
 import { editBoard } from '@/actions/boards'
 import { useEffect, useState } from 'react'
+import { Board } from '@/types'
 
 const initialState = {
   message: '',
@@ -26,7 +27,13 @@ const initialState = {
   },
 }
 
-function EditBoard({ isDisabled, board }: { isDisabled: boolean; board: any }) {
+function EditBoard({
+  isDisabled,
+  board,
+}: {
+  isDisabled: boolean
+  board: Board
+}) {
   const handleAction = (prev: any, formData: FormData) =>
     editBoard(prev, formData, board?.id)
 

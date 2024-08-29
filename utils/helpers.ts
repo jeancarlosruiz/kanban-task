@@ -1,8 +1,12 @@
-export const uniqueId = () => {
+export const uniqueId = (): string => {
   return crypto.randomUUID()
 }
 
-export const range = (start: number, end?: number, step: number = 1) => {
+export const range = (
+  start: number,
+  end?: number,
+  step: number = 1
+): number[] => {
   let output = []
 
   if (typeof end === 'undefined') {
