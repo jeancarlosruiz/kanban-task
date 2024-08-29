@@ -1,4 +1,4 @@
-import NextAuth, { type DefaultSession } from 'next-auth'
+import { type DefaultSession } from 'next-auth'
 
 export type ExtendedUser = DefaultSession['user'] & {
   role: 'ADMIN' | 'USER'
@@ -14,4 +14,29 @@ declare module 'next-auth' {
 
 export type GQLContext = {
   user?: { id: string; email: string; createdAt: string } | null
+}
+
+export interface Board {}
+
+export interface NewColumn {
+  name: string
+}
+export interface Column {
+  id: string
+  createdAt?: string
+  name: string
+  task?: Task[]
+}
+
+export interface Task {}
+
+export interface NewSubtasks {
+  title: string
+}
+export interface Subtasks {
+  id: string
+  createdAt: string
+  title: string
+  isCompleted: boolean
+  taskId: string | null
 }

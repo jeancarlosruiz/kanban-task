@@ -94,8 +94,11 @@ export const addNewTask = async (prev: any, formData: FormData) => {
       })
       .returning({ id: tasks.id })
 
-    if (newSubtasks.length) {
-      await createSubtasks(newTask.subtasks, taskRow[0].id)
+    if (newSubtasks && newSubtasks.length > 0) {
+      const subtasks = newTask.subtasks!
+      const taskId = taskRow[0].id
+
+      await createSubtasks(subtasks, taskId)
     }
 
     revalidateTag('dashboard:boardSelected')

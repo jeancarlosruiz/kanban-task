@@ -192,7 +192,7 @@ export const getBoards = memoize(
 
 export const createBoard = async (prevState: any, formData: FormData) => {
   const session = await auth()
-  const { id }: any = session?.user
+  const id = session?.user?.id
   const columnsJSON: any = formData.get('columns')
   const newColumns = JSON.parse(columnsJSON)
 
@@ -210,8 +210,11 @@ export const createBoard = async (prevState: any, formData: FormData) => {
       })
       .returning({ id: boards.id })
 
-    if (newColumns.length > 0) {
-      await createColumns(board.columns, newBoard[0].id)
+    if (newColumns && newColumns.length > 0) {
+      const columns = board?.columns!
+      const boardId = newBoard[0].id
+
+      await createColumns(columns, boardId)
     }
 
     revalidateTag('dashboard:boards')

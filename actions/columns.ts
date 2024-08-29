@@ -5,24 +5,22 @@ import { eq } from 'drizzle-orm'
 import { columnObjSchema } from '@/lib/zod'
 import { ZodError } from 'zod'
 import { revalidateTag } from 'next/cache'
+import { Column, NewColumn } from '@/types'
 
-export const updateColumns = async (columnsArr: any, boardId: string) => {
+export const updateColumns = async (columnsArr: Column[], boardId: string) => {
   try {
-    // console.log({ columnsArr })
-
     const savedColumns = await getColumns(boardId)
 
     const columnsToDelete = savedColumns?.filter(
-      (sst) => sst.boardId && !columnsArr.some((ssu: any) => ssu.id === sst.id)
+      (sst) =>
+        sst.boardId && !columnsArr.some((ssu: Column) => ssu.id === sst.id)
     )
 
-    columnsArr.forEach(async (sub: any) => {
+    columnsArr.forEach(async (sub: Column) => {
       const isIncluded = savedColumns?.find((ss) => ss.id === sub.id)
       if (isIncluded) {
         // If havent been edited, skip it
         if (isIncluded.name.toLowerCase() === sub.name.toLowerCase()) return
-
-        console.log('Hola')
 
         await db
           .update(columns)
@@ -38,17 +36,19 @@ export const updateColumns = async (columnsArr: any, boardId: string) => {
       }
     })
 
-    await deleteColumns(columnsToDelete)
+    if (columnsToDelete && columnsToDelete?.length > 0) {
+      await deleteColumns(columnsToDelete)
+    }
   } catch (error) {
     console.log(error)
   }
 }
 
-export const deleteColumns = async (columnsArr: any) => {
+export const deleteColumns = async (columnsArr: Column[]) => {
   try {
     if (columnsArr.length === 0) return
 
-    columnsArr.forEach(async (c: any) => {
+    columnsArr.forEach(async (c: Column) => {
       await db.delete(columns).where(eq(columns.id, c.id))
     })
   } catch (err) {
@@ -72,8 +72,6 @@ export const getColumns = async (boardId: string) => {
       where: eq(columns.boardId, boardId),
       orderBy: columns.createdAt,
     })
-
-    // console.log({ allColumns })
 
     return allColumns
   } catch (error) {
@@ -123,9 +121,12 @@ export const addNewColumn = async (
   }
 }
 
-export const createColumns = async (columnsArr: any, boardId: string) => {
+export const createColumns = async (
+  columnsArr: NewColumn[],
+  boardId: string
+) => {
   try {
-    columnsArr.forEach(async (el: any) => {
+    columnsArr.forEach(async (el: NewColumn) => {
       await db.insert(columns).values({
         boardId,
         name: el.name,
