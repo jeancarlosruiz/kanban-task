@@ -114,11 +114,11 @@ I’ve learned a lot about Next.js at an intermediate level, with my biggest tak
 
 - [Password confirm with zod (.refine)](https://zod.dev/?id=refine) - This helped me to make an easy validation for confirm password.
 
-- [ISSUE: redirect after signOut with AuthJS](https://github.com/nextauthjs/next-auth/discussions/8686) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [ISSUE: redirect after signOut with AuthJS](https://github.com/nextauthjs/next-auth/discussions/8686) - This is an amazing article which helped me finally understand how to redirect after sign out with Authjs.
 
-- [Shadcn Dialog inside of Dropdown closes automatically](https://stackoverflow.com/questions/77185827/shadcn-dialog-inside-of-dropdown-closes-automatically) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [Shadcn Dialog inside of Dropdown closes automatically](https://stackoverflow.com/questions/77185827/shadcn-dialog-inside-of-dropdown-closes-automatically) - This stackoverflow helped me to find a solution when dialog closes automatically inside a dropdown.
 
-- [React feather icons](https://feathericons.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- [React feather icons](https://feathericons.com) - For icons
 
 ## Author
 
