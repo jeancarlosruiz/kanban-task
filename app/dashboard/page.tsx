@@ -29,7 +29,7 @@ const Page = async () => {
             theme={theme}
           />
           <AddTaskModal currentBoard={boardSelected} />
-          <Options boardSelected={boardSelected} />
+          <Options boardSelected={boardSelected} session={user} />
         </div>
       </header>
       <main className="flex overflow-hidden">

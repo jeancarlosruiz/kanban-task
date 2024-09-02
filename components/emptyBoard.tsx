@@ -9,10 +9,11 @@ function EmptyBoard() {
       <AddNewBoard boardDialog={open} setBoardDialog={setOpen} />
       <div className="self-center mt-[-30px] w-full flex items-center flex-col gap-[1.5625rem] text-center">
         <p className="text-center text-[1.125rem] text-gray-300 font-bold">
-          Start by creating a new board 😊
+          Start by creating a new board
         </p>
 
         <button
+          title="empty-board"
           onClick={() => setOpen(true)}
           className="rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
         >

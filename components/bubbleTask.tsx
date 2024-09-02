@@ -48,13 +48,16 @@ function BubbleTask({ task }: { task: Task }) {
       <DialogContent className="w-custom-form px-[24px] pb-[32px] rounded-lg shadow-[0px_10px_20px_0px_rgba(54,78,126,0.25)] flex flex-col gap-6">
         <DialogHeader>
           <div className="flex items-center gap-4">
-            <DialogTitle className="text-left text-[1.125rem]">
+            <DialogTitle
+              title="task-title"
+              className="text-left text-[1.125rem]"
+            >
               {task.title}
             </DialogTitle>
 
             <OptionsTask task={task} />
           </div>
-          <DialogDescription className="text-left">
+          <DialogDescription title="task-description" className="text-left">
             {task.description}
           </DialogDescription>
         </DialogHeader>
@@ -64,7 +67,7 @@ function BubbleTask({ task }: { task: Task }) {
               <h3 className="font-bold text-[0.75rem] mb-[16px]">
                 {`Subtasks (${subtaskCompleted} of ${subtasks.length})`}
               </h3>
-              <div className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-2">
                 {subtasks.map(
                   ({
                     id,
@@ -83,7 +86,7 @@ function BubbleTask({ task }: { task: Task }) {
                     />
                   )
                 )}
-              </div>
+              </ul>
             </div>
           )}
           <CurrentStatus status={task.status} />

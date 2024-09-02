@@ -29,7 +29,10 @@ function OptionsTask({ task }: { task: Task }) {
         />
       )}
       <DropdownMenu>
-        <DropdownMenuTrigger className="rounded-full inline-flex justify-center ml-auto w-6 h-6 mr-[-8px]">
+        <DropdownMenuTrigger
+          title="options-task"
+          className="rounded-full inline-flex justify-center ml-auto w-6 h-6 mr-[-8px]"
+        >
           <svg
             width="5"
             height="20"
@@ -44,7 +47,7 @@ function OptionsTask({ task }: { task: Task }) {
               <circle cx="2.308" cy="17.692" r="2.308" />
             </g>
           </svg>
-          <span className="sr-only">Open</span>
+          <span className="sr-only">Open options task</span>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-[12rem]">
           <DropdownMenuItem>

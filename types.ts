@@ -70,3 +70,12 @@ export interface StatusState {
   id: string
   name: string
 }
+
+export interface User {
+  id: string
+  createdAt: string
+  name: string
+  role: 'USER' | 'ADMIN'
+  image: string | null
+  boardSelected: string | null
+}

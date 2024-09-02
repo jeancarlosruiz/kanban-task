@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,17 +12,16 @@ import {
   AvatarImage,
 } from '@/components/ui'
 import { Signout, DeleteBoard, EditBoard, Profile } from '@/components/index'
-import { useSession } from 'next-auth/react'
-import { Board } from '@/types'
+import { Board, User } from '@/types'
 
-function Options({ boardSelected }: { boardSelected: Board }) {
-  const { data } = useSession()
-  const [profileData, setProfileData] = useState<any>({})
+function Options({
+  boardSelected,
+  session,
+}: {
+  boardSelected: Board
+  session: User
+}) {
   const [profile, setProfile] = useState(false)
-
-  useEffect(() => {
-    setProfileData(data)
-  }, [data])
 
   return (
     <>
@@ -52,19 +51,17 @@ function Options({ boardSelected }: { boardSelected: Board }) {
           <span className="sr-only">Open options</span>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-[12rem]">
-          <DropdownMenuLabel className="pt-[14px]">
+          <DropdownMenuLabel className="pt-[14px] mb-[10px]">
             <Avatar className="block min-h-10 min-w-10">
               <AvatarImage
-                src={data?.user?.image || ''}
+                src={session?.image || ''}
                 alt="user profile image"
               />
-              <AvatarFallback>{profileData?.user?.name[0]}</AvatarFallback>
+              <AvatarFallback>{session?.name[0]}</AvatarFallback>
             </Avatar>
 
-            {data?.user?.name && (
-              <span className="text-[1rem]">
-                {data?.user.name.split(' ')[0]}
-              </span>
+            {session?.name && (
+              <span className="text-[1rem]">{session?.name.split(' ')[0]}</span>
             )}
           </DropdownMenuLabel>
           <DropdownMenuItem onClick={() => setProfile(true)}>

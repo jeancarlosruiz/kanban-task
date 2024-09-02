@@ -45,12 +45,13 @@ function EditSubtasks({
   return (
     <div className="flex flex-col gap-2">
       <p className="text-[0.75rem] font-bold">Subtasks</p>
-      {subtasks.map(({ id, title, placeholder }) => (
+      {subtasks.map(({ id, title, placeholder }, i) => (
         <Subtask
           key={id}
           id={id}
           value={title}
           placeholder={placeholder}
+          index={i}
           onClickFn={() => deleteSubtask(id)}
           onChangeFn={(e) => onChangeFn(e, id)}
           state={state}
@@ -74,6 +75,7 @@ function Subtask({
   value,
   placeholder,
   state,
+  index,
   onChangeFn,
   onClickFn,
 }: {
@@ -81,6 +83,7 @@ function Subtask({
   id: string
   placeholder?: string
   state: any
+  index: number
   onChangeFn: ChangeEventHandler
   onClickFn: MouseEventHandler
 }) {
@@ -109,6 +112,7 @@ function Subtask({
       <Button
         variant="ghost"
         size="sm"
+        title={`delete-subtask-${index + 1}`}
         className="min-w-8"
         onClick={onClickFn}
         type="button"

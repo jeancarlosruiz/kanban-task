@@ -57,7 +57,11 @@ function StatusSelect({ state }: { state: any }) {
         </SelectTrigger>
         <SelectContent position="popper" side="top">
           {status?.map(({ id, name }) => (
-            <SelectItem key={id} value={JSON.stringify({ id, name })}>
+            <SelectItem
+              key={id}
+              value={JSON.stringify({ id, name })}
+              title={name}
+            >
               {name}
             </SelectItem>
           ))}

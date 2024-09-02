@@ -9,7 +9,7 @@ function CurrentStatus({ status }: { status: string }) {
       </Label>
       <Select name="status" defaultValue={status} disabled>
         <SelectTrigger id="status">
-          <SelectValue>{status}</SelectValue>
+          <SelectValue title={status}>{status}</SelectValue>
         </SelectTrigger>
       </Select>
     </div>

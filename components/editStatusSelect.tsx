@@ -71,6 +71,7 @@ function EditStatusSelect({
       >
         <SelectTrigger
           id="status"
+          title="edit-status"
           className={
             state?.message === 'error' && state.errors?.status?.length
               ? 'border-red-300 dark:border-red-300'
@@ -81,7 +82,11 @@ function EditStatusSelect({
         </SelectTrigger>
         <SelectContent position="popper" side="top">
           {status?.map(({ id, name }) => (
-            <SelectItem key={id} value={JSON.stringify({ id, name })}>
+            <SelectItem
+              key={id}
+              title={name}
+              value={JSON.stringify({ id, name })}
+            >
               {name}
             </SelectItem>
           ))}

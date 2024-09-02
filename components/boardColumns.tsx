@@ -49,13 +49,14 @@ function BoardColumns({
     <div>
       <p className="text-[0.75rem] font-bold">Board Columns</p>
       <div>
-        {columns.map(({ id, name }) => (
+        {columns.map((col, i) => (
           <Column
-            key={id}
-            id={id}
-            value={name}
-            onClickFn={() => deleteColumn(id)}
-            onChangeFn={onChangeFn(id)}
+            key={col.id}
+            id={col.id}
+            value={col.name}
+            index={i}
+            onClickFn={() => deleteColumn(col.id)}
+            onChangeFn={onChangeFn(col.id)}
             state={state}
           />
         ))}
@@ -79,18 +80,20 @@ function Column({
   onChangeFn,
   onClickFn,
   state,
+  index,
 }: {
   value: string
   id: string
   onChangeFn: ChangeEventHandler
   onClickFn: MouseEventHandler
   state: any
+  index: number
 }) {
   const labelId = useId()
   return (
     <div className="flex items-center gap-2.5">
       <Label htmlFor={labelId} className="sr-only">
-        input label
+        {`New column ${index + 1}`}
       </Label>
       <Input
         id={labelId}

@@ -65,17 +65,16 @@ function NewSubtasks({ state }: { state: any }) {
   return (
     <div className="flex flex-col gap-2">
       <p className="text-[0.75rem] font-bold">Subtasks</p>
-
-      {/* <div className="max-h-[8.75rem] overflow-y-auto"> */}
       <div className="flex flex-col gap-3">
-        {subtasks.map(({ id, title, placeholder }) => (
+        {subtasks.map((sub, i) => (
           <Subtask
-            key={id}
-            id={id}
-            value={title}
-            placeholder={placeholder}
-            onClickFn={() => deleteSubtask(id)}
-            onChangeFn={onChangeFn(id)}
+            key={sub.id}
+            id={sub.id}
+            index={i}
+            value={sub.title}
+            placeholder={sub.placeholder}
+            onClickFn={() => deleteSubtask(sub.id)}
+            onChangeFn={onChangeFn(sub.id)}
             state={state}
           />
         ))}
@@ -98,6 +97,7 @@ function Subtask({
   value,
   placeholder,
   state,
+  index,
   onChangeFn,
   onClickFn,
 }: {
@@ -105,6 +105,7 @@ function Subtask({
   id: string
   placeholder?: string
   state: any
+  index: number
   onChangeFn: ChangeEventHandler
   onClickFn: MouseEventHandler
 }) {
@@ -112,7 +113,7 @@ function Subtask({
   return (
     <div className="flex items-center gap-2.5">
       <Label htmlFor={labelId} className="sr-only">
-        input label
+        {`New subtask ${index + 1}`}
       </Label>
       <Input
         id={labelId}
