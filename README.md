@@ -106,6 +106,10 @@ Users should be able to:
 
 - [Playwright](https://playwright.dev/) - End-to-end testing for modern web apps.
 
+#### CI
+
+- [GitHub Action](https://github.com/features/actions) - For Continuous Integration.
+
 ### What I learned
 
 I’ve learned a lot about Next.js at an intermediate level, with my biggest takeaways being how to handle authentication with Auth.js, create a Drizzle schema with SQLite, manage databases with Turso, and run basic tests using Playwright.
