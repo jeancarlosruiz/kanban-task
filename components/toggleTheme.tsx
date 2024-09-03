@@ -1,5 +1,5 @@
 'use client'
-import { Switch } from '@/components/ui/switch'
+import { Switch } from '@/components/ui'
 import { useState } from 'react'
 import Cookies from 'js-cookie'
 
