@@ -5,6 +5,7 @@ function Home() {
   return (
     <main className="flex h-custom-dvh place-items-center">
       <section className="w-custom-form flex flex-col gap-5 justify-center items-center bg-white-100 dark:bg-black-600 px-[24px] py-[24px] mx-auto rounded-md">
+        <h2 className="sr-only">Sign in form</h2>
         <SigninForm />
 
         <div className="w-full relative">
