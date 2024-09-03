@@ -27,6 +27,7 @@ function Options({
     <>
       {profile && (
         <Profile
+          data={session}
           profile={profile}
           setProfile={setProfile}
           boardSelected={boardSelected}
@@ -64,7 +65,9 @@ function Options({
             </Avatar>
 
             {session?.name && (
-              <span className="text-[1rem]">{session?.name.split(' ')[0]}</span>
+              <span className="text-[1rem] truncate">
+                {session?.name.split(' ')[0]}
+              </span>
             )}
           </DropdownMenuLabel>
           <DropdownMenuItem onClick={() => setProfile(true)}>

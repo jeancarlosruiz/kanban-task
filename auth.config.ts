@@ -3,7 +3,7 @@ import Github from 'next-auth/providers/github'
 import Google from 'next-auth/providers/google'
 import type { NextAuthConfig } from 'next-auth'
 import { getUserByEmail } from '@/db/user'
-import { comparePW } from '@/utils/auth'
+import { comparePW } from '@/utils/helpers'
 import { signInSchema } from '@/lib/zod'
 
 export default {

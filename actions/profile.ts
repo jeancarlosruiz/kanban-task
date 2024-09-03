@@ -4,6 +4,7 @@ import { db } from '@/db'
 import { users } from '@/db/schema'
 import { profileSchema } from '@/lib/zod'
 import { eq } from 'drizzle-orm'
+import { revalidateTag } from 'next/cache'
 import { ZodError } from 'zod'
 
 export const editProfile = async (
@@ -24,6 +25,8 @@ export const editProfile = async (
         name: profile.name,
       })
       .where(eq(users.id, userId))
+
+    revalidateTag('dashboard:user')
 
     return {
       message: 'success',

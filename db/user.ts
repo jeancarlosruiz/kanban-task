@@ -1,7 +1,7 @@
 import { db } from '@/db'
 import { eq } from 'drizzle-orm'
 import { users } from '@/db/schema'
-import { hashPW } from '@/utils/auth'
+import { hashPW } from '@/utils/helpers'
 import { UserExistError } from '@/lib/zod'
 
 export const getUserById = async (id: string | undefined) => {
