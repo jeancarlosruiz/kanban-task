@@ -20,6 +20,12 @@ jobs:
         env:
           TURSO_CONNECTION_URL: ${{ secrets.TURSO_CONNECTION_URL }}
           TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+          TEST_SIGNIN_EMAIL: ${{ secrets.TEST_SIGNIN_EMAIL }}
+          TEST_SIGNIN_PASSWORD: ${{ secrets.TEST_SIGNIN_PASSWORD }}
+          TEST_SIGNUP_USERNAME: ${{ secrets.TEST_SIGNUP_USERNAME }}
+          TEST_SIGNUP_EMAIL: ${{ secrets.TEST_SIGNUP_EMAIL }}
+          TEST_SIGNUP_PASSWORD: ${{ secrets.TEST_SIGNUP_PASSWORD }}
+          TEST_SIGNUP_REPEAT_PASSWORD: ${{ secrets.TEST_SIGNUP_REPEAT_PASSWORD }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:

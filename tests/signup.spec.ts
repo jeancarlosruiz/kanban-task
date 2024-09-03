@@ -26,7 +26,7 @@ test.describe('Singing up processs', async () => {
   })
 
   test('Sign in after sign up', async ({ page }) => {
-    await page.goto('http://localhost:3000/signin')
+    await page.goto('https://kanban-task-chi.vercel.app/signin')
     await page.getByLabel('Email:').fill(process.env.TEST_SIGNUP_EMAIL!)
     await page.getByLabel('Password:').fill(process.env.TEST_SIGNUP_PASSWORD!)
     await page.getByRole('button', { name: 'Sign in', exact: true }).click()
