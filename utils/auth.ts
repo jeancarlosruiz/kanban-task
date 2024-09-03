@@ -1,9 +1,24 @@
-import bcrypt from 'bcryptjs'
+import 'server-only'
+import { users } from '@/db/schema'
+import { db } from '@/db'
+import { eq } from 'drizzle-orm'
+import { memoize } from 'nextjs-better-unstable-cache'
 
-export const hashPW = async (password: string) => {
-  return await bcrypt.hash(password, 10)
-}
-
-export const comparePW = async (password: string, hashedPW: string) => {
-  return await bcrypt.compare(password, hashedPW)
-}
+export const getCurrentUser = memoize(
+  async (userId: string) => {
+    try {
+      const currentUser = await db.query.users.findFirst({
+        where: eq(users.id, userId),
+      })
+      return currentUser
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  {
+    persist: true,
+    revalidateTags: () => ['dashboard:user'],
+    suppressWarnings: true,
+    logid: 'events',
+  }
+)

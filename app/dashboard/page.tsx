@@ -1,4 +1,4 @@
-import { getCurrentUser } from '@/actions/auth'
+import { getCurrentUser } from '@/utils/auth'
 import { getBoardSelected, getBoards } from '@/utils/boards'
 import {
   AddTaskModal,
@@ -9,13 +9,17 @@ import {
   Section,
 } from '@/components/index'
 import { cookies } from 'next/headers'
+import { auth } from '@/auth'
 
 const Page = async () => {
-  const data = await getCurrentUser()
-  const { user } = data
-  const userId = user?.id as string
+  const data = await auth()
+  const userId = data?.user?.id as string
+  const user = await getCurrentUser(userId)
   const allBoards = await getBoards(userId)
-  const boardSelected: any = await getBoardSelected(userId, user?.boardSelected)
+  const boardSelected: any = await getBoardSelected(
+    userId,
+    data?.user.boardSelected
+  )
   const theme = cookies().get('color-theme')?.value || 'dark'
 
   return (

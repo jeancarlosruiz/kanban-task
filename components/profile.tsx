@@ -14,7 +14,6 @@ import {
 import { DeleteModal, Submit } from '@/components/index'
 import { useFormState } from 'react-dom'
 import { deleteUser, editProfile } from '@/actions/profile'
-import { useSession } from 'next-auth/react'
 import { deleteAllColumns } from '@/actions/columns'
 import { signout } from '@/actions/auth'
 import { Board } from '@/types'
@@ -28,22 +27,22 @@ function Profile({
   profile,
   setProfile,
   boardSelected,
+  data,
 }: {
   profile: boolean
   setProfile: (prevState: boolean) => void
   boardSelected: Board
+  data: any
 }) {
-  const { update, data } = useSession()
   const handleAction = (prev: any, formData: FormData) =>
-    editProfile(prev, formData, profileData?.user?.id)
+    editProfile(prev, formData, data?.id)
   const [state, formAction] = useFormState(handleAction, initialState)
-  const [profileData, setProfileData] = useState<any>({})
-  const [userName, setUsername] = useState<any>(data?.user.name)
+  const [profileData, setProfileData] = useState<any>(data)
+  const [userName, setUsername] = useState<any>(data?.name)
 
   const afterAction = async () => {
     if (state?.message === 'success') {
       setProfile(false)
-      await update()
     }
   }
 
@@ -123,7 +122,7 @@ function Profile({
               id="email"
               placeholder="Username"
               name="name"
-              defaultValue={profileData?.user?.email}
+              defaultValue={profileData?.email}
               disabled
             />
           </div>
