@@ -6,6 +6,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  ScrollArea,
+  ScrollBar,
 } from '@/components/ui'
 import { CurrentStatus, OptionsTask, Subtask } from '@/components/index'
 import { useEffect, useState } from 'react'
@@ -61,36 +63,39 @@ function BubbleTask({ task }: { task: Task }) {
             {task.description}
           </DialogDescription>
         </DialogHeader>
-        <div className="max-h-[400px] overflow-y-auto flex flex-col gap-6">
-          {subtasks.length > 0 && (
-            <div>
-              <h3 className="font-bold text-[0.75rem] mb-[16px]">
-                {`Subtasks (${subtaskCompleted} of ${subtasks.length})`}
-              </h3>
-              <ul className="flex flex-col gap-2">
-                {subtasks.map(
-                  ({
-                    id,
-                    title,
-                    isCompleted,
-                  }: {
-                    id: string
-                    title: string
-                    isCompleted: boolean
-                  }) => (
-                    <Subtask
-                      key={id}
-                      id={id}
-                      title={title}
-                      isCompleted={isCompleted}
-                    />
-                  )
-                )}
-              </ul>
-            </div>
-          )}
-          <CurrentStatus status={task.status} />
-        </div>
+        <ScrollArea className="h-full max-h-[400px] overflow-y-auto">
+          <div className="flex flex-col gap-6">
+            {subtasks.length > 0 && (
+              <div>
+                <h3 className="font-bold text-[0.75rem] mb-[16px]">
+                  {`Subtasks (${subtaskCompleted} of ${subtasks.length})`}
+                </h3>
+                <ul className="flex flex-col gap-2">
+                  {subtasks.map(
+                    ({
+                      id,
+                      title,
+                      isCompleted,
+                    }: {
+                      id: string
+                      title: string
+                      isCompleted: boolean
+                    }) => (
+                      <Subtask
+                        key={id}
+                        id={id}
+                        title={title}
+                        isCompleted={isCompleted}
+                      />
+                    )
+                  )}
+                </ul>
+              </div>
+            )}
+            <CurrentStatus status={task.status} />
+            <ScrollBar orientation="vertical" />
+          </div>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   )

@@ -5,6 +5,7 @@ import { DropdownMenuItem } from './ui'
 function Signout() {
   return (
     <DropdownMenuItem
+      title="signout"
       onClick={() => signout()}
       className="flex items-center justify-between text-red-300"
     >

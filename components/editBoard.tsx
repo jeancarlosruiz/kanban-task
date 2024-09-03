@@ -10,6 +10,8 @@ import {
   DropdownMenuItem,
   Input,
   Label,
+  ScrollArea,
+  ScrollBar,
 } from '@/components/ui'
 import { Submit, BoardColumns } from '@/components/index'
 import { useFormState } from 'react-dom'
@@ -71,34 +73,38 @@ function EditBoard({
           </DialogHeader>
 
           <form action={formAction} className="flex flex-col gap-[1.5rem]">
-            <div className="flex flex-col gap-[1.5rem] max-h-[400px] overflow-y-auto">
-              <div>
-                <Label
-                  htmlFor="title"
-                  className="text-[0.75rem] font-bold w-full inline-flex items-center justify-between"
-                >
-                  Title
-                  {state?.message === 'error' && state.errors?.name?.length && (
-                    <small className="text-red-300">
-                      {state.errors?.name[0]}
-                    </small>
-                  )}
-                </Label>
-                <Input
-                  id="title"
-                  placeholder="e.g. Web Design"
-                  name="name"
-                  defaultValue={board?.name}
-                  className={
-                    state?.message === 'error' && state.errors?.name?.length
-                      ? 'border-red-300 dark:border-red-300'
-                      : ''
-                  }
-                />
-              </div>
+            <ScrollArea className="h-full max-h-[400px] overflow-y-auto">
+              <div className="flex flex-col gap-[1.5rem] ">
+                <div>
+                  <Label
+                    htmlFor="title"
+                    className="text-[0.75rem] font-bold w-full inline-flex items-center justify-between"
+                  >
+                    Title
+                    {state?.message === 'error' &&
+                      state.errors?.name?.length && (
+                        <small className="text-red-300">
+                          {state.errors?.name[0]}
+                        </small>
+                      )}
+                  </Label>
+                  <Input
+                    id="title"
+                    placeholder="e.g. Web Design"
+                    name="name"
+                    defaultValue={board?.name}
+                    className={
+                      state?.message === 'error' && state.errors?.name?.length
+                        ? 'border-red-300 dark:border-red-300'
+                        : ''
+                    }
+                  />
+                </div>
 
-              <BoardColumns columnsArr={board?.columns} state={state} />
-            </div>
+                <BoardColumns columnsArr={board?.columns} state={state} />
+                <ScrollBar orientation="vertical" />
+              </div>
+            </ScrollArea>
             <Submit variant="default">Save Changes</Submit>
           </form>
           <DialogClose onClick={() => setOpen(false)} />

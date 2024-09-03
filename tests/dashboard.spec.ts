@@ -3,7 +3,7 @@ import 'dotenv/config'
 
 test.describe('Dashboard tests', async () => {
   test.beforeEach('Go to and sign in', async ({ page }) => {
-    await page.goto('http://localhost:3000/signin')
+    await page.goto('https://kanban-task-chi.vercel.app/signin')
     await expect(page.getByRole('link', { name: 'Kanban' })).toBeVisible()
     await page.getByLabel('Email:').fill(process.env.TEST_SIGNIN_EMAIL!)
     await page.getByLabel('Password:').fill(process.env.TEST_SIGNIN_PASSWORD!)
@@ -12,8 +12,7 @@ test.describe('Dashboard tests', async () => {
 
   test('Sign in and create the first board', async ({ page }) => {
     page.getByText('Create a new board', { exact: true })
-    await expect(page.getByRole('button', { name: '+ Add New Task' }))
-      .toBeDisabled
+    expect(page.getByRole('button', { name: '+ Add New Task' })).toBeDisabled
     page.getByText('Start by creating a new board', { exact: true })
     await page.getByTitle('empty-board').click()
     await page.getByLabel('Title').fill('First board')
@@ -43,11 +42,8 @@ test.describe('Dashboard tests', async () => {
       .getByRole('button', { name: 'Create New Column', exact: true })
       .click()
     await expect(page.getByText('Another column')).toBeVisible()
-  })
 
-  test('Creating a new task', async ({ page }) => {
-    await expect(page.getByRole('button', { name: '+ Add New Task' }))
-      .toBeEnabled
+    expect(page.getByRole('button', { name: '+ Add New Task' })).toBeEnabled
     await page.getByRole('button', { name: '+ Add New Task' }).click()
     await page.getByLabel('Title').fill('First task')
     await page.getByLabel('Description').fill('First description')
@@ -58,30 +54,28 @@ test.describe('Dashboard tests', async () => {
     await page.getByLabel('Status').click()
     await page.getByTitle('Todo').click()
     await page.getByRole('button', { name: 'Create Task' }).click()
-  })
 
-  test('Editing the new task', async ({ page }) => {
-    // await expect(page.getByText('First task')).toBeVisible()
     await page.getByText('First task').click()
-    await page.getByTitle('task-title')
-    await page.getByTitle('task-description')
+    page.getByTitle('task-title')
+    page.getByTitle('task-description')
     await expect(page.getByRole('listitem')).toHaveCount(3)
-    await page.getByTitle('Todo')
+    page.getByTitle('Todo')
     await page.getByLabel('First subtask', { exact: true }).click()
-    await page.getByTitle('options-task').click()
+    await page.getByTitle('open-task').click()
     await page.getByRole('button', { name: 'Edit task' }).click()
     await page.getByLabel('title').fill('First task updated')
-    await page.getByTitle('delete-subtask-2').click()
+    await page.getByTitle('delete-subtask-1').click()
     await page.getByTitle('edit-status').click()
     await page.getByTitle('Done').click()
     await page.getByRole('button', { name: 'Save changes' }).click()
   })
 
-  test('Delete current board', async ({ page }) => {
-    await page.getByText('Open options').click()
+  test.afterEach('Delete the board', async ({ page }) => {
+    await page.getByTitle('open-options').click()
     await expect(page.getByText('Profile')).toBeVisible()
-    await page.getByText('Delete board').click()
+    await page.getByTitle('delete-board').click()
     await expect(page.getByText('Delete this board?')).toBeVisible()
     await page.getByRole('button', { name: 'Delete', exact: true }).click()
+    await page.getByTitle('signout').click()
   })
 })

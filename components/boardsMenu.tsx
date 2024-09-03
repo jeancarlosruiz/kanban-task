@@ -8,6 +8,8 @@ import {
   DialogOverlay,
   DialogTitle,
   DialogTrigger,
+  ScrollArea,
+  ScrollBar,
 } from '@/components/ui'
 import { setBoardSelected } from '@/actions/boards'
 import { useEffect, useState } from 'react'
@@ -63,7 +65,7 @@ function BoardsMenu({
           </DialogHeader>
 
           <ul className="flex flex-col ml-[-16px] sm:ml-[-32px]">
-            <div className="max-h-[25rem] overflow-y-auto">
+            <ScrollArea className="h-full max-h-[25rem] overflow-y-auto">
               {boards &&
                 boards.map(({ id, name }: { id: string; name: string }) => (
                   <li key={id}>
@@ -96,7 +98,8 @@ function BoardsMenu({
                     </button>
                   </li>
                 ))}
-            </div>
+              <ScrollBar orientation="vertical" />
+            </ScrollArea>
             <li>
               <button
                 onClick={() => setBoardDialog(true)}

@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test'
-import 'dotenv/config'
 import { db } from '@/db'
 import { users } from '@/db/schema'
 import { eq } from 'drizzle-orm'
+import 'dotenv/config'
 
 test.describe('Singing up processs', async () => {
   test('Go to sign up page', async ({ page }) => {
-    await page.goto('http://localhost:3000/signin')
+    await page.goto('https://kanban-task-chi.vercel.app/signin')
     await expect(page.getByRole('link', { name: 'Kanban' })).toBeVisible()
     await page
       .getByRole('link', {

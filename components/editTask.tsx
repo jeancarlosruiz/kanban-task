@@ -8,6 +8,8 @@ import {
   DialogTrigger,
   Input,
   Label,
+  ScrollArea,
+  ScrollBar,
   Textarea,
 } from '@/components/ui'
 import { Submit, EditStatusSelect, EditSubtasks } from '@/components/index'
@@ -59,45 +61,51 @@ function EditTask({
         </DialogHeader>
 
         <form action={formAction} className="flex flex-col gap-[1.5rem]">
-          <div className="flex flex-col gap-[1.5rem] max-h-[400px] overflow-y-auto">
-            <div>
-              <Label htmlFor="title" className="text-[0.75rem] font-bold">
-                Title
-              </Label>
-              <Input
-                id="title"
-                value={title}
-                placeholder="e.g. Take coffee break"
-                name="title"
-                onChange={(e) => {
-                  setTitle(e.target.value)
-                }}
-                className={
-                  state?.message === 'error' && state.errors?.name?.length
-                    ? 'border-red-300 dark:border-red-300'
-                    : ''
-                }
-              />
-            </div>
+          <ScrollArea className="max-h-[400px] overflow-y-auto">
+            <div className="flex flex-col gap-[1.5rem] ">
+              <div>
+                <Label htmlFor="title" className="text-[0.75rem] font-bold">
+                  Title
+                </Label>
+                <Input
+                  id="title"
+                  value={title}
+                  placeholder="e.g. Take coffee break"
+                  name="title"
+                  onChange={(e) => {
+                    setTitle(e.target.value)
+                  }}
+                  className={
+                    state?.message === 'error' && state.errors?.name?.length
+                      ? 'border-red-300 dark:border-red-300'
+                      : ''
+                  }
+                />
+              </div>
 
-            <div>
-              <Label htmlFor="description" className="text-[0.75rem] font-bold">
-                Description
-              </Label>
-              <Textarea
-                id="description"
-                placeholder="e.g. It’s always good to take a break. This 
-                              15 minute break will  recharge the batteries 
-                              a little."
-                name="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
+              <div>
+                <Label
+                  htmlFor="description"
+                  className="text-[0.75rem] font-bold"
+                >
+                  Description
+                </Label>
+                <Textarea
+                  id="description"
+                  placeholder="e.g. It’s always good to take a break. This 
+                15 minute break will  recharge the batteries 
+                a little."
+                  name="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
 
-            <EditSubtasks savedSubtasks={taskSaved.subtasks!} state={state} />
-            <EditStatusSelect statusLabel={taskSaved.status} state={state} />
-          </div>
+              <EditSubtasks savedSubtasks={taskSaved.subtasks!} state={state} />
+              <EditStatusSelect statusLabel={taskSaved.status} state={state} />
+              <ScrollBar orientation="vertical" />
+            </div>
+          </ScrollArea>
           <Submit variant="default">Save changes</Submit>
         </form>
       </DialogContent>

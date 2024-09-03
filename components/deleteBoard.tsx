@@ -31,6 +31,7 @@ function DeleteBoard({
       >
         <button
           disabled={isDisabled}
+          title="delete-board"
           className="w-full relative text-red-300 flex cursor-pointer select-none items-center rounded-sm px-[16px] py-[8px] text-sm outline-none transition-colors focus:bg-white-200  disabled:pointer-events-none disabled:opacity-50 dark:focus:bg-black-600/50"
         >
           Delete board

@@ -106,6 +106,7 @@ export const getBoardSelected = memoize(
                 with: { subtasks: true },
               },
             },
+            orderBy: asc(columns.createdAt),
           },
         },
       })

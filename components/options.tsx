@@ -19,7 +19,7 @@ function Options({
   session,
 }: {
   boardSelected: Board
-  session: User
+  session: any
 }) {
   const [profile, setProfile] = useState(false)
 
@@ -33,7 +33,10 @@ function Options({
         />
       )}
       <DropdownMenu>
-        <DropdownMenuTrigger className="w-6 h-6 rounded-full inline-flex justify-center items-center mr-[-8px]">
+        <DropdownMenuTrigger
+          title="open-options"
+          className="w-6 h-6 rounded-full inline-flex justify-center items-center mr-[-8px]"
+        >
           <svg
             width="5"
             height="20"

@@ -73,9 +73,9 @@ export interface StatusState {
 
 export interface User {
   id: string
-  createdAt: string
+  email: string
   name: string
-  role: 'USER' | 'ADMIN'
+  role: string
   image: string | null
   boardSelected: string | null
 }

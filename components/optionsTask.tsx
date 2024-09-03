@@ -30,7 +30,7 @@ function OptionsTask({ task }: { task: Task }) {
       )}
       <DropdownMenu>
         <DropdownMenuTrigger
-          title="options-task"
+          title="open-task"
           className="rounded-full inline-flex justify-center ml-auto w-6 h-6 mr-[-8px]"
         >
           <svg
