@@ -8,6 +8,7 @@ function Section({ boardSelected }: { boardSelected: Board }) {
   return (
     <ScrollArea className="w-full sm:section-custom-dvh">
       <section className="h-custom-dvh px-[16px] sm:px-[24px] pt-[27px] sm:pt-[24px] pb-[24px] flex gap-6 mx-auto relative">
+        <h2 className="sr-only">Board section</h2>
         {boardSelected ? (
           <>
             {boardSelected.columns.map((column: ColumnType) => (
