@@ -1,6 +1,6 @@
 'use client'
-import { DropdownMenuItem } from '@/components/ui'
-import { DeleteModal } from '@/components/index'
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import DeleteModal from '@/components/deleteModal'
 import { deleteCurrentBoard } from '@/actions/boards'
 import { Board } from '@/types'
 
@@ -32,7 +32,7 @@ function DeleteBoard({
         <button
           disabled={isDisabled}
           title="delete-board"
-          className="w-full relative text-red-300 flex cursor-pointer select-none items-center rounded-sm px-[16px] py-[8px] text-sm outline-none transition-colors focus:bg-white-200  disabled:pointer-events-none disabled:opacity-50 dark:focus:bg-black-600/50"
+          className="relative flex w-full cursor-pointer select-none items-center rounded-sm px-[16px] py-[8px] text-sm text-red-300 outline-none transition-colors focus:bg-white-200 disabled:pointer-events-none disabled:opacity-50 dark:focus:bg-black-600/50"
         >
           Delete board
         </button>

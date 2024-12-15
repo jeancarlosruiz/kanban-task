@@ -6,7 +6,9 @@ import {
   MouseEventHandler,
   ChangeEvent,
 } from 'react'
-import { Button, Input, Label } from './ui'
+import { Label } from './ui/label'
+import { Input } from './ui/input'
+import { Button } from './ui/button'
 import { uniqueId } from '@/utils/helpers'
 import { type Column } from '@/types'
 
@@ -67,7 +69,7 @@ function BoardColumns({
         size="s"
         type="button"
         onClick={addNewSubTask}
-        className="text-[0.8125rem] w-full mt-[6px]"
+        className="mt-[6px] w-full text-[0.8125rem]"
       >
         + Add New Column
       </Button>

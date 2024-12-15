@@ -6,10 +6,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  ScrollArea,
-  ScrollBar,
-} from '@/components/ui'
-import { CurrentStatus, OptionsTask, Subtask } from '@/components/index'
+} from '@/components/ui/dialog'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import Subtask from '@/components/subtask'
+import CurrentStatus from '@/components/currentStatus'
+import OptionsTask from '@/components/optionsTask'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Subtasks, Task } from '@/types'
@@ -37,17 +38,17 @@ function BubbleTask({ task }: { task: Task }) {
           layout
           layoutId={task.id}
           draggable="true"
-          className="w-[17.5rem] flex flex-col gap-1 bg-white-100 dark:bg-black-600 rounded-lg px-[16px] py-[23px] shadow-[0px_5px_10px_0px_rgba(54,78,126,0.25)] active:cursor-grabbing"
+          className="flex w-[17.5rem] flex-col gap-1 rounded-lg bg-white-100 px-[16px] py-[23px] shadow-[0px_5px_10px_0px_rgba(54,78,126,0.25)] active:cursor-grabbing dark:bg-black-600"
         >
-          <h3 className="text-[0.9375rem] font-bold text-left">{task.title}</h3>
-          <p className="text-[0.75rem] text-gray-300 font-bold text-left">
+          <h3 className="text-left text-[0.9375rem] font-bold">{task.title}</h3>
+          <p className="text-left text-[0.75rem] font-bold text-gray-300">
             {task.subtasks && task.subtasks.length !== 0
               ? `${subtaskCompleted} of ${task.subtasks.length} subtasks`
               : 'No subtasks'}
           </p>
         </motion.div>
       </DialogTrigger>
-      <DialogContent className="w-custom-form px-[24px] pb-[32px] rounded-lg shadow-[0px_10px_20px_0px_rgba(54,78,126,0.25)] flex flex-col gap-6">
+      <DialogContent className="w-custom-form flex flex-col gap-6 rounded-lg px-[24px] pb-[32px] shadow-[0px_10px_20px_0px_rgba(54,78,126,0.25)]">
         <DialogHeader>
           <div className="flex items-center gap-4">
             <DialogTitle
@@ -67,7 +68,7 @@ function BubbleTask({ task }: { task: Task }) {
           <div className="flex flex-col gap-6">
             {subtasks.length > 0 && (
               <div>
-                <h3 className="font-bold text-[0.75rem] mb-[16px]">
+                <h3 className="mb-[16px] text-[0.75rem] font-bold">
                   {`Subtasks (${subtaskCompleted} of ${subtasks.length})`}
                 </h3>
                 <ul className="flex flex-col gap-2">

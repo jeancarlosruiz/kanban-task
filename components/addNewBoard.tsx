@@ -6,12 +6,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Input,
-  Label,
-  ScrollArea,
-  ScrollBar,
-} from '@/components/ui'
-import { Submit, BoardColumns } from '@/components/index'
+} from '@/components/ui/dialog'
+import { Label } from '@/components/ui/label'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { Input } from '@/components/ui/input'
+import Submit from '@/components/submit'
+import BoardColumns from '@/components/boardColumns'
 import { useFormState } from 'react-dom'
 import { createBoard } from '@/actions/boards'
 import { useEffect } from 'react'
@@ -42,7 +42,7 @@ function AddNewBoard({
   return (
     <Dialog open={boardDialog} onOpenChange={setBoardDialog}>
       <DialogTrigger asChild>
-        <button className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] items-center gap-3 text-purple-500 hidden">
+        <button className="hidden w-full items-center gap-3 rounded-r-full pl-[24px] pt-[16px] text-[0.9375rem] text-purple-500 sm:pl-[32px]">
           <svg
             width="16"
             height="16"
@@ -75,7 +75,7 @@ function AddNewBoard({
               <div>
                 <Label
                   htmlFor="title"
-                  className="text-[0.75rem] font-bold w-full inline-flex items-center justify-between"
+                  className="inline-flex w-full items-center justify-between text-[0.75rem] font-bold"
                 >
                   Title
                   {state?.message === 'error' && state.errors?.name?.length && (

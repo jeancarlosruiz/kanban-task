@@ -1,10 +1,11 @@
-import { Select, SelectTrigger, SelectValue, Label } from '@/components/ui'
+import { Select, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Label } from '@/components/ui/label'
 
 function CurrentStatus({ status }: { status: string }) {
   return (
     <div>
-      <h3 className="font-bold text-[0.75rem] mb-[8px]">Current Status</h3>
-      <Label htmlFor="status" className="text-[0.75rem] font-bold sr-only">
+      <h3 className="mb-[8px] text-[0.75rem] font-bold">Current Status</h3>
+      <Label htmlFor="status" className="sr-only text-[0.75rem] font-bold">
         Current status
       </Label>
       <Select name="status" defaultValue={status} disabled>

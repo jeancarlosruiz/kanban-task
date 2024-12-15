@@ -1,6 +1,6 @@
 'use client'
 import { signout } from '@/actions/auth'
-import { DropdownMenuItem } from './ui'
+import { DropdownMenuItem } from './ui/dropdown-menu'
 
 function Signout() {
   return (

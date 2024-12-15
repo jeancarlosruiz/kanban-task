@@ -6,7 +6,9 @@ import {
   MouseEventHandler,
   ChangeEvent,
 } from 'react'
-import { Button, Input, Label } from './ui'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
 import { uniqueId } from '@/utils/helpers'
 
 interface NewSubtask {
@@ -85,7 +87,7 @@ function NewSubtasks({ state }: { state: any }) {
         size="s"
         type="button"
         onClick={addNewSubTask}
-        className="text-[0.8125rem] w-full mt-[6px]"
+        className="mt-[6px] w-full text-[0.8125rem]"
       >
         + Add New Subtask
       </Button>

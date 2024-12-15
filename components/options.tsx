@@ -7,11 +7,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui'
-import { Signout, DeleteBoard, EditBoard, Profile } from '@/components/index'
+} from '@/components/ui/dropdown-menu'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import Signout from '@/components/signout'
+import Profile from '@/components/profile'
+import DeleteBoard from '@/components/deleteBoard'
+import EditBoard from '@/components/editBoard'
 import { Board, User } from '@/types'
 
 function Options({
@@ -36,7 +37,7 @@ function Options({
       <DropdownMenu>
         <DropdownMenuTrigger
           title="open-options"
-          className="w-6 h-6 rounded-full inline-flex justify-center items-center mr-[-8px]"
+          className="mr-[-8px] inline-flex h-6 w-6 items-center justify-center rounded-full"
         >
           <svg
             width="5"
@@ -55,7 +56,7 @@ function Options({
           <span className="sr-only">Open options</span>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-[12rem]">
-          <DropdownMenuLabel className="pt-[14px] mb-[10px]">
+          <DropdownMenuLabel className="mb-[10px] pt-[14px]">
             <Avatar className="block min-h-10 min-w-10">
               <AvatarImage
                 src={session?.image || ''}
@@ -65,7 +66,7 @@ function Options({
             </Avatar>
 
             {session?.name && (
-              <span className="text-[1rem] truncate">
+              <span className="truncate text-[1rem]">
                 {session?.name.split(' ')[0]}
               </span>
             )}

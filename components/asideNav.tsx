@@ -1,7 +1,9 @@
 'use client'
 import { setBoardSelected } from '@/actions/boards'
-import { AddNewBoard, ToggleTheme } from '@/components/index'
-import { Button, ScrollArea, ScrollBar } from '@/components/ui/index'
+import AddNewBoard from '@/components/addNewBoard'
+import ToggleTheme from '@/components/toggleTheme'
+import { Button } from '@/components/ui/button'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Board, BoardNav } from '@/types'
@@ -41,10 +43,10 @@ function AsideNav({
               damping: 30,
               duration: 0.5,
             }}
-            className="hidden sm:min-w-[16.3125rem] md:min-w-[18.75rem] h-custom-dvh bg-white-100 dark:bg-black-600 sm:flex flex-col sm:pt-[15px] pb-[24px] pr-[24px] border-e dark:border-r-gray-500 relative"
+            className="h-custom-dvh relative hidden flex-col border-e bg-white-100 pb-[24px] pr-[24px] sm:flex sm:min-w-[16.3125rem] sm:pt-[15px] md:min-w-[18.75rem] dark:border-r-gray-500 dark:bg-black-600"
           >
             <div className="flex-1">
-              <h2 className="uppercase text-left text-[0.75rem] tracking-[.2em] text-gray-300 w-full pb-[14px] pl-[24px] sm:pl-[32px]">
+              <h2 className="w-full pb-[14px] pl-[24px] text-left text-[0.75rem] uppercase tracking-[.2em] text-gray-300 sm:pl-[32px]">
                 {boards?.length
                   ? `All Boards (${boards.length})`
                   : 'All boards'}
@@ -56,7 +58,7 @@ function AsideNav({
                     boards.map(({ id, name }: { id: string; name: string }) => (
                       <li key={id}>
                         <button
-                          className={`w-full py-[14px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 ${
+                          className={`inline-flex w-full items-center gap-3 rounded-r-full py-[14px] pl-[24px] text-[0.9375rem] sm:pl-[32px]${
                             boardSelected?.id === id
                               ? 'bg-purple-500 text-white-100'
                               : 'text-gray-300'
@@ -89,7 +91,7 @@ function AsideNav({
                 <li>
                   <button
                     onClick={() => setBoardDialog(true)}
-                    className=" w-full py-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
+                    className="inline-flex w-full items-center gap-3 rounded-r-full py-[16px] pl-[24px] text-[0.9375rem] text-purple-500 sm:pl-[32px]"
                   >
                     <svg
                       width="16"
@@ -115,7 +117,7 @@ function AsideNav({
               <Button
                 variant="ghost"
                 onClick={() => setIsVisible(!isVisible)}
-                className="w-full text-gray-300 text-[0.9375rem] inline-flex items-center justify-start gap-[0.9375rem] hover:bg-transparent dark:hover:bg-transparent"
+                className="inline-flex w-full items-center justify-start gap-[0.9375rem] text-[0.9375rem] text-gray-300 hover:bg-transparent dark:hover:bg-transparent"
               >
                 <svg
                   width="18"
@@ -150,7 +152,7 @@ function AsideNav({
               damping: 30,
               duration: 0.5,
             }}
-            className="hidden sm:inline-flex items-center justify-center absolute bottom-5 w-[3.5rem] h-12 z-10 rounded-none rounded-r-full bg-purple-500 text-clr-white hover:bg-purple-200 dark:bg-purple-500 dark:text-clr-white dark:hover:bg-purple-200"
+            className="absolute bottom-5 z-10 hidden h-12 w-[3.5rem] items-center justify-center rounded-none rounded-r-full bg-purple-500 text-clr-white hover:bg-purple-200 sm:inline-flex dark:bg-purple-500 dark:text-clr-white dark:hover:bg-purple-200"
           >
             <svg
               width="16"

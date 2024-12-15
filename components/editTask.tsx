@@ -6,13 +6,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Input,
-  Label,
-  ScrollArea,
-  ScrollBar,
-  Textarea,
-} from '@/components/ui'
-import { Submit, EditStatusSelect, EditSubtasks } from '@/components/index'
+} from '@/components/ui/dialog'
+import { Textarea } from '@/components/ui/textarea'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import EditSubtasks from '@/components/editSubtasks'
+import EditStatusSelect from '@/components/editStatusSelect'
+import Submit from '@/components/submit'
 import { useFormState } from 'react-dom'
 import { updateTask } from '@/actions/tasks'
 import { useEffect, useState } from 'react'
@@ -50,7 +51,7 @@ function EditTask({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger className="w-full text-left">Edit task</DialogTrigger>
-      <DialogContent className="w-custom-form rounded-lg p-[16px] ">
+      <DialogContent className="w-custom-form rounded-lg p-[16px]">
         <DialogHeader>
           <DialogTitle className="text-left text-[1.125rem]">
             Edit Task
@@ -62,7 +63,7 @@ function EditTask({
 
         <form action={formAction} className="flex flex-col gap-[1.5rem]">
           <ScrollArea className="max-h-[400px] overflow-y-auto">
-            <div className="flex flex-col gap-[1.5rem] ">
+            <div className="flex flex-col gap-[1.5rem]">
               <div>
                 <Label htmlFor="title" className="text-[0.75rem] font-bold">
                   Title

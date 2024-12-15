@@ -6,14 +6,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Input,
-  Label,
-  Button,
-  Textarea,
-  ScrollArea,
-  ScrollBar,
-} from '@/components/ui'
-import { NewSubtasks, Submit, StatusSelect } from '@/components/index'
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import NewSubtasks from '@/components/newSubtasks'
+import Submit from '@/components/submit'
+import StatusSelect from '@/components/statusSelect'
 import { addNewTask } from '@/actions/tasks'
 import { useFormState } from 'react-dom'
 import { useEffect, useState } from 'react'
@@ -43,7 +44,7 @@ function AddTaskModal({ currentBoard }: { currentBoard: Board }) {
       <DialogTrigger asChild>
         <Button
           variant="default"
-          className="h-8 sm:h-12 ml-auto mr-[-5px] sm:px-[24px]"
+          className="ml-auto mr-[-5px] h-8 sm:h-12 sm:px-[24px]"
           disabled={!currentBoard || currentBoard.columns.length === 0}
         >
           <svg
@@ -63,7 +64,7 @@ function AddTaskModal({ currentBoard }: { currentBoard: Board }) {
           <span className="hidden sm:inline">+ Add New Task</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-custom-form rounded-lg p-[16px] ">
+      <DialogContent className="w-custom-form rounded-lg p-[16px]">
         <DialogHeader>
           <DialogTitle className="text-left text-[1.125rem]">
             Add New Task
@@ -75,7 +76,7 @@ function AddTaskModal({ currentBoard }: { currentBoard: Board }) {
 
         <form action={formAction} className="flex flex-col gap-[1.5rem]">
           <ScrollArea className="max-h-[400px] overflow-y-auto">
-            <div className="flex flex-col gap-[1.5rem] ">
+            <div className="flex flex-col gap-[1.5rem]">
               <div>
                 <Label htmlFor="title" className="text-[0.75rem] font-bold">
                   Title

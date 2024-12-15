@@ -4,8 +4,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui'
-import { DeleteModal, EditTask } from '@/components/index'
+} from '@/components/ui/dropdown-menu'
+import DeleteModal from '@/components/deleteModal'
+import EditTask from '@/components/editTask'
 import { deleteTask } from '@/actions/tasks'
 import { useState } from 'react'
 import { Task } from '@/types'
@@ -31,7 +32,7 @@ function OptionsTask({ task }: { task: Task }) {
       <DropdownMenu>
         <DropdownMenuTrigger
           title="open-task"
-          className="rounded-full inline-flex justify-center ml-auto w-6 h-6 mr-[-8px]"
+          className="ml-auto mr-[-8px] inline-flex h-6 w-6 justify-center rounded-full"
         >
           <svg
             width="5"
@@ -68,7 +69,7 @@ function OptionsTask({ task }: { task: Task }) {
               }’ task? This action will remove all columns and tasks and cannot be reversed.`}
               action={handleDeleteTask}
             >
-              <button className="relative w-full text-red-300 flex cursor-pointer select-none items-center rounded-sm px-[16px] py-[8px] text-sm outline-none transition-colors focus:bg-white-200  data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-black-600/50">
+              <button className="relative flex w-full cursor-pointer select-none items-center rounded-sm px-[16px] py-[8px] text-sm text-red-300 outline-none transition-colors focus:bg-white-200 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-black-600/50">
                 Delete task
               </button>
             </DeleteModal>

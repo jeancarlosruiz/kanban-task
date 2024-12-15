@@ -1,17 +1,18 @@
 'use client'
 import { useEffect, useState } from 'react'
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Input,
-  Label,
-} from './ui'
-import { DeleteModal, Submit } from '@/components/index'
+} from './ui/dialog'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
+import Submit from '@/components/submit'
+import DeleteModal from '@/components/deleteModal'
 import { useFormState } from 'react-dom'
 import { deleteUser, editProfile } from '@/actions/profile'
 import { deleteAllColumns } from '@/actions/columns'
@@ -69,7 +70,7 @@ function Profile({
   return (
     <Dialog open={profile} onOpenChange={setProfile}>
       <DialogTrigger asChild>
-        <button className="w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] items-center gap-3 text-purple-500 hidden">
+        <button className="hidden w-full items-center gap-3 rounded-r-full pl-[24px] pt-[16px] text-[0.9375rem] text-purple-500 sm:pl-[32px]">
           <svg
             width="16"
             height="16"
@@ -126,14 +127,14 @@ function Profile({
               disabled
             />
           </div>
-          <div className="border rounded border-red-200 p-3 flex flex-col gap-2 mt-[15px]">
+          <div className="mt-[15px] flex flex-col gap-2 rounded border border-red-200 p-3">
             <h3 className="text-left text-[0.95rem] text-red-300">
               Danger zone
             </h3>
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div className="basis-[60%]">
                 <h4 className="text-[0.85rem] font-bold">Delete columns</h4>
-                <p className="text-gray-300 text-[0.75rem]">
+                <p className="text-[0.75rem] text-gray-300">
                   Delete every columns of this board including tasks and
                   subtasks.
                 </p>
@@ -154,10 +155,10 @@ function Profile({
                 </Button>
               </DeleteModal>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div className="basis-[60%]">
                 <h4 className="text-[0.85rem] font-bold">Delete user</h4>
-                <p className="text-gray-300 text-[0.75rem]">
+                <p className="text-[0.75rem] text-gray-300">
                   This action can&apos;t be reverse.
                 </p>
               </div>
@@ -176,7 +177,7 @@ function Profile({
               </DeleteModal>
             </div>
           </div>
-          <div className="w-[80%] ml-auto flex gap-3 mt-[20px]">
+          <div className="ml-auto mt-[20px] flex w-[80%] gap-3">
             <Button
               variant="secondary"
               size="s"

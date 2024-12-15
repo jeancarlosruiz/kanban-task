@@ -1,5 +1,6 @@
 'use client'
-import { ToggleTheme, AddNewBoard } from '@/components/index'
+import ToggleTheme from '@/components/toggleTheme'
+import AddNewBoard from '@/components/addNewBoard'
 import {
   Dialog,
   DialogContent,
@@ -8,9 +9,8 @@ import {
   DialogOverlay,
   DialogTitle,
   DialogTrigger,
-  ScrollArea,
-  ScrollBar,
-} from '@/components/ui'
+} from '@/components/ui/dialog'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { setBoardSelected } from '@/actions/boards'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
@@ -47,7 +47,7 @@ function BoardsMenu({
         />
       )}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className="text-[1.125rem] font-bold sm:hidden flex items-center gap-2">
+        <DialogTrigger className="flex items-center gap-2 text-[1.125rem] font-bold sm:hidden">
           {boardSelected && Object.keys(boardSelected).length !== 0
             ? boardSelected?.name
             : 'Create a new board'}
@@ -56,7 +56,7 @@ function BoardsMenu({
         </DialogTrigger>
         <DialogContent className="max-w-[16.5rem] rounded-lg p-[16px] shadow-[0px_10px_20px_0px_rgba(54,78,126,0.25)]">
           <DialogHeader className="pl-[8px]">
-            <DialogTitle className="uppercase text-left text-[0.75rem] tracking-[.2em] text-gray-300 ">
+            <DialogTitle className="text-left text-[0.75rem] uppercase tracking-[.2em] text-gray-300">
               {boards?.length ? `All Boards (${boards.length})` : 'All boards'}
             </DialogTitle>
             <DialogDescription className="sr-only">
@@ -64,13 +64,13 @@ function BoardsMenu({
             </DialogDescription>
           </DialogHeader>
 
-          <ul className="flex flex-col ml-[-16px] sm:ml-[-32px]">
+          <ul className="ml-[-16px] flex flex-col sm:ml-[-32px]">
             <ScrollArea className="h-full max-h-[25rem] overflow-y-auto">
               {boards &&
                 boards.map(({ id, name }: { id: string; name: string }) => (
                   <li key={id}>
                     <button
-                      className={`w-full py-[14px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 ${
+                      className={`inline-flex w-full items-center gap-3 rounded-r-full py-[14px] pl-[24px] text-[0.9375rem] sm:pl-[32px]${
                         boardSelected?.id === id
                           ? 'bg-purple-500 text-white-100'
                           : 'text-gray-300'
@@ -103,7 +103,7 @@ function BoardsMenu({
             <li>
               <button
                 onClick={() => setBoardDialog(true)}
-                className=" w-full pt-[16px] pl-[24px] sm:pl-[32px] rounded-r-full text-[0.9375rem] inline-flex items-center gap-3 text-purple-500"
+                className="inline-flex w-full items-center gap-3 rounded-r-full pl-[24px] pt-[16px] text-[0.9375rem] text-purple-500 sm:pl-[32px]"
               >
                 <svg
                   width="16"
@@ -126,7 +126,7 @@ function BoardsMenu({
           <ToggleTheme initialTheme={theme} />
         </DialogContent>
       </Dialog>
-      <h2 className="hidden sm:inline-block text-[1.5rem] font-bold">
+      <h2 className="hidden text-[1.5rem] font-bold sm:inline-block">
         {boardSelected && Object.keys(boardSelected).length !== 0
           ? boardSelected?.name
           : 'Create a new board'}

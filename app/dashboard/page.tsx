@@ -1,13 +1,11 @@
 import { getCurrentUser } from '@/utils/auth'
 import { getBoardSelected, getBoards } from '@/utils/boards'
-import {
-  AddTaskModal,
-  AsideNav,
-  BoardsMenu,
-  Logo,
-  Options,
-  Section,
-} from '@/components/index'
+import AddTaskModal from '@/components/addTaskModal'
+import AsideNav from '@/components/asideNav'
+import BoardsMenu from '@/components/boardsMenu'
+import Logo from '@/components/logo'
+import Options from '@/components/options'
+import Section from '@/components/section'
 import { cookies } from 'next/headers'
 import { auth } from '@/auth'
 
@@ -24,8 +22,8 @@ const Page = async () => {
 
   return (
     <>
-      <header className=" bg-white-100 dark:bg-black-600">
-        <div className="mx-auto pr-[16px] sm:pr-[24px] flex items-center gap-4 md:gap-6">
+      <header className="bg-white-100 dark:bg-black-600">
+        <div className="mx-auto flex items-center gap-4 pr-[16px] sm:pr-[24px] md:gap-6">
           <Logo />
           <BoardsMenu
             boards={allBoards}

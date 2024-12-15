@@ -6,8 +6,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Label,
-} from '@/components/ui'
+} from '@/components/ui/select'
+import { Label } from '@/components/ui/label'
 import { getBoardSelected } from '@/actions/boards'
 import { useEffect, useState } from 'react'
 import { StatusState } from '@/types'

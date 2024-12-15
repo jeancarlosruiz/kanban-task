@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
-import { Checkbox, Label } from './ui'
+import { Label } from './ui/label'
+import { Checkbox } from './ui/checkbox'
 import { completeSubtask } from '@/actions/subtasks'
 
 function Subtask({
@@ -22,7 +23,7 @@ function Subtask({
     setLoading(false)
   }
   return (
-    <li className="flex items-center rounded space-x-2 min-h-10 px-[12px] py-[12px] bg-gray-200 hover:bg-purple-200/50 dark:bg-black-700">
+    <li className="flex min-h-10 items-center space-x-2 rounded bg-gray-200 px-[12px] py-[12px] hover:bg-purple-200/50 dark:bg-black-700">
       <Checkbox
         id={id}
         checked={checked}

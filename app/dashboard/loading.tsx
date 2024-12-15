@@ -1,23 +1,24 @@
-import { Logo } from '@/components/index'
-import { Button, ScrollArea, ScrollBar } from '@/components/ui'
+import Logo from '@/components/logo'
+import { Button } from '@/components/ui/button'
+import { ScrollBar, ScrollArea } from '@/components/ui/scroll-area'
 import { range } from '@/utils/helpers'
 import React from 'react'
 
 function Loading() {
   return (
     <>
-      <header className=" bg-white-100 dark:bg-black-600">
-        <div className="mx-auto pr-[16px] sm:pr-[24px] flex items-center gap-4 md:gap-6">
+      <header className="bg-white-100 dark:bg-black-600">
+        <div className="mx-auto flex items-center gap-4 pr-[16px] sm:pr-[24px] md:gap-6">
           <Logo />
 
           <div role="status" className="animate-pulse">
-            <div className="h-2 bg-gray-300 rounded-full dark:bg-black-700 w-48"></div>
+            <div className="h-2 w-48 rounded-full bg-gray-300 dark:bg-black-700"></div>
             <span className="sr-only">Loading...</span>
           </div>
 
           <Button
             variant="default"
-            className="h-8 sm:h-12 ml-auto mr-[-17px] sm:px-[24px]"
+            className="ml-auto mr-[-17px] h-8 sm:h-12 sm:px-[24px]"
             disabled
           >
             <svg
@@ -40,7 +41,7 @@ function Loading() {
           <Button
             variant="ghost"
             disabled
-            className="rounded-full inline-flex justify-center items-center mr-[-20px]"
+            className="mr-[-20px] inline-flex items-center justify-center rounded-full"
           >
             <svg
               width="5"
@@ -61,15 +62,15 @@ function Loading() {
         </div>
       </header>
       <main className="flex overflow-hidden">
-        <aside className="hidden sm:min-w-[16.3125rem] md:min-w-[18.75rem] h-custom-dvh bg-white-100 dark:bg-black-600 sm:flex flex-col sm:pt-[15px] pb-[24px] pr-[24px] border-e dark:border-r-gray-500 relative">
+        <aside className="h-custom-dvh relative hidden flex-col border-e bg-white-100 pb-[24px] pr-[24px] sm:flex sm:min-w-[16.3125rem] sm:pt-[15px] md:min-w-[18.75rem] dark:border-r-gray-500 dark:bg-black-600">
           <div className="flex-1">
-            <div className="h-2 w-[10rem] rounded bg-gray-300 dark:bg-black-700 ml-[24px] sm:ml-[32px]"></div>
+            <div className="ml-[24px] h-2 w-[10rem] rounded bg-gray-300 sm:ml-[32px] dark:bg-black-700"></div>
           </div>
           <div className="flex flex-col gap-2 pl-[24px] sm:pl-[32px]">
-            <div className="animate-pulse w-full max-w-[14.6875rem] h-[3rem] py-[14px] rounded-md flex justify-center items-center gap-[23.67px] bg-gray-200 dark:bg-black-700"></div>
+            <div className="flex h-[3rem] w-full max-w-[14.6875rem] animate-pulse items-center justify-center gap-[23.67px] rounded-md bg-gray-200 py-[14px] dark:bg-black-700"></div>
             <Button
               variant="ghost"
-              className="w-full text-gray-300 text-[0.9375rem] inline-flex items-center justify-start gap-[0.9375rem] hover:bg-transparent dark:hover:bg-transparent"
+              className="inline-flex w-full items-center justify-start gap-[0.9375rem] text-[0.9375rem] text-gray-300 hover:bg-transparent dark:hover:bg-transparent"
               disabled
             >
               <svg
@@ -89,23 +90,23 @@ function Loading() {
             </Button>
           </div>
         </aside>
-        <ScrollArea className="w-full sm:section-custom-dvh">
-          <section className="h-custom-dvh px-[16px] sm:px-[24px] pt-[27px] sm:pt-[24px] pb-[24px] flex gap-6 mx-auto relative">
+        <ScrollArea className="sm:section-custom-dvh w-full">
+          <section className="h-custom-dvh relative mx-auto flex gap-6 px-[16px] pb-[24px] pt-[27px] sm:px-[24px] sm:pt-[24px]">
             <h2 className="sr-only">Loading state</h2>
             {range(4).map((i) => (
               <div
                 key={i}
-                className="min-w-[17.5rem] flex flex-col gap-5 shrink-0"
+                className="flex min-w-[17.5rem] shrink-0 flex-col gap-5"
               >
-                <div className="w-full flex items-center gap-3 mb-[4px]">
-                  <div className="w-[0.9375rem] h-[0.9375rem] rounded-full bg-white-100 dark:bg-black-600"></div>
-                  <div className="animate-pulse rounded h-2 w-[10rem]  bg-white-100 dark:bg-black-600"></div>
+                <div className="mb-[4px] flex w-full items-center gap-3">
+                  <div className="h-[0.9375rem] w-[0.9375rem] rounded-full bg-white-100 dark:bg-black-600"></div>
+                  <div className="h-2 w-[10rem] animate-pulse rounded bg-white-100 dark:bg-black-600"></div>
                 </div>
-                <div className="h-full flex flex-col gap-5 pb-[24px] rounded-md bg-gradient-to-r">
+                <div className="flex h-full flex-col gap-5 rounded-md bg-gradient-to-r pb-[24px]">
                   {range(6).map((i) => (
                     <div
                       key={i}
-                      className="animate-pulse w-[17.5rem] h-[5.625rem] flex flex-col gap-1 bg-white-100 dark:bg-black-600 rounded-lg px-[16px] py-[23px] shadow-[0px_5px_10px_0px_rgba(54,78,126,0.25)] active:cursor-grabbing"
+                      className="flex h-[5.625rem] w-[17.5rem] animate-pulse flex-col gap-1 rounded-lg bg-white-100 px-[16px] py-[23px] shadow-[0px_5px_10px_0px_rgba(54,78,126,0.25)] active:cursor-grabbing dark:bg-black-600"
                     ></div>
                   ))}
                 </div>

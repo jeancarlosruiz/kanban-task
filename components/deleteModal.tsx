@@ -7,8 +7,8 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogClose,
-  Button,
-} from '@/components/ui'
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
 
 import { useState } from 'react'
 
@@ -33,12 +33,12 @@ function DeleteModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="w-custom-form rounded-lg p-[24px] ">
+      <DialogContent className="w-custom-form rounded-lg p-[24px]">
         <DialogHeader>
           <DialogTitle className="text-left text-[1.125rem] text-red-300">
             {title}
           </DialogTitle>
-          <DialogDescription className="text-[0.8125rem] text-left text-gray-300 dark:text-gray-300">
+          <DialogDescription className="text-left text-[0.8125rem] text-gray-300 dark:text-gray-300">
             {description}
           </DialogDescription>
         </DialogHeader>

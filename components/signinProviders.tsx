@@ -1,6 +1,6 @@
 'use client'
 import { signIn } from 'next-auth/react'
-import { Button } from './ui'
+import { Button } from './ui/button'
 import Image from 'next/image'
 import { DEFAULT_REDIRECT } from '@/utils/routes'
 import { useState } from 'react'
@@ -21,10 +21,10 @@ function SigninProviders({
     })
   }
   return (
-    <div className="w-full flex flex-col sm:flex-row gap-5">
+    <div className="flex w-full flex-col gap-5 sm:flex-row">
       <Button
         type="button"
-        className="w-full flex items-center gap-2"
+        className="flex w-full items-center gap-2"
         variant="secondary"
         size="s"
         disabled={isLoading}
@@ -35,7 +35,7 @@ function SigninProviders({
       </Button>
       <Button
         type="button"
-        className="w-full flex items-center gap-2"
+        className="flex w-full items-center gap-2"
         variant="secondary"
         size="s"
         disabled={isLoading}

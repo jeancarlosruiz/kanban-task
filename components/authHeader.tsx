@@ -1,4 +1,4 @@
-import { Logo } from '@/components/index'
+import Logo from '@/components/logo'
 import React from 'react'
 
 const AuthHeader = () => {

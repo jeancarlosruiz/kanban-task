@@ -126,12 +126,33 @@ export const createColumns = async (
   boardId: string
 ) => {
   try {
-    columnsArr.forEach(async (el: NewColumn) => {
-      await db.insert(columns).values({
+    // columnsArr.forEach(async (el: NewColumn) => {
+    //   // console.log(el)
+    //   await db.insert(columns).values({
+    //     boardId,
+    //     name: el.name,
+    //   })
+    // })
+    //
+    // Promise.all(columnsArr).then((cols) => {
+    //   console.log(boardId)
+    //   console.log(cols)
+    //   cols.forEach((col) => {
+    //     db.insert(columns).values({
+    //       boardId,
+    //       name: col.name,
+    //     })
+    //   })
+    // })
+
+    const newColumnArr = columnsArr.map((col) => {
+      return {
         boardId,
-        name: el.name,
-      })
+        name: col.name,
+      }
     })
+
+    await db.insert(columns).values(newColumnArr)
   } catch (error) {
     console.log(error)
   }

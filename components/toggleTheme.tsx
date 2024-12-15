@@ -1,5 +1,5 @@
 'use client'
-import { Switch } from '@/components/ui'
+import { Switch } from '@/components/ui/switch'
 import { useState } from 'react'
 import Cookies from 'js-cookie'
 
@@ -23,7 +23,7 @@ function ToggleTheme({ initialTheme }: { initialTheme?: string }) {
   }
 
   return (
-    <div className="w-full max-w-[14.6875rem] py-[14px] rounded-md flex justify-center items-center gap-[23.67px] bg-gray-200 dark:bg-black-700">
+    <div className="flex w-full max-w-[14.6875rem] items-center justify-center gap-[23.67px] rounded-md bg-gray-200 py-[14px] dark:bg-black-700">
       <svg
         width="19"
         height="19"

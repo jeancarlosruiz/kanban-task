@@ -1,6 +1,7 @@
 'use client'
-import { Input, Label } from './ui'
-import { Submit } from './index'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
+import Submit from './submit'
 import { login } from '@/actions/auth'
 import { useFormState } from 'react-dom'
 import { useEffect, useState } from 'react'
@@ -44,12 +45,12 @@ const SigninForm = () => {
   return (
     <form
       action={formAction}
-      className="min-w-full flex flex-col gap-5 justify-center items-center"
+      className="flex min-w-full flex-col items-center justify-center gap-5"
     >
-      <div className="w-full flex flex-col gap-1.5">
+      <div className="flex w-full flex-col gap-1.5">
         <Label
           htmlFor="signin-email"
-          className="text-base w-full inline-flex items-center justify-between"
+          className="text-base inline-flex w-full items-center justify-between"
         >
           Email:
           {errors !== null && errors.email && (
@@ -60,17 +61,17 @@ const SigninForm = () => {
           id="signin-email"
           placeholder="example@email.com"
           name="email"
-          className={`text-base ${
+          className={`text-base${
             state.message === 'error' || state.error
               ? 'border-red-300 dark:border-red-300'
               : ''
           }`}
         />
       </div>
-      <div className="w-full flex flex-col gap-1.5">
+      <div className="flex w-full flex-col gap-1.5">
         <Label
           htmlFor="signin-pw"
-          className="text-base w-full inline-flex items-center justify-between"
+          className="text-base inline-flex w-full items-center justify-between"
         >
           Password:
           {errors !== null && errors.password && (
@@ -82,7 +83,7 @@ const SigninForm = () => {
           type="password"
           placeholder="******"
           name="password"
-          className={`text-base ${
+          className={`text-base${
             state.message === 'error' || state.error
               ? 'border-red-300 dark:border-red-300'
               : ''
@@ -91,13 +92,13 @@ const SigninForm = () => {
       </div>
 
       {state?.error && (
-        <div className="w-full rounded bg-red-300/70 text-center py-1">
+        <div className="w-full rounded bg-red-300/70 py-1 text-center">
           <span className="text-sm text-white-100">Invalid credentials</span>
         </div>
       )}
 
       {urlError && (
-        <div className="w-full rounded bg-red-300/70 text-center py-1">
+        <div className="w-full rounded bg-red-300/70 py-1 text-center">
           <span className="text-sm text-white-100">
             Email already in use by different provider
           </span>

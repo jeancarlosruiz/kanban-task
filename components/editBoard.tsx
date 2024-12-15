@@ -7,17 +7,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DropdownMenuItem,
-  Input,
-  Label,
-  ScrollArea,
-  ScrollBar,
-} from '@/components/ui'
-import { Submit, BoardColumns } from '@/components/index'
+} from '@/components/ui/dialog'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import Submit from '@/components/submit'
+import BoardColumns from '@/components/boardColumns'
 import { useFormState } from 'react-dom'
 import { editBoard } from '@/actions/boards'
 import { useEffect, useState } from 'react'
 import { Board } from '@/types'
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 
 const initialState = {
   message: '',
@@ -74,11 +74,11 @@ function EditBoard({
 
           <form action={formAction} className="flex flex-col gap-[1.5rem]">
             <ScrollArea className="h-full max-h-[400px] overflow-y-auto">
-              <div className="flex flex-col gap-[1.5rem] ">
+              <div className="flex flex-col gap-[1.5rem]">
                 <div>
                   <Label
                     htmlFor="title"
-                    className="text-[0.75rem] font-bold w-full inline-flex items-center justify-between"
+                    className="inline-flex w-full items-center justify-between text-[0.75rem] font-bold"
                   >
                     Title
                     {state?.message === 'error' &&
