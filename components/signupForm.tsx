@@ -1,8 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { signup } from '@/actions/auth'
-import { Submit } from './index'
-import { Input, Label } from './ui'
+import Submit from './submit'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
 import { useFormState } from 'react-dom'
 import { useRouter } from 'next/navigation'
 
@@ -42,12 +43,12 @@ function SingupForm() {
   return (
     <form
       action={formAction}
-      className="min-w-full flex flex-col gap-5 justify-center items-center"
+      className="flex min-w-full flex-col items-center justify-center gap-5"
     >
       <div className="w-full">
         <Label
           htmlFor="signup-username"
-          className="text-base w-full inline-flex items-center justify-between"
+          className="text-base inline-flex w-full items-center justify-between"
         >
           Username:
           {errors !== null && errors.name && (
@@ -56,7 +57,7 @@ function SingupForm() {
         </Label>
         <Input
           id="signup-username"
-          className={`text-base ${
+          className={`text-base${
             state.message === 'error' || errors?.name
               ? 'border-red-300 dark:border-red-300'
               : ''
@@ -68,7 +69,7 @@ function SingupForm() {
       <div className="w-full">
         <Label
           htmlFor="signup-email"
-          className="text-base w-full inline-flex items-center justify-between"
+          className="text-base inline-flex w-full items-center justify-between"
         >
           Email:
           {errors !== null && errors.email && (
@@ -77,7 +78,7 @@ function SingupForm() {
         </Label>
         <Input
           id="signup-email"
-          className={`text-base ${
+          className={`text-base${
             state.message === 'error' || errors?.email
               ? 'border-red-300 dark:border-red-300'
               : ''
@@ -89,7 +90,7 @@ function SingupForm() {
       <div className="w-full">
         <Label
           htmlFor="signup-pw"
-          className="text-base w-full inline-flex items-center justify-between"
+          className="text-base inline-flex w-full items-center justify-between"
         >
           Password:
           {errors !== null && errors.password && (
@@ -98,7 +99,7 @@ function SingupForm() {
         </Label>
         <Input
           id="signup-pw"
-          className={`text-base ${
+          className={`text-base${
             state.message === 'error' || errors?.password
               ? 'border-red-300 dark:border-red-300'
               : ''
@@ -111,7 +112,7 @@ function SingupForm() {
       <div className="w-full">
         <Label
           htmlFor="signup-rpw"
-          className="text-base w-full inline-flex items-center justify-between"
+          className="text-base inline-flex w-full items-center justify-between"
         >
           Repeat password:
           {errors !== null && errors.repeatPassword && (
@@ -120,7 +121,7 @@ function SingupForm() {
         </Label>
         <Input
           id="signup-rpw"
-          className={`text-base ${
+          className={`text-base${
             state.message === 'error' || errors?.repeatPassword
               ? 'border-red-300 dark:border-red-300'
               : ''

@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { Subtask } from '@/components/index'
+import Subtask from '@/components/subtask'
 
 interface Subtask {
   id: string
