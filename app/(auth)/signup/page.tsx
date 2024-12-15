@@ -1,16 +1,17 @@
-import { SigninProviders, SignupForm } from '@/components/index'
+import SignupForm from '@/components/signupForm'
+import SigninProviders from '@/components/signinProviders'
 import Link from 'next/link'
 
 function Home() {
   return (
-    <main className="flex h-custom-dvh place-items-center">
-      <section className="w-custom-form flex flex-col gap-5 justify-center items-center bg-white-100 dark:bg-black-600 px-[24px] py-[24px] mx-auto rounded-md">
+    <main className="h-custom-dvh flex place-items-center">
+      <section className="w-custom-form mx-auto flex flex-col items-center justify-center gap-5 rounded-md bg-white-100 px-[24px] py-[24px] dark:bg-black-600">
         <h2 className="sr-only">Sign up form</h2>
         <SignupForm />
 
-        <div className="w-full relative">
+        <div className="relative w-full">
           <hr className="opacity-30" />
-          <small className="absolute inline-flex px-[5px] top-[-10.3px] right-[50%] translate-x-[50%] bg-white-100 dark:bg-black-600 rounded-full">
+          <small className="absolute right-[50%] top-[-10.3px] inline-flex translate-x-[50%] rounded-full bg-white-100 px-[5px] dark:bg-black-600">
             or
           </small>
         </div>
