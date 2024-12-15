@@ -58,11 +58,8 @@ function AsideNav({
                     boards.map(({ id, name }: { id: string; name: string }) => (
                       <li key={id}>
                         <button
-                          className={`inline-flex w-full items-center gap-3 rounded-r-full py-[14px] pl-[24px] text-[0.9375rem] sm:pl-[32px]${
-                            boardSelected?.id === id
-                              ? 'bg-purple-500 text-white-100'
-                              : 'text-gray-300'
-                          }`}
+                          className={`inline-flex w-full items-center gap-3 rounded-r-full py-[14px] pl-[24px] text-[0.9375rem] sm:pl-[32px]
+${boardSelected?.id === id ? 'bg-purple-500 text-white-100' : 'text-gray-300'}`}
                           onClick={() => handleSet(id)}
                         >
                           <svg
