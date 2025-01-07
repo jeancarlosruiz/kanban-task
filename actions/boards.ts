@@ -7,7 +7,7 @@ import { boardSchema } from '@/lib/zod'
 import { ZodError } from 'zod'
 import { memoize } from 'nextjs-better-unstable-cache'
 import { revalidateTag } from 'next/cache'
-import { getCurrentUser } from './auth'
+import { getAuthUser } from './auth'
 import { createColumns, updateColumns } from './columns'
 
 export const editBoard = async (
@@ -34,6 +34,7 @@ export const editBoard = async (
     await updateColumns(columnsParse, boardId)
 
     revalidateTag('dashboard:boardSelected')
+    revalidateTag('dashboard:boards')
 
     return {
       message: 'Success',
@@ -127,7 +128,7 @@ export const getBoardSelected = memoize(
 export const deleteCurrentBoard = async (id: string) => {
   await db.delete(boards).where(eq(boards.id, id))
 
-  const { user } = await getCurrentUser()
+  const { user } = await getAuthUser()
 
   if (!user) return
 
@@ -158,7 +159,7 @@ export const deleteCurrentBoard = async (id: string) => {
 }
 
 export const setBoardSelected = async (id: string) => {
-  const { user } = await getCurrentUser()
+  const { user } = await getAuthUser()
 
   if (!user) return null
 

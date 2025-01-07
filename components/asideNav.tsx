@@ -18,9 +18,14 @@ function AsideNav({
   theme?: string
 }) {
   const [boardDialog, setBoardDialog] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const handleSet = async (id: string) => {
+    if (boardSelected?.id === id) return
+
+    setIsLoading(true)
     await setBoardSelected(id)
+    setIsLoading(false)
   }
 
   return (
@@ -60,6 +65,7 @@ function AsideNav({
                         <button
                           className={`inline-flex w-full items-center gap-3 rounded-r-full py-[14px] pl-[24px] text-[0.9375rem] sm:pl-[32px]
 ${boardSelected?.id === id ? 'bg-purple-500 text-white-100' : 'text-gray-300'}`}
+                          disabled={isLoading}
                           onClick={() => handleSet(id)}
                         >
                           <svg

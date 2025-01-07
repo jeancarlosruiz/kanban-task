@@ -1,5 +1,5 @@
 'use client'
-import { getCurrentUser } from '@/actions/auth'
+import { getAuthUser } from '@/actions/auth'
 import {
   Select,
   SelectContent,
@@ -23,7 +23,7 @@ function EditStatusSelect({
   const [statusSelected, setStatuSelected] = useState<StatusState | undefined>()
 
   const getColumns = async () => {
-    const { user } = await getCurrentUser()
+    const { user } = await getAuthUser()
 
     if (!user) return
     const userId = user.id as string

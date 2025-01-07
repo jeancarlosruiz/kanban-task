@@ -6,6 +6,12 @@ import { columnObjSchema } from '@/lib/zod'
 import { ZodError } from 'zod'
 import { revalidateTag } from 'next/cache'
 import { Column, NewColumn } from '@/types'
+import {
+  createColumn,
+  deleteAllColumnByBoardId,
+  getColumns,
+  updateColumnById,
+} from '@/lib/columns'
 
 export const updateColumns = async (columnsArr: Column[], boardId: string) => {
   try {
@@ -21,18 +27,9 @@ export const updateColumns = async (columnsArr: Column[], boardId: string) => {
       if (isIncluded) {
         // If havent been edited, skip it
         if (isIncluded.name.toLowerCase() === sub.name.toLowerCase()) return
-
-        await db
-          .update(columns)
-          .set({
-            name: sub.name,
-          })
-          .where(eq(columns.id, sub.id))
+        await updateColumnById(sub.id, sub.name)
       } else {
-        await db.insert(columns).values({
-          boardId,
-          name: sub.name,
-        })
+        await createColumn(sub.name, boardId)
       }
     })
 
@@ -52,32 +49,32 @@ export const deleteColumns = async (columnsArr: Column[]) => {
       await db.delete(columns).where(eq(columns.id, c.id))
     })
   } catch (err) {
-    console.log(err)
+    console.log('Error deliting column', err)
   }
 }
 
 export const deleteAllColumns = async (boardId: string) => {
   try {
     if (!boardId) return
-    await db.delete(columns).where(eq(columns.boardId, boardId))
+    await deleteAllColumnByBoardId(boardId)
     revalidateTag('dashboard:boardSelected')
   } catch (error) {
     console.log(error)
   }
 }
 
-export const getColumns = async (boardId: string) => {
-  try {
-    const allColumns = await db.query.columns.findMany({
-      where: eq(columns.boardId, boardId),
-      orderBy: columns.createdAt,
-    })
+// export const getColumns = async (boardId: string) => {
+//   try {
+//     const allColumns = await db.query.columns.findMany({
+//       where: eq(columns.boardId, boardId),
+//       orderBy: columns.createdAt,
+//     })
 
-    return allColumns
-  } catch (error) {
-    console.log(error)
-  }
-}
+//     return allColumns
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
 
 export const addNewColumn = async (
   prev: any,
@@ -89,10 +86,7 @@ export const addNewColumn = async (
       name: formData.get('name'),
     })
 
-    await db.insert(columns).values({
-      name: column.name,
-      boardId,
-    })
+    await createColumn(column.name, boardId)
 
     revalidateTag('dashboard:boardSelected')
 

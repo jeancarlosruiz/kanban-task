@@ -6,7 +6,7 @@ import { DEFAULT_REDIRECT } from '@/utils/routes'
 import { AuthError } from 'next-auth'
 import { ZodError } from 'zod'
 
-export const getCurrentUser = async () => {
+export const getAuthUser = async () => {
   const session = await auth()
   const user = session?.user
   const name = user?.name && user?.name[0]
